@@ -823,7 +823,10 @@ MonoBehaviour:
   runSpeed: 40
   spawnPoint: {x: 0, y: 0, z: 0}
   deathCount: 0
-  jumpSound: {fileID: 8300000, guid: cf651a3e8ccf6894bbe2981cb0281142, type: 3}
+  jumpSFX:
+  - {fileID: 8300000, guid: cf651a3e8ccf6894bbe2981cb0281142, type: 3}
+  - {fileID: 8300000, guid: 3c1a5724fb423c744a84e6fcf587d398, type: 3}
+  - {fileID: 8300000, guid: d45a2b7337bcb6149974133f211afa6d, type: 3}
 --- !u!82 &820667358
 AudioSource:
   m_ObjectHideFlags: 0
