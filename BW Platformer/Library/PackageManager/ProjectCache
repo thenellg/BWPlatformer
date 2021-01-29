@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637475476098417695
+      ticks: 637475555795500332
     m_Hash: 44216767
   m_LockFileStatus:
     m_FilePath: C:/Users/Griffin/Documents/GitHub/BWPlatformer/BW Platformer/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637475528948648615
+      ticks: 637475560561327729
     m_Hash: 1967885269
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}

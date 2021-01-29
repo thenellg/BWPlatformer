@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
 	public int deathCount;
 
 	[Header("Audio")]
-	public AudioClip jumpSound;
+	public AudioClip[] jumpSFX;
 
     private void Awake()
     {
@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButtonDown("Jump"))
 		{
 			jump = true;
-			this.GetComponent<AudioSource>().PlayOneShot(jumpSound);
+			int n = Random.Range(0, 2);
+			this.GetComponent<AudioSource>().PlayOneShot(jumpSFX[n]);
 		}
 
         if (Input.GetKeyDown(KeyCode.Q))
