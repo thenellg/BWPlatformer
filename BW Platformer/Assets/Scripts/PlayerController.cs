@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
 	public Vector3 spawnPoint;
 	public int deathCount;
 
+	[Header("Audio")]
+	public AudioClip jumpSound;
+
     private void Awake()
     {
 		spawnPoint = this.transform.position;
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButtonDown("Jump"))
 		{
 			jump = true;
+			this.GetComponent<AudioSource>().PlayOneShot(jumpSound);
 		}
 
         if (Input.GetKeyDown(KeyCode.Q))
