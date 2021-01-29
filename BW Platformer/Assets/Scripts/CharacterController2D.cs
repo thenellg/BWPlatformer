@@ -21,12 +21,24 @@ public class CharacterController2D : MonoBehaviour
 	[Header("Specialized Jump")]
 	private PlayerController m_PlayerController;
 	public int coyoteTimer = 3;
+	public GameObject whiteStuff;
+	public GameObject blackStuff;
+	public float colorDelay = 0.2f;
 
+	[Header("WallJump")]
+	public float wallJumpTime = 0.2f;
+	public float wallSlideSpeed = 0.3f;
+	public float wallDistance = 1.3f;
+	[SerializeField] bool isWallSliding = false;
+	[SerializeField] int jumpCounter = 0;
+	RaycastHit2D wallCheckHit;
+	float jumpTime;
 
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_PlayerController = GetComponent<PlayerController>();
+		blackStuff.SetActive(false);
 	}
 
     private void Update()
@@ -76,15 +88,66 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 		// If the player should jump...
-		if (coyoteTimer > 0 && jump)
+		if (coyoteTimer > 0 && jump && jumpCounter < 1 || isWallSliding && jump && jumpCounter < 1)
 		{
-			float jumpForce = m_JumpForce;
+			jumpCounter++;
+			float jumpForce;
+
+			if (m_Rigidbody2D.gravityScale < 0)
+				jumpForce = -m_JumpForce;
+			else
+				jumpForce = m_JumpForce;
 
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+
+			Invoke("swapColors", colorDelay);
+		}
+
+		//Wall Jump
+		if (m_FacingRight)
+		{
+			wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(wallDistance, 0f), wallDistance, m_WhatIsGround);
+			Debug.DrawRay(transform.position, new Vector2(wallDistance, 0), Color.red);
+		}
+		else 
+		{ 
+			wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(-wallDistance, 0f), wallDistance, m_WhatIsGround);
+			Debug.DrawRay(transform.position, new Vector2(-wallDistance, 0), Color.red);
+		}
+
+		if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
+        {
+			isWallSliding = true;
+			//jumpTime = Time.time + wallJumpTime;
+        }
+        else
+        {
+			isWallSliding = false;
+        }
+
+		if (isWallSliding)
+        {
+			if (m_Rigidbody2D.gravityScale < 0)
+				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, -Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
+			else
+				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
 		}
 	}
 
+	void swapColors()
+    {
+		if (whiteStuff.activeSelf)
+		{
+			whiteStuff.SetActive(false);
+			blackStuff.SetActive(true);
+		}
+		else
+		{
+			whiteStuff.SetActive(true);
+			blackStuff.SetActive(false);
+		}
+	}
 
 	private void Flip()
 	{
@@ -96,4 +159,22 @@ public class CharacterController2D : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+	public void gravFlip()
+    {
+		m_Rigidbody2D.gravityScale = -m_Rigidbody2D.gravityScale;
+		Vector3 theScale = transform.localScale;
+		theScale.y *= -1;
+		transform.localScale = theScale;
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.layer == 3)
+		{
+			jumpCounter = 0;
+
+		}
+	}
+
 }

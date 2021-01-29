@@ -3,15 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Death
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Environment
   - Water
   - UI
-  - 
+  - Wall
   - 
   - 
   - 
@@ -40,4 +42,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2264416661
+    locked: 0
+  - name: Level
+    uniqueID: 2152272317
     locked: 0

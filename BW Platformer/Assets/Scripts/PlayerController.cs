@@ -13,7 +13,15 @@ public class PlayerController : MonoBehaviour {
 	private bool jump = false;
 	private bool crouch = false;
 
-	void Update()
+	public Vector3 spawnPoint;
+	public int deathCount;
+
+    private void Awake()
+    {
+		spawnPoint = this.transform.position;
+    }
+
+    void Update()
 	{
 
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
@@ -22,6 +30,12 @@ public class PlayerController : MonoBehaviour {
 		{
 			jump = true;
 		}
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+			controller.gravFlip();
+
+		}
 	}
 
 	void FixedUpdate ()
@@ -29,4 +43,27 @@ public class PlayerController : MonoBehaviour {
 		controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
 		jump = false;
 	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+		if (collision.tag == "Death")
+			onDeath();
+    }
+
+
+    public void onDeath()
+    {
+		Debug.Log("DED");
+
+		if (this.GetComponent<Rigidbody2D>().gravityScale < 0)
+        {
+			controller.gravFlip();
+			this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+		}
+
+		deathCount += 1;
+		this.transform.position = spawnPoint;
+    }
+
+
 }
