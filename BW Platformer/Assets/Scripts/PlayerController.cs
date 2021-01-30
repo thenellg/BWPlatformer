@@ -98,6 +98,12 @@ public class PlayerController : MonoBehaviour {
 			controller.gravFlip();
 			collision.gameObject.SetActive(false);
         }
+
+		if (collision.tag == "DoubleJump")
+        {
+			controller.doubleJump = true;
+			collision.gameObject.SetActive(false);
+        }
     }
 
 	public void setDouble()
