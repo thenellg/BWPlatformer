@@ -21,9 +21,11 @@ public class CharacterController2D : MonoBehaviour
 	[Header("Specialized Jump")]
 	private PlayerController m_PlayerController;
 	public int coyoteTimer = 3;
+	public bool doubleJump = false;
 	public GameObject whiteStuff;
 	public GameObject blackStuff;
 	public float colorDelay = 0.2f;
+	public AudioClip[] jumpSFX;
 
 	[Header("WallJump")]
 	public float wallJumpTime = 0.2f;
@@ -47,9 +49,9 @@ public class CharacterController2D : MonoBehaviour
         {
 			coyoteTimer--;
         }
-    }
+	}
 
-    private void FixedUpdate()
+	private void FixedUpdate()
 	{
 		m_Grounded = false;
 
@@ -88,7 +90,7 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 		// If the player should jump...
-		if (coyoteTimer > 0 && jump && jumpCounter < 1 || isWallSliding && jump && jumpCounter < 1)
+		if (coyoteTimer > 0 && jump && jumpCounter < 1 || isWallSliding && jump && jumpCounter < 1 || doubleJump && jump)
 		{
 			jumpCounter++;
 			float jumpForce;
@@ -101,7 +103,13 @@ public class CharacterController2D : MonoBehaviour
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
 
+			int n = Random.Range(0, 2);
+			this.GetComponent<AudioSource>().PlayOneShot(jumpSFX[n]);
+
 			Invoke("swapColors", colorDelay);
+		
+			if (doubleJump)
+				doubleJump = false;
 		}
 
 		//Wall Jump
@@ -119,7 +127,6 @@ public class CharacterController2D : MonoBehaviour
 		if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
         {
 			isWallSliding = true;
-			//jumpTime = Time.time + wallJumpTime;
         }
         else
         {
