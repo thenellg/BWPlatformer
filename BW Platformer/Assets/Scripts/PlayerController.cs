@@ -64,9 +64,10 @@ public class PlayerController : MonoBehaviour {
 		if (collision.tag == "Death")
 			onDeath();
 
-		if (collision.tag == "Item")
+		if (collision.tag == "camSwap")
         {
-
+			Debug.Log("collision");
+			collision.gameObject.GetComponent<cameraSwitch>().camSwap();
         }
     }
 

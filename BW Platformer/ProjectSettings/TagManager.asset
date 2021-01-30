@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Death
+  - camSwap
   layers:
   - Default
   - TransparentFX
