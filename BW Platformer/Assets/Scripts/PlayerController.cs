@@ -104,7 +104,17 @@ public class PlayerController : MonoBehaviour {
 			controller.doubleJump = true;
 			collision.gameObject.SetActive(false);
         }
-    }
+    
+		if (collision.tag == "Door")
+        {
+			if (!hasKey)
+				collision.gameObject.GetComponent<Door>().locked();
+			else {
+				canMove = false;
+				_key.followSpot = collision.transform;
+			}
+		}
+	}
 
 	public void setDouble()
     {

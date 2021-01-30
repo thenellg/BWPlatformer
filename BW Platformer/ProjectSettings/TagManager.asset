@@ -10,6 +10,7 @@ TagManager:
   - Key
   - ReverseGrav
   - DoubleJump
+  - Door
   layers:
   - Default
   - TransparentFX
