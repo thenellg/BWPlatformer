@@ -100,6 +100,8 @@ public class CharacterController2D : MonoBehaviour
 			else
 				jumpForce = m_JumpForce;
 
+			Debug.Log(new Vector2(0f, jumpForce));
+
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
 
@@ -127,8 +129,9 @@ public class CharacterController2D : MonoBehaviour
 		if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
         {
 			isWallSliding = true;
-        }
-        else
+			jumpTime = Time.time + wallJumpTime;
+		}
+        else if (jumpTime < Time.time)
         {
 			isWallSliding = false;
         }
@@ -136,7 +139,7 @@ public class CharacterController2D : MonoBehaviour
 		if (isWallSliding)
         {
 			if (m_Rigidbody2D.gravityScale < 0)
-				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, -Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
+				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(-m_Rigidbody2D.velocity.y, -wallSlideSpeed, float.MaxValue));
 			else
 				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
 		}
