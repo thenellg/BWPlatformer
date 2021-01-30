@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Wall
   - Death
+  - camSwap
+  - Key
+  - ReverseGrav
   layers:
   - Default
   - TransparentFX
