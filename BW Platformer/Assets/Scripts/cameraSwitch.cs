@@ -5,15 +5,20 @@ using Cinemachine;
 
 public class cameraSwitch : MonoBehaviour
 {
-    public CinemachineVirtualCamera cam1;
-    public CinemachineVirtualCamera cam2;
-    [SerializeField] int temp;
-
+    public CinemachineVirtualCamera vcam1;
+    public CinemachineVirtualCamera vcam2;
 
     public void camSwap()
     {
-        temp = cam1.m_Priority;
-        cam1.Priority = cam2.m_Priority;
-        cam2.Priority = temp;
+        if (vcam1.Priority > vcam2.Priority)
+        {
+            vcam1.Priority = 0;
+            vcam2.Priority = 1;
+        }
+        else
+        {
+            vcam1.Priority = 1;
+            vcam2.Priority = 0;
+        }
     }
 }
