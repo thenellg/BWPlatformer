@@ -110,6 +110,8 @@ public class PlayerController : MonoBehaviour {
 			if (!hasKey)
 				collision.gameObject.GetComponent<Door>().locked();
 			else {
+				transform.position = collision.transform.position;
+				controller.stopVelocity();
 				canMove = false;
 				_key.followSpot = collision.transform;
 			}

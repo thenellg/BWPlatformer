@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 813813560874709786}
   - component: {fileID: 813813560874709765}
   - component: {fileID: 813813560874709764}
+  - component: {fileID: 6956722895842102714}
   m_Layer: 0
   m_Name: Reverse Gravity
   m_TagString: ReverseGrav
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 813813560874709767}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.346469, y: 0.4774508, z: 214.7539}
-  m_LocalScale: {x: 0.06949874, y: 0.06500145, z: 0.10733396}
+  m_LocalScale: {x: 0.28, y: 0.28, z: 0.10733396}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -2142694979
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2b4a3db8bc03fc440a2b716aee42c0ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7558ccc57db89d340b2e2f841244d273, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,3 +100,22 @@ CircleCollider2D:
   m_Offset: {x: 0.40211567, y: 0}
   serializedVersion: 2
   m_Radius: 6.210751
+--- !u!95 &6956722895842102714
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813813560874709767}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 97e00bfc09ea7a547a60edffe5f07563, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

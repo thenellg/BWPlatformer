@@ -159,6 +159,11 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
+	public void stopVelocity()
+    {
+		//m_Rigidbody2D.constraints = m_Rigidbody2D.FreezePositionX;
+    }
+
 	private void Flip()
 	{
 		// Switch the way the player is labelled as facing.
