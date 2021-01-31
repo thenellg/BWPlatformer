@@ -72,8 +72,25 @@ public class CharacterController2D : MonoBehaviour
 				coyoteTimer = 30;
 			}
 		}
+
+		PlayerAnim.SetBool("isGrounded", m_Grounded);
+
 	}
 
+	void jump()
+    {
+		float jumpForce;
+
+		if (m_Rigidbody2D.gravityScale < 0)
+			jumpForce = -m_JumpForce;
+		else
+			jumpForce = m_JumpForce;
+
+		Debug.Log(new Vector2(0f, jumpForce));
+
+		m_Grounded = false;
+		m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+	}
 
 	public void Move(float move, bool jump)
 	{
@@ -82,6 +99,11 @@ public class CharacterController2D : MonoBehaviour
 			if (move != 0 && m_Grounded)
 			{
 				PlayerAnim.SetBool("isWalking", true);
+			}
+			else if (!m_Grounded)
+            {
+				PlayerAnim.SetTrigger("fall");
+				PlayerAnim.SetBool("isWalking", false);
 			}
 			else
 			{
@@ -111,17 +133,7 @@ public class CharacterController2D : MonoBehaviour
 				PlayerAnim.SetTrigger("Jump");
 
 				jumpCounter++;
-				float jumpForce;
-
-				if (m_Rigidbody2D.gravityScale < 0)
-					jumpForce = -m_JumpForce;
-				else
-					jumpForce = m_JumpForce;
-
-				Debug.Log(new Vector2(0f, jumpForce));
-
-				m_Grounded = false;
-				m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+				Invoke("jump", 0.1f);
 
 				int n = Random.Range(0, 2);
 				this.GetComponent<AudioSource>().PlayOneShot(jumpSFX[n]);
@@ -130,6 +142,11 @@ public class CharacterController2D : MonoBehaviour
 
 				if (doubleJump)
 					doubleJump = false;
+			}
+            else
+            {
+				if(!m_Grounded)
+					PlayerAnim.SetTrigger("fall");
 			}
 
 			//Wall Jump
