@@ -10,9 +10,9 @@ public class Door : MonoBehaviour
     void Start()
     {
         doorAnim = this.GetComponent<Animator>();
+        doorAnim.SetBool("unlocked", false);
     }
 
-   
     public void locked()
     {
         doorAnim.SetTrigger("locked");
@@ -20,6 +20,6 @@ public class Door : MonoBehaviour
 
     public void unlocked()
     {
-        doorAnim.SetTrigger("unlocked");
+        doorAnim.SetBool("unlocked", true);
     }
 }

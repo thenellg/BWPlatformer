@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterController2D : MonoBehaviour
 {
@@ -36,8 +37,12 @@ public class CharacterController2D : MonoBehaviour
 	RaycastHit2D wallCheckHit;
 	float jumpTime;
 
+	private Animator PlayerAnim;
+	bool canMove = true;
+
 	private void Awake()
 	{
+		PlayerAnim = this.GetComponent<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_PlayerController = GetComponent<PlayerController>();
 		blackStuff.SetActive(false);
@@ -49,6 +54,7 @@ public class CharacterController2D : MonoBehaviour
         {
 			coyoteTimer--;
         }
+		canMove = m_PlayerController.canMove;
 	}
 
 	private void FixedUpdate()
@@ -71,77 +77,90 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool jump)
 	{
-
-		//only control the player if grounded or airControl is turned on
-		if (m_Grounded || m_AirControl)
+		if (canMove)
 		{
-			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);													// Move the character by finding the target velocity
-			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);		// And then smoothing it out and applying it to the character
-
-			// If the input is moving the player right and the player is facing left...
-			if (move > 0 && !m_FacingRight)
+			if (move != 0 && m_Grounded)
 			{
-				Flip();             // ... flip the player.
+				PlayerAnim.SetBool("isWalking", true);
 			}
-			// Otherwise if the input is moving the player left and the player is facing right...
-			else if (move < 0 && m_FacingRight)
+			else
 			{
-				Flip();             // ... flip the player.
+				PlayerAnim.SetBool("isWalking", false);
 			}
-		}
-		// If the player should jump...
-		if (coyoteTimer > 0 && jump && jumpCounter < 1 || isWallSliding && jump && jumpCounter < 1 || doubleJump && jump)
-		{
-			jumpCounter++;
-			float jumpForce;
 
-			if (m_Rigidbody2D.gravityScale < 0)
-				jumpForce = -m_JumpForce;
+			//only control the player if grounded or airControl is turned on
+			if (m_Grounded || m_AirControl)
+			{
+				Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);                                                 // Move the character by finding the target velocity
+				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);     // And then smoothing it out and applying it to the character
+
+				// If the input is moving the player right and the player is facing left...
+				if (move > 0 && !m_FacingRight)
+				{
+					Flip();             // ... flip the player.
+				}
+				// Otherwise if the input is moving the player left and the player is facing right...
+				else if (move < 0 && m_FacingRight)
+				{
+					Flip();             // ... flip the player.
+				}
+			}
+			// If the player should jump...
+			if (coyoteTimer > 0 && jump && jumpCounter < 1 || isWallSliding && jump && jumpCounter < 1 || doubleJump && jump)
+			{
+				PlayerAnim.SetTrigger("Jump");
+
+				jumpCounter++;
+				float jumpForce;
+
+				if (m_Rigidbody2D.gravityScale < 0)
+					jumpForce = -m_JumpForce;
+				else
+					jumpForce = m_JumpForce;
+
+				Debug.Log(new Vector2(0f, jumpForce));
+
+				m_Grounded = false;
+				m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+
+				int n = Random.Range(0, 2);
+				this.GetComponent<AudioSource>().PlayOneShot(jumpSFX[n]);
+
+				Invoke("swapColors", colorDelay);
+
+				if (doubleJump)
+					doubleJump = false;
+			}
+
+			//Wall Jump
+			if (m_FacingRight)
+			{
+				wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(wallDistance, 0f), wallDistance, m_WhatIsGround);
+				Debug.DrawRay(transform.position, new Vector2(wallDistance, 0), Color.red);
+			}
 			else
-				jumpForce = m_JumpForce;
+			{
+				wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(-wallDistance, 0f), wallDistance, m_WhatIsGround);
+				Debug.DrawRay(transform.position, new Vector2(-wallDistance, 0), Color.red);
+			}
 
-			Debug.Log(new Vector2(0f, jumpForce));
+			if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
+			{
+				isWallSliding = true;
+				jumpTime = Time.time + wallJumpTime;
+			}
+			else if (jumpTime < Time.time)
+			{
+				isWallSliding = false;
+			}
 
-			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
-
-			int n = Random.Range(0, 2);
-			this.GetComponent<AudioSource>().PlayOneShot(jumpSFX[n]);
-
-			Invoke("swapColors", colorDelay);
-		
-			if (doubleJump)
-				doubleJump = false;
-		}
-
-		//Wall Jump
-		if (m_FacingRight)
-		{
-			wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(wallDistance, 0f), wallDistance, m_WhatIsGround);
-			Debug.DrawRay(transform.position, new Vector2(wallDistance, 0), Color.red);
-		}
-		else 
-		{ 
-			wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(-wallDistance, 0f), wallDistance, m_WhatIsGround);
-			Debug.DrawRay(transform.position, new Vector2(-wallDistance, 0), Color.red);
-		}
-
-		if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
-        {
-			isWallSliding = true;
-			jumpTime = Time.time + wallJumpTime;
-		}
-        else if (jumpTime < Time.time)
-        {
-			isWallSliding = false;
-        }
-
-		if (isWallSliding)
-        {
-			if (m_Rigidbody2D.gravityScale < 0)
-				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(-m_Rigidbody2D.velocity.y, -wallSlideSpeed, float.MaxValue));
-			else
-				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
+			if (isWallSliding)
+			{
+				if (m_Rigidbody2D.gravityScale < 0)
+					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(-m_Rigidbody2D.velocity.y, -wallSlideSpeed, float.MaxValue));
+				else
+					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
+			}
 		}
 	}
 
@@ -161,8 +180,21 @@ public class CharacterController2D : MonoBehaviour
 
 	public void stopVelocity()
     {
-		//m_Rigidbody2D.constraints = m_Rigidbody2D.FreezePositionX;
+		PlayerAnim.SetBool("isWalking", false);
+		m_Rigidbody2D.velocity = Vector3.zero;
     }
+
+	public void endLevel()
+    {
+		PlayerAnim.SetTrigger("Fade");
+		Invoke("transition", 5);
+    }
+
+	void transition()
+    {
+		GameObject.Find("UI").GetComponent<Animator>().SetTrigger("endLevel");
+		SceneManager.LoadScene("Level Menu");
+	}
 
 	private void Flip()
 	{

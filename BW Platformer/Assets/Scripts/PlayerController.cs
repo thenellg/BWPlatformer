@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 
 	public Vector3 spawnPoint;
 	public int deathCount;
-	bool canMove = true;
+	public bool canMove = true;
 
 	public key _key;
 	public GameObject items;
@@ -110,9 +110,9 @@ public class PlayerController : MonoBehaviour {
 			if (!hasKey)
 				collision.gameObject.GetComponent<Door>().locked();
 			else {
+				canMove = false;
 				transform.position = collision.transform.position;
 				controller.stopVelocity();
-				canMove = false;
 				_key.followSpot = collision.transform;
 			}
 		}

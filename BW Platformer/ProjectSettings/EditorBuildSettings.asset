@@ -9,6 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/OpeningVideo.unity
     guid: 8f65642af6ea2c144b73c889ae2ce548
   - enabled: 1
-    path: Assets/Scenes/Test.unity
-    guid: 548efbe8196c7bb41a94d25d70cf82e6
+    path: Assets/Scenes/OpeningMenu.unity
+    guid: cd527fbef45f20d4eb2b5965376d9155
+  - enabled: 1
+    path: Assets/Scenes/Level Menu.unity
+    guid: 445aae4c32d4fff4183f31bddd59f8b5
+  - enabled: 1
+    path: Assets/Scenes/Test 1.unity
+    guid: 5016aa2b94eeebc46909c4f74b990e87
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 0eb58d64100ac844a9fb5a5373d02cc8
+  - enabled: 1
+    path: Assets/Scenes/Test 2.unity
+    guid: b1aa1fbfd38ea2c448e251534400cdcb
+  - enabled: 1
+    path: Assets/Scenes/Test 3.unity
+    guid: b4bfeef50e7c9344fbc3bc2f02f071c8
   m_configObjects: {}
