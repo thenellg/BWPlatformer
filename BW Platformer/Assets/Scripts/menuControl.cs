@@ -52,6 +52,8 @@ public class menuControl : MonoBehaviour
     public void changeScenes(string sceneName)
     {
         Debug.Log(sceneName);
-        //SceneManager.LoadScene(sceneName);
+        PlayerPrefs.SetInt("deathCount", 0);
+
+        SceneManager.LoadScene(sceneName);
     }
 }

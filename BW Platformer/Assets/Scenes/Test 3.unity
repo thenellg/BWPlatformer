@@ -807,7 +807,7 @@ Transform:
   m_GameObject: {fileID: 251197504}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.4565, y: 5.2471, z: 12.333843}
-  m_LocalScale: {x: 49.30468, y: 35.56778, z: 1.3971}
+  m_LocalScale: {x: 61.014538, y: 44.015125, z: 1.7289112}
   m_Children: []
   m_Father: {fileID: 154494868}
   m_RootOrder: 2
@@ -1308,7 +1308,7 @@ Transform:
   m_GameObject: {fileID: 423810558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.46, y: 5.2884, z: 12.333843}
-  m_LocalScale: {x: 49.119278, y: 35.687412, z: 1.6006}
+  m_LocalScale: {x: 60.244797, y: 43.77061, z: 1.963136}
   m_Children: []
   m_Father: {fileID: 1174515740}
   m_RootOrder: 2
@@ -1605,6 +1605,11 @@ PrefabInstance:
       objectReference: {fileID: 673098140}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
+      propertyPath: levelPlayerPref
+      value: Level5Status
+      objectReference: {fileID: 0}
+    - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
       propertyPath: visDeathCounter
       value: 
       objectReference: {fileID: 673098138}
@@ -1623,14 +1628,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &684224404 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+  m_CorrespondingSourceObject: {fileID: 2769096544467633923, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
     type: 3}
   m_PrefabInstance: {fileID: 684224402}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5273cd41ac3c5246965ef9469d10dd7, type: 3}
+  m_Script: {fileID: 11500000, guid: d08f91df3bd212f429df17f53ce2f364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &700205849

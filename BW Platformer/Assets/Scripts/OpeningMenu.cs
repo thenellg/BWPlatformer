@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class OpeningMenu : MonoBehaviour
 {
-    public Animator menuAnim;
+    //public Animator menuAnim;
 
     void Update()
     {

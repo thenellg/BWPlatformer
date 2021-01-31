@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour {
 	public Image reset;
 	public TextMeshProUGUI visDeathCounter;
 	private Transform[] objects;
+	public string levelPlayerPref;
 	//[Header("Audio")]
 
 	private void Awake()
@@ -127,6 +128,7 @@ public class PlayerController : MonoBehaviour {
     {
 		Debug.Log("DED");
 		deathCount += 1;
+		PlayerPrefs.SetInt(levelPlayerPref, 1);
 		Invoke("resetLevel", 0f);
 	}
 
