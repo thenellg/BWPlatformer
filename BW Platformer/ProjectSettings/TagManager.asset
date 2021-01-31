@@ -9,6 +9,8 @@ TagManager:
   - camSwap
   - Key
   - ReverseGrav
+  - DoubleJump
+  - Door
   layers:
   - Default
   - TransparentFX
