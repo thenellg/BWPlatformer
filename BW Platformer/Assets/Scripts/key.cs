@@ -11,6 +11,7 @@ public class key : MonoBehaviour
     public CharacterController2D player;
     public bool following;
     public Transform followSpot;
+    bool end = true;
 
     private Animator keyAnim;
 
@@ -30,11 +31,12 @@ public class key : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (transform.position == GameObject.FindGameObjectWithTag("Door").transform.position)
+        if (transform.position == GameObject.FindGameObjectWithTag("Door").transform.position && end)
         {
             keyAnim.SetTrigger("Fade");
             GameObject.FindGameObjectWithTag("Door").GetComponent<Door>().unlocked();
             Invoke("boom", 1.35f);
+            end = false;
         }
     }
 

@@ -287,9 +287,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Canon Wright\t\tLevel Designer\nGriffin Thenell\t\tProgrammer\nHannah
-    Armstrong\tArtist\nRobert Hudspeth\t\tAudio Designer"
+    Armstrong\t\tArtist\nRobert Hudspeth\t\tAudio Designer"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6b99f270c43eb0e428c1b116a6ef7cb3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5765b1f93b61b1a44a5ac4507cab54a9, type: 2}
   m_sharedMaterial: {fileID: 6842454640818525999, guid: 6b99f270c43eb0e428c1b116a6ef7cb3,
     type: 2}
   m_fontSharedMaterials: []
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_margin: {x: -11.523715, y: 0, z: -277.8921, w: -241.7579}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &149578010
@@ -1447,7 +1447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4330,7 +4330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.90196085, g: 0.90196085, b: 0.90196085, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4987,7 +4987,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -179, y: 108}
+  m_AnchoredPosition: {x: -159.8, y: 71.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1960284845

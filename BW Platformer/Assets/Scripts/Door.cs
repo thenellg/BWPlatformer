@@ -20,6 +20,6 @@ public class Door : MonoBehaviour
 
     public void unlocked()
     {
-        doorAnim.SetBool("unlocked", true);
+        doorAnim.SetTrigger("unlocked");
     }
 }
