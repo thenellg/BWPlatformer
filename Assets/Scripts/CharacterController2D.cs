@@ -43,6 +43,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Awake()
 	{
+		//Set private values and disable stuff
 		PlayerAnim = this.GetComponent<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_PlayerController = GetComponent<PlayerController>();
@@ -51,10 +52,12 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Update()
 	{
+		//Running coyote timer and using canMove
 		if (coyoteTimer > 0 && m_Grounded == false)
 		{
 			coyoteTimer--;
 		}
+		
 		canMove = m_PlayerController.canMove;
 	}
 
@@ -63,7 +66,6 @@ public class CharacterController2D : MonoBehaviour
 		m_Grounded = false;
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 		for (int i = 0; i < colliders.Length; i++)
 		{
@@ -82,6 +84,7 @@ public class CharacterController2D : MonoBehaviour
     {
 		float jumpForce;
 
+		//Adjusting for reverse gravity
 		if (m_Rigidbody2D.gravityScale < 0)
 			jumpForce = -m_JumpForce;
 		else
@@ -90,7 +93,9 @@ public class CharacterController2D : MonoBehaviour
 		Debug.Log(new Vector2(0f, jumpForce));
 
 		m_Grounded = false;
-		m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+
+		m_Rigidbody2D.velocity = new Vector2(0, 0);
+		m_Rigidbody2D.AddForce(new Vector2(0, jumpForce));
 	}
 
 	public void deadSFX()
@@ -146,7 +151,9 @@ public class CharacterController2D : MonoBehaviour
 
 				Invoke("swapColors", colorDelay);
 
-				if (doubleJump)
+				if (!doubleJump)
+					doubleJump = true;
+				else
 					doubleJump = false;
 			}
             else

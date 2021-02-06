@@ -17,44 +17,56 @@ public class PlayerController : MonoBehaviour {
 	private bool jump = false;
 	private bool crouch = false;
 
-	public bool hasKey = false;
+	public Color colorA = new Color32(230, 230, 230, 255);
+	public Color colorB = new Color32(25, 25, 25, 255);
 
+	public bool hasKey = false;
+	[SerializeField] private bool areDead = false;
+
+	[Header("Respawn")]
 	public Vector3 spawnPoint;
-	public int deathCount;
+	public int deathCount = 0;
 	public bool canMove = true;
 
 	public key _key;
 	public GameObject items;
+	private Transform[] objects;
 	public CinemachineVirtualCamera startCam;
 	public CinemachineBrain camBrain;
 
+	[Header("UI")]
 	public Animator UIAnimation;
 	public Image reset;
 	public TextMeshProUGUI visDeathCounter;
-	private Transform[] objects;
 	public string levelPlayerPref;
 
-	[SerializeField] private bool areDead = false;
+	[Header("Player Unlocks")]
+	public bool doubleJumpUnlock;
+
+
 	//[Header("Audio")]
 
 	private void Awake()
     {
+		//Setting item refreshes and spawn point
 		objects = items.GetComponentsInChildren<Transform>();
 		spawnPoint = this.transform.position;
-		deathCount = PlayerPrefs.GetInt("deathCount", 0);
     }
 
     void Update()
 	{
-        if (Input.GetKeyDown("escape"))
+		// This will be for an eventual pause menu we still need to build
+		if (Input.GetKeyDown("escape"))
         {
 			SceneManager.LoadScene("Level Menu");
         }
 
+		//Setting out death counter
 		visDeathCounter.text = deathCount.ToString();
 
 		if (canMove)
 		{
+			//movement, but it's handled in CharacterController2D.cs
 			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
 			if (Input.GetButtonDown("Jump"))
@@ -63,15 +75,16 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
+		//Adjusting objects to colors that don't auto adjust
 		if (controller.whiteStuff.activeSelf)
 		{
-			visDeathCounter.color = new Color32(25, 25, 25, 255);
-			reset.color = new Color32(230, 230, 230, 255);
+			visDeathCounter.color = colorB;
+			reset.color = colorA;
 		}
 		else
 		{
-			visDeathCounter.color = new Color32(230, 230, 230, 255);
-			reset.color = new Color32(25, 25, 25, 255);
+			visDeathCounter.color = colorA;
+			reset.color = colorB;
 		}
 	}
 
@@ -83,6 +96,9 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+		//Running all of player collision from this script. These are all generally pretty self-explanatory based off of their tags
+		//It might not be a bad idea to redo this in the future but for now, this works.
+
 		if (collision.tag == "Death")
 		{
 			if (!areDead)
@@ -94,31 +110,31 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		if (collision.tag == "camSwap")
+		else if (collision.tag == "camSwap")
         {
 			Debug.Log("collision");
 			collision.gameObject.GetComponent<cameraSwitch>().camSwap();
         }
 
-		if (collision.tag == "Key")
+		else if (collision.tag == "Key")
         {
 			hasKey = true;
 			_key.following = true;
         }
 
-		if (collision.tag == "ReverseGrav")
+		else if (collision.tag == "ReverseGrav")
         {
 			controller.gravFlip();
 			collision.gameObject.SetActive(false);
         }
 
-		if (collision.tag == "DoubleJump")
+		else if (collision.tag == "DoubleJump")
         {
 			controller.doubleJump = true;
 			collision.gameObject.SetActive(false);
         }
-    
-		if (collision.tag == "Door")
+
+		else if (collision.tag == "Door")
         {
 			if (!hasKey)
 				collision.gameObject.GetComponent<Door>().locked();
@@ -130,8 +146,8 @@ public class PlayerController : MonoBehaviour {
 				_key.followSpot = collision.transform;
 			}
 		}
-	
-		if (collision.tag == "Checkpoint")
+
+		else if (collision.tag == "Checkpoint")
         {
 			//change checkpoint image (probably going to be an animation)
 			if (collision.GetComponent<checkpoint>().checkpointActive == false)
@@ -151,7 +167,7 @@ public class PlayerController : MonoBehaviour {
 
     public void onDeath()
     {
-			Debug.Log("DED");
+			//death has become overly complicated but the short version is this. Play the sound, add to the count, reset
 			controller.deadSFX();
 			deathCount += 1;
 			Invoke("resetLevel", 0f);
@@ -159,41 +175,47 @@ public class PlayerController : MonoBehaviour {
 
 	public void itemReset()
     {
+		//Reseting the items. This is run every death and every time the player switches cameras
 		foreach (Transform item in objects)
 			item.gameObject.SetActive(true);
 	}
 
 	private void resetLevel()
     {
+		//Resets gravity if needed
 		if (this.GetComponent<Rigidbody2D>().gravityScale < 0)
 		{
 			controller.gravFlip();
 			this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		}
 
+		//Resets key if needed
 		_key.resetKey();
 		hasKey = false;
 
+		//Makes sure that white is set to active
 		controller.whiteStuff.SetActive(true);
 		controller.blackStuff.SetActive(false);
 
 		itemReset();
 
+		//Move the camera back
 		camBrain.m_DefaultBlend.m_Time = 0.05f;
 		camBrain.ActiveVirtualCamera.Priority = 0;
 		startCam.Priority = 1;
 		camBrain.m_DefaultBlend.m_Time = 1f;
 
 		Invoke("setCharacter", 0.1f);
-
+		
+		//Move character to spawn point
 		this.transform.position = spawnPoint;
 		areDead = false;
 	}
 
 	void setCharacter()
     {
+		//Reenable movement
 		canMove = true;
-		
 	}
 
 }
