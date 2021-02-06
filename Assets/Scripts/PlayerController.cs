@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
 	public float runSpeed = 40f;
 
 	private float horizontalMove = 0f;
-	private bool jump = false;
+	public bool jump = false;
 	private bool crouch = false;
 
 	public Color colorA = new Color32(230, 230, 230, 255);
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour {
 			//movement, but it's handled in CharacterController2D.cs
 			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-			if (Input.GetButtonDown("Jump"))
+			if (Input.GetButtonDown("Jump") && Input.GetAxis("Vertical") >= 0 || Input.GetAxis("Vertical") >= 0.1f)
 			{
 				jump = true;
 			}
