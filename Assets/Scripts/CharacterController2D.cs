@@ -151,9 +151,11 @@ public class CharacterController2D : MonoBehaviour
 
 				Invoke("swapColors", colorDelay);
 
-				if (!doubleJump)
-					doubleJump = true;
-				else
+				//if (!doubleJump)
+				//	doubleJump = true;
+				//else
+
+				if(doubleJump)
 					doubleJump = false;
 			}
             else
