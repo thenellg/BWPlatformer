@@ -332,6 +332,7 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 2769096544390078002}
   m_CeilingCheck: {fileID: 2769096543850380661}
   m_CrouchDisableCollider: {fileID: 0}
+  m_Grounded: 0
   coyoteTimer: 30
   doubleJump: 0
   whiteStuff: {fileID: 0}
@@ -342,7 +343,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3c1a5724fb423c744a84e6fcf587d398, type: 3}
   - {fileID: 8300000, guid: d45a2b7337bcb6149974133f211afa6d, type: 3}
   deathSFX: {fileID: 8300000, guid: bad86e795ceeffe498f79da80c19a8ca, type: 3}
-  wallJumpTime: 0.02
+  wallJumpTime: 0.05
   wallSlideSpeed: 0.3
   wallDistance: 0.7
   isWallSliding: 0
@@ -361,7 +362,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2769096544467633923}
   runSpeed: 40
+  jump: 0
+  colorA: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
+  colorB: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   hasKey: 0
+  areDead: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   deathCount: 0
   canMove: 1
@@ -371,8 +376,10 @@ MonoBehaviour:
   camBrain: {fileID: 0}
   UIAnimation: {fileID: 0}
   reset: {fileID: 0}
+  background: {fileID: 0}
   visDeathCounter: {fileID: 0}
   levelPlayerPref: 
+  doubleJumpUnlock: 0
 --- !u!50 &2769096544467633920
 Rigidbody2D:
   serializedVersion: 4

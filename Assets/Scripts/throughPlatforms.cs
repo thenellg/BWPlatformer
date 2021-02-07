@@ -22,6 +22,7 @@ public class throughPlatforms : MonoBehaviour
         {
             if(waitTime <= 0 && Input.GetButtonDown("Jump"))
             {
+                GameObject.Find("Player").GetComponent<PlayerController>().jump = false;
                 effector.rotationalOffset = 180f;
                 waitTime = 0.5f;
             }

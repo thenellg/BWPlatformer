@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 	[Header("UI")]
 	public Animator UIAnimation;
 	public Image reset;
+	public SpriteRenderer background;
 	public TextMeshProUGUI visDeathCounter;
 	public string levelPlayerPref;
 
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour {
 			//movement, but it's handled in CharacterController2D.cs
 			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-			if (Input.GetButtonDown("Jump") && Input.GetAxis("Vertical") >= 0 || Input.GetAxis("Vertical") >= 0.1f)
+			if (Input.GetButtonDown("Jump"))
 			{
 				jump = true;
 			}
@@ -80,11 +81,13 @@ public class PlayerController : MonoBehaviour {
 		{
 			visDeathCounter.color = colorB;
 			reset.color = colorA;
+			background.color = colorA;
 		}
 		else
 		{
 			visDeathCounter.color = colorA;
 			reset.color = colorB;
+			background.color = colorB;
 		}
 	}
 

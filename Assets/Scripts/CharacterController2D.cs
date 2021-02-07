@@ -82,6 +82,8 @@ public class CharacterController2D : MonoBehaviour
 
 	void jump()
     {
+		isWallSliding = false;
+
 		float jumpForce;
 
 		//Adjusting for reverse gravity
@@ -171,12 +173,12 @@ public class CharacterController2D : MonoBehaviour
 			if (m_FacingRight)
 			{
 				wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(wallDistance, 0f), wallDistance, m_WhatIsGround);
-				Debug.DrawRay(transform.position, new Vector2(wallDistance, 0), Color.red);
+				//Debug.DrawRay(transform.position, new Vector2(wallDistance, 0), Color.red);
 			}
 			else
 			{
 				wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(-wallDistance, 0f), wallDistance, m_WhatIsGround);
-				Debug.DrawRay(transform.position, new Vector2(-wallDistance, 0), Color.red);
+				//Debug.DrawRay(transform.position, new Vector2(-wallDistance, 0), Color.red);
 			}
 
 			if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
@@ -192,9 +194,14 @@ public class CharacterController2D : MonoBehaviour
 			if (isWallSliding)
 			{
 				if (m_Rigidbody2D.gravityScale < 0)
+				{
 					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(-m_Rigidbody2D.velocity.y, -wallSlideSpeed, float.MaxValue));
-				else
+				}
+                else
+                {
 					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
+
+				}
 			}
 		}
 	}
