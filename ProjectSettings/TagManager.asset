@@ -12,6 +12,7 @@ TagManager:
   - DoubleJump
   - Door
   - Checkpoint
+  - LayerSwitch
   layers:
   - Default
   - TransparentFX

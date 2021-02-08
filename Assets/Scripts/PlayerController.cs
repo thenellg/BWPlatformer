@@ -142,6 +142,7 @@ public class PlayerController : MonoBehaviour {
 			if (!hasKey)
 				collision.gameObject.GetComponent<Door>().locked();
 			else {
+				_key.speed = 8;
 				PlayerPrefs.SetInt(levelPlayerPref, 1);
 				canMove = false;
 				transform.position = collision.transform.position;
@@ -195,6 +196,10 @@ public class PlayerController : MonoBehaviour {
 		//Resets key if needed
 		_key.resetKey();
 		hasKey = false;
+
+		//if layer switch exists, reset it
+		if (GameObject.FindGameObjectWithTag("LayerSwitch"))
+			GameObject.FindGameObjectWithTag("LayerSwitch").GetComponent<layerSwitch>().resetLayers();
 
 		//Makes sure that white is set to active
 		controller.whiteStuff.SetActive(true);

@@ -6,14 +6,19 @@ using Cinemachine;
 public class checkpoint : MonoBehaviour
 {
     //public Animator checkpointAnim;
-    public Sprite set;
     public bool checkpointActive = false;
     public CinemachineVirtualCamera vcam;
+    private Animator anim;
+
+    public void Start()
+    {
+        anim = this.GetComponent<Animator>();
+    }
 
     public void setCheckpoint()
     {
         //something something animation
-        this.GetComponent<SpriteRenderer>().sprite = set;
+        anim.SetTrigger("change");
         checkpointActive = true;
     }
 }

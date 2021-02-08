@@ -6,7 +6,7 @@ public class key : MonoBehaviour
 {
     private Vector3 originSpot;
     private Transform parent;
-    public float speed;
+    public float speed = 5;
 
     public CharacterController2D player;
     public bool following;
@@ -53,6 +53,7 @@ public class key : MonoBehaviour
 
     public void resetKey()
     {
+        speed = 5;
         this.transform.position = originSpot;
         this.transform.parent = parent;
         following = false;
