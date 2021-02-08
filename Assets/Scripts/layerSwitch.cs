@@ -16,7 +16,7 @@ public class layerSwitch : MonoBehaviour
     public GameObject backLevelItems;
 
     [SerializeField] private bool onMainLevel = true;
-    [SerializeField] private bool changeable = true;
+    [SerializeField] private bool changeable = false;
     [SerializeField] private Color colorReplace = Color.white;
 
     public float changeTimer = 1f;
