@@ -28,6 +28,7 @@ public class CharacterController2D : MonoBehaviour
 	public float colorDelay = 0.2f;
 	public AudioClip[] jumpSFX;
 	public AudioClip deathSFX;
+	public float dashSpeed = 2f;
 
 	[Header("WallJump")]
 	public float wallJumpTime = 0.2f;
@@ -40,6 +41,9 @@ public class CharacterController2D : MonoBehaviour
 
 	private Animator PlayerAnim;
 	bool canMove = true;
+	bool canDash = true;
+	[SerializeField] private Vector2 dashVector;
+
 
 	private void Awake()
 	{
@@ -59,6 +63,10 @@ public class CharacterController2D : MonoBehaviour
 		}
 		
 		canMove = m_PlayerController.canMove;
+
+		float horizontal = Input.GetAxis("Horizontal");
+		float vertical = Input.GetAxis("Vertical");
+		dashVector = new Vector2(horizontal, vertical).normalized;
 	}
 
 	private void FixedUpdate()
@@ -100,12 +108,23 @@ public class CharacterController2D : MonoBehaviour
 		m_Rigidbody2D.AddForce(new Vector2(0, jumpForce));
 	}
 
+	void dashing()
+    {
+		m_Rigidbody2D.velocity = new Vector2(0, 0);
+		float temp = dashSpeed * 0.5f;
+
+		if (dashVector.y < 0.5f)
+			m_Rigidbody2D.AddForce(dashVector * dashSpeed, ForceMode2D.Impulse);
+		else
+			m_Rigidbody2D.AddForce(dashVector * temp, ForceMode2D.Impulse);
+	}
+
 	public void deadSFX()
     {
 		this.GetComponent<AudioSource>().PlayOneShot(deathSFX);
 	}
 
-	public void Move(float move, bool jump)
+	public void Move(float move, bool jump, bool dash)
 	{
 		if (canMove)
 		{
@@ -166,6 +185,11 @@ public class CharacterController2D : MonoBehaviour
 				if (!m_Grounded)
 				{
 					PlayerAnim.SetTrigger("fall");
+
+					if(Input.GetAxis("Vertical") < 0)
+                    {
+						m_Rigidbody2D.AddForce(new Vector2(0, -3));
+                    }
 				}
 			}
 
@@ -183,6 +207,8 @@ public class CharacterController2D : MonoBehaviour
 
 			if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
 			{
+				canDash = true;
+
 				isWallSliding = true;
 				jumpTime = Time.time + wallJumpTime;
 			}
@@ -203,6 +229,19 @@ public class CharacterController2D : MonoBehaviour
 
 				}
 			}
+
+			if (m_Grounded)
+				canDash = true;
+
+            if (dash && canDash)
+            {
+				dashing();
+
+                if (!m_Grounded)
+                {
+					canDash = false;
+                }
+            }
 		}
 	}
 

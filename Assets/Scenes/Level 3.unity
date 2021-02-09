@@ -5753,6 +5753,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633923, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
+      propertyPath: dashSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2769096544467633923, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
       propertyPath: blackStuff
       value: 
       objectReference: {fileID: 154494867}

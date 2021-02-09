@@ -343,11 +343,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3c1a5724fb423c744a84e6fcf587d398, type: 3}
   - {fileID: 8300000, guid: d45a2b7337bcb6149974133f211afa6d, type: 3}
   deathSFX: {fileID: 8300000, guid: bad86e795ceeffe498f79da80c19a8ca, type: 3}
+  dashSpeed: 8
   wallJumpTime: 0.05
   wallSlideSpeed: 0.3
   wallDistance: 0.7
   isWallSliding: 0
   jumpCounter: 0
+  dashVector: {x: 0, y: 0}
 --- !u!114 &2769096544467633924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +365,7 @@ MonoBehaviour:
   controller: {fileID: 2769096544467633923}
   runSpeed: 40
   jump: 0
+  dash: 0
   colorA: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
   colorB: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   hasKey: 0

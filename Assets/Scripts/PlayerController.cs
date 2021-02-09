@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 
 	private float horizontalMove = 0f;
 	public bool jump = false;
+	public bool dash = false;
 	private bool crouch = false;
 
 	public Color colorA = new Color32(230, 230, 230, 255);
@@ -74,6 +75,10 @@ public class PlayerController : MonoBehaviour {
 			{
 				jump = true;
 			}
+			else if (Input.GetButtonDown("Dash"))
+            {
+				dash = true;
+            }
 		}
 
 		//Adjusting objects to colors that don't auto adjust
@@ -93,8 +98,9 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-		controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
+		controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash);
 		jump = false;
+		dash = false;
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)

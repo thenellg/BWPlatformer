@@ -5,16 +5,19 @@ using UnityEngine.Tilemaps;
 
 public class layerSwitch : MonoBehaviour
 {
+    [Header("Main Level")]
+    public GameObject mainLevel;
     public GameObject mainLevelWhite;
     public GameObject mainLevelBlack;
-    public GameObject mainLevelGeneral;
     public GameObject mainLevelItems;
 
+    [Header("Back Level")]
+    public GameObject backLevel;
     public GameObject backLevelWhite;
     public GameObject backLevelBlack;
-    public GameObject backLevelGeneral;
     public GameObject backLevelItems;
 
+    private CharacterController2D controller;
     [SerializeField] private bool onMainLevel = true;
     [SerializeField] private bool changeable = false;
     [SerializeField] private Color colorReplace = Color.white;
@@ -24,6 +27,7 @@ public class layerSwitch : MonoBehaviour
     private void Start()
     {
         resetLayers();
+        controller = FindObjectOfType<CharacterController2D>();
     }
 
     private void Update()
@@ -50,14 +54,10 @@ public class layerSwitch : MonoBehaviour
 
     public void resetLayers()
     {
-        setActive(mainLevelWhite);
-        setActive(mainLevelBlack);
-        setActive(mainLevelGeneral);
+        setActive(mainLevel);
         setActive(mainLevelItems);
 
-        setUnactive(backLevelBlack);
-        setUnactive(backLevelWhite);
-        setUnactive(backLevelGeneral);
+        setUnactive(backLevel);
         setActive(backLevelItems);
     }
 
@@ -113,29 +113,27 @@ public class layerSwitch : MonoBehaviour
     {
         if (onMainLevel)
         {
-            setActive(backLevelBlack);
-            setActive(backLevelWhite);
-            setActive(backLevelGeneral);
+            setActive(mainLevel);
+            setActive(mainLevelItems);
+
+            setUnactive(backLevel);
             setActive(backLevelItems);
 
-            setUnactive(mainLevelWhite);
-            setUnactive(mainLevelBlack);
-            setUnactive(mainLevelGeneral);
-            setActive(mainLevelItems);
+            controller.whiteStuff = mainLevelWhite;
+            controller.blackStuff = mainLevelBlack;
 
             onMainLevel = false;
         }
         else
         {
-            setActive(mainLevelWhite);
-            setActive(mainLevelBlack);
-            setActive(mainLevelGeneral);
+            setActive(backLevel);
+            setActive(backLevelItems);
+
+            setUnactive(mainLevel);
             setActive(mainLevelItems);
 
-            setUnactive(backLevelBlack);
-            setUnactive(backLevelWhite);
-            setUnactive(backLevelGeneral);
-            setActive(backLevelItems);
+            controller.whiteStuff = backLevelWhite;
+            controller.blackStuff = backLevelBlack;
 
             onMainLevel = true;
         }
