@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
 	private float horizontalMove = 0f;
 	public bool jump = false;
 	public bool dash = false;
-	private bool crouch = false;
+	public bool crouch = false;
 
 	public Color colorA = new Color32(230, 230, 230, 255);
 	public Color colorB = new Color32(25, 25, 25, 255);
@@ -71,6 +71,11 @@ public class PlayerController : MonoBehaviour {
 			//movement, but it's handled in CharacterController2D.cs
 			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
+			if(Input.GetAxisRaw("Vertical") < 0)
+            {
+				crouch = true;
+			}
+
 			if (Input.GetButtonDown("Jump"))
 			{
 				jump = true;
@@ -98,9 +103,10 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-		controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash);
+		controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash, crouch);
 		jump = false;
 		dash = false;
+		crouch = false;
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -6,9 +6,11 @@ public class throughPlatforms : MonoBehaviour
 {
     private PlatformEffector2D effector;
     float waitTime;
+    private Animator PlayerAnim;
 
     void Start()
     {
+        PlayerAnim = GameObject.Find("Player").GetComponent<Animator>();
         effector = this.GetComponent<PlatformEffector2D>();
     }
 
@@ -22,6 +24,7 @@ public class throughPlatforms : MonoBehaviour
         {
             if(waitTime <= 0 && Input.GetButtonDown("Jump"))
             {
+                PlayerAnim.SetBool("crouching", false);
                 GameObject.Find("Player").GetComponent<PlayerController>().jump = false;
                 effector.rotationalOffset = 180f;
                 waitTime = 0.5f;

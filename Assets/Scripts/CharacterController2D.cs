@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class CharacterController2D : MonoBehaviour
 {
@@ -43,7 +44,8 @@ public class CharacterController2D : MonoBehaviour
 	bool canMove = true;
 	bool canDash = true;
 	[SerializeField] private Vector2 dashVector;
-
+	float shakeTimer = 0;
+	bool crouching = false;
 
 	private void Awake()
 	{
@@ -62,6 +64,17 @@ public class CharacterController2D : MonoBehaviour
 			coyoteTimer--;
 		}
 		
+		if (shakeTimer > 0)
+        {
+			shakeTimer -= Time.deltaTime;
+        }
+        else
+        {
+			CinemachineVirtualCamera vcam = Camera.main.gameObject.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
+			CinemachineBasicMultiChannelPerlin shake = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+			shake.m_AmplitudeGain = 0f;
+		}
+
 		canMove = m_PlayerController.canMove;
 
 		float horizontal = Input.GetAxis("Horizontal");
@@ -110,6 +123,12 @@ public class CharacterController2D : MonoBehaviour
 
 	void dashing()
     {
+		//screen shake
+		CinemachineVirtualCamera vcam = Camera.main.gameObject.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
+		CinemachineBasicMultiChannelPerlin shake = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+		shake.m_AmplitudeGain = 0.5f;
+		shakeTimer = 0.1f;
+
 		m_Rigidbody2D.velocity = new Vector2(0, 0);
 		float temp = dashSpeed * 0.5f;
 
@@ -124,22 +143,43 @@ public class CharacterController2D : MonoBehaviour
 		this.GetComponent<AudioSource>().PlayOneShot(deathSFX);
 	}
 
-	public void Move(float move, bool jump, bool dash)
+	public void Move(float move, bool jump, bool dash, bool crouch)
 	{
 		if (canMove)
 		{
 			if (move != 0 && m_Grounded)
 			{
 				PlayerAnim.SetBool("isWalking", true);
+				PlayerAnim.SetBool("crouching", false);
+			}
+			else if (m_Grounded && crouch)
+			{
+				if (!crouching)
+                {
+					PlayerAnim.SetTrigger("Crouch");
+					crouching = true;
+				}
+
+
+				PlayerAnim.SetBool("crouching", true);
+				PlayerAnim.SetBool("isWalking", false);
+			}
+			else if (m_Grounded && !crouch)
+			{
+				crouching = false;
+				PlayerAnim.SetBool("crouching", false);
+				PlayerAnim.SetBool("isWalking", false);
 			}
 			else if (!m_Grounded)
             {
 				PlayerAnim.SetTrigger("fall");
 				PlayerAnim.SetBool("isWalking", false);
+				PlayerAnim.SetBool("crouching", false);
 			}
 			else
 			{
 				PlayerAnim.SetBool("isWalking", false);
+				PlayerAnim.SetBool("crouching", false);
 			}
 
 			//only control the player if grounded or airControl is turned on
