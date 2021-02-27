@@ -79,7 +79,19 @@ public class CharacterController2D : MonoBehaviour
 
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
-		dashVector = new Vector2(horizontal, vertical).normalized;
+
+		if (horizontal == 0 && vertical == 0)
+		{
+			if (m_FacingRight)
+				dashVector = new Vector2(1.25f, 0);
+			else
+				dashVector = new Vector2(-1.25f, 0);
+		}
+        else
+        {
+			dashVector = new Vector2(horizontal, vertical).normalized;
+
+		}
 	}
 
 	private void FixedUpdate()
@@ -150,7 +162,6 @@ public class CharacterController2D : MonoBehaviour
 			if (move != 0 && m_Grounded)
 			{
 				PlayerAnim.SetBool("isWalking", true);
-				PlayerAnim.SetBool("crouching", false);
 			}
 			else if (m_Grounded && crouch)
 			{
@@ -185,7 +196,11 @@ public class CharacterController2D : MonoBehaviour
 			//only control the player if grounded or airControl is turned on
 			if (m_Grounded || m_AirControl)
 			{
-				Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);                                                 // Move the character by finding the target velocity
+				Vector3 targetVelocity;
+				if (crouch)
+					targetVelocity = new Vector2(move * 3f, m_Rigidbody2D.velocity.y);                                                 // Move the character by finding the target velocity
+				else
+					targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);     // And then smoothing it out and applying it to the character
 
 				// If the input is moving the player right and the player is facing left...
@@ -226,10 +241,14 @@ public class CharacterController2D : MonoBehaviour
 				{
 					PlayerAnim.SetTrigger("fall");
 
-					if(Input.GetAxis("Vertical") < 0)
-                    {
+					if (Input.GetAxis("Vertical") < 0 && m_Rigidbody2D.gravityScale > 0)
+					{
 						m_Rigidbody2D.AddForce(new Vector2(0, -3));
-                    }
+					}
+					else if (Input.GetAxis("Vertical") < 0 && m_Rigidbody2D.gravityScale < 0)
+					{
+						m_Rigidbody2D.AddForce(new Vector2(0, 3));
+					}
 				}
 			}
 
@@ -273,7 +292,7 @@ public class CharacterController2D : MonoBehaviour
 			if (m_Grounded)
 				canDash = true;
 
-            if (dash && canDash)
+            if (dash && canDash && !wallCheckHit)
             {
 				dashing();
 

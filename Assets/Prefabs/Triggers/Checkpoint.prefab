@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3319290667381047761}
   - component: {fileID: 3319290667381047760}
   - component: {fileID: 3319290667381047763}
+  - component: {fileID: 6451599784660534294}
   m_Layer: 0
   m_Name: Checkpoint
   m_TagString: Checkpoint
@@ -97,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.15113115, y: 2.2891827}
+  m_Offset: {x: -0.24270964, y: 2.2891827}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -108,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.5022626, y: 2.8540525}
+  m_Size: {x: 4.5903225, y: 5.2356706}
   m_EdgeRadius: 0
 --- !u!114 &3319290667381047763
 MonoBehaviour:
@@ -122,6 +123,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af688add58ef3614f97a08ff36c0bdce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  set: {fileID: 21300000, guid: a2ba6ff745e519e40b66b7217366bcc0, type: 3}
   checkpointActive: 0
   vcam: {fileID: 0}
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalZoom: 0
+  newPosition: {x: 0, y: 0, z: 0}
+  newZoom: 0
+  zoomedOut: 0
+--- !u!95 &6451599784660534294
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319290667381047767}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bba2b1a2385c39343a3985f5c37a2fcd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

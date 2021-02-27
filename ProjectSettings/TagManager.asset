@@ -13,6 +13,7 @@ TagManager:
   - Door
   - Checkpoint
   - LayerSwitch
+  - Breakable
   layers:
   - Default
   - TransparentFX

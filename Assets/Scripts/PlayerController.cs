@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour {
 	[Header("Player Unlocks")]
 	public bool doubleJumpUnlock;
 
+	public Transform[] breakables;
 
 	//[Header("Audio")]
 
@@ -176,7 +177,15 @@ public class PlayerController : MonoBehaviour {
         }
 	}
 
-	public void setDouble()
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Breakable")
+        {
+			collision.gameObject.SetActive(false);
+        }
+    }
+
+    public void setDouble()
     {
 		controller.doubleJump = true;
     }
@@ -216,6 +225,10 @@ public class PlayerController : MonoBehaviour {
 		//Makes sure that white is set to active
 		controller.whiteStuff.SetActive(true);
 		controller.blackStuff.SetActive(false);
+
+		//Resets all breakable objects
+		foreach (Transform platform in breakables)
+			platform.gameObject.SetActive(true);
 
 		itemReset();
 
