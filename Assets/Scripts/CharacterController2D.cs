@@ -30,6 +30,7 @@ public class CharacterController2D : MonoBehaviour
 	public AudioClip[] jumpSFX;
 	public AudioClip deathSFX;
 	public float dashSpeed = 2f;
+	public bool _dashing = false;
 
 	[Header("WallJump")]
 	public float wallJumpTime = 0.2f;
@@ -148,6 +149,14 @@ public class CharacterController2D : MonoBehaviour
 			m_Rigidbody2D.AddForce(dashVector * dashSpeed, ForceMode2D.Impulse);
 		else
 			m_Rigidbody2D.AddForce(dashVector * temp, ForceMode2D.Impulse);
+
+		_dashing = true;
+		Invoke("resetDash", 0.4f);
+	}
+
+	void resetDash()
+    {
+		_dashing = false;
 	}
 
 	public void deadSFX()

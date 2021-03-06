@@ -42,9 +42,6 @@ public class PlayerController : MonoBehaviour {
 	public TextMeshProUGUI visDeathCounter;
 	public string levelPlayerPref;
 
-	[Header("Player Unlocks")]
-	public bool doubleJumpUnlock;
-
 	public Transform[] breakables;
 
 	//[Header("Audio")]
@@ -181,7 +178,8 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Breakable")
         {
-			collision.gameObject.SetActive(false);
+			if (controller._dashing)
+				collision.gameObject.SetActive(false);
         }
     }
 
