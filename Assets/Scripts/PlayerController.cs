@@ -172,6 +172,11 @@ public class PlayerController : MonoBehaviour {
 			}
 
         }
+
+		else if (collision.tag == "MovingPlatform")
+        {
+			this.transform.parent = collision.gameObject.transform;
+        }
 	}
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -181,7 +186,21 @@ public class PlayerController : MonoBehaviour {
 			if (controller._dashing)
 				collision.gameObject.SetActive(false);
         }
+
+		if (collision.gameObject.tag == "MovingPlatform")
+        {
+			this.transform.parent = collision.transform.parent;
+        }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+		if (collision.gameObject.tag == "MovingPlatform")
+		{
+			this.transform.parent = null;
+		}
+	}
+
 
     public void setDouble()
     {
