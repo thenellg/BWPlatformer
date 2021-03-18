@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour {
 	public SpriteRenderer background;
 	public TextMeshProUGUI visDeathCounter;
 	public string levelPlayerPref;
+	public GameObject pauseMenu;
+
 
 	public Transform[] breakables;
 
@@ -49,6 +51,8 @@ public class PlayerController : MonoBehaviour {
 	private void Awake()
     {
 		//Setting item refreshes and spawn point
+		pauseMenu.SetActive(false);
+
 		objects = items.GetComponentsInChildren<Transform>();
 		spawnPoint = this.transform.position;
     }
@@ -58,8 +62,19 @@ public class PlayerController : MonoBehaviour {
 		// This will be for an eventual pause menu we still need to build
 		if (Input.GetKeyDown("escape"))
         {
-			SceneManager.LoadScene("Level Menu");
-        }
+			//SceneManager.LoadScene("Level Menu");
+			if (pauseMenu.activeSelf == true)
+			{
+				pauseMenu.SetActive(false);
+				Time.timeScale = 1f;
+			}
+			else
+			{
+				pauseMenu.SetActive(true);
+				Time.timeScale = 0f;
+			}
+		
+		}
 
 		//Setting out death counter
 		visDeathCounter.text = deathCount.ToString();

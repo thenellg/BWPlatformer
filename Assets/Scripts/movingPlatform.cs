@@ -29,8 +29,4 @@ public class movingPlatform : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, movePosition, speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        collision.gameObject.transform.parent = this.transform;
-    }
 }
