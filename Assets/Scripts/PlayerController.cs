@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	public Transform[] breakables;
+	public Transform[] moveables;
 
 	//[Header("Audio")]
 
@@ -261,6 +262,9 @@ public class PlayerController : MonoBehaviour {
 		//Resets all breakable objects
 		foreach (Transform platform in breakables)
 			platform.gameObject.SetActive(true);
+
+		foreach (Transform box in moveables)
+			box.GetComponent<pushableObject>().moveBack();
 
 		itemReset();
 
