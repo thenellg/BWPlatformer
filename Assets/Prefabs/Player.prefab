@@ -299,12 +299,12 @@ SpriteRenderer:
   m_SortingLayerID: -2142694979
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 28f87e27105afd14b96dba3d4e3bfe24, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f68b4fa20b38a0c4183c5a8237ac9709, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 17, y: 17}
+  m_Size: {x: 17, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -344,6 +344,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d45a2b7337bcb6149974133f211afa6d, type: 3}
   deathSFX: {fileID: 8300000, guid: bad86e795ceeffe498f79da80c19a8ca, type: 3}
   dashSpeed: 8
+  _dashing: 0
   wallJumpTime: 0.05
   wallSlideSpeed: 0.3
   wallDistance: 0.7
@@ -366,6 +367,7 @@ MonoBehaviour:
   runSpeed: 40
   jump: 0
   dash: 0
+  crouch: 0
   colorA: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
   colorB: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   hasKey: 0
@@ -382,7 +384,9 @@ MonoBehaviour:
   background: {fileID: 0}
   visDeathCounter: {fileID: 0}
   levelPlayerPref: 
-  doubleJumpUnlock: 0
+  pauseMenu: {fileID: 0}
+  breakables: []
+  moveables: []
 --- !u!50 &2769096544467633920
 Rigidbody2D:
   serializedVersion: 4

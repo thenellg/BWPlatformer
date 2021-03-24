@@ -114,7 +114,7 @@ public class CharacterController2D : MonoBehaviour
 
 	}
 
-	void jump()
+	void playerJump()
     {
 		isWallSliding = false;
 
@@ -230,7 +230,7 @@ public class CharacterController2D : MonoBehaviour
 				PlayerAnim.SetTrigger("Jump");
 
 				jumpCounter++;
-				Invoke("jump", 0.1f);
+				playerJump();
 
 				int n = Random.Range(0, 2);
 				this.GetComponent<AudioSource>().PlayOneShot(jumpSFX[n]);
@@ -275,8 +275,6 @@ public class CharacterController2D : MonoBehaviour
 
 			if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
 			{
-				canDash = true;
-
 				isWallSliding = true;
 				jumpTime = Time.time + wallJumpTime;
 			}
@@ -373,8 +371,10 @@ public class CharacterController2D : MonoBehaviour
 	{
 		if (collision.gameObject.layer == 3)
 		{
-			jumpCounter = 0;
+ 			jumpCounter = 0;
 
+			//if(!m_Grounded && same wall)
+				//jumpCounter++;
 		}
 	}
 

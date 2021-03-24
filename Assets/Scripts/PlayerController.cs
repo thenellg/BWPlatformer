@@ -135,7 +135,9 @@ public class PlayerController : MonoBehaviour {
 				areDead = true;
 				canMove = false;
 				UIAnimation.SetTrigger("Died");
+				this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				Invoke("onDeath", 0.4f);
+				//onDeath();
 			}
 		}
 
