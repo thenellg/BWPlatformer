@@ -40,6 +40,8 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] int jumpCounter = 0;
 	RaycastHit2D wallCheckHit;
 	float jumpTime;
+	GameObject newCollision;
+	GameObject prevCollision;
 
 	private Animator PlayerAnim;
 	bool canMove = true;
@@ -106,6 +108,11 @@ public class CharacterController2D : MonoBehaviour
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
+				
+				jumpCounter = 0;
+				prevCollision = null;
+				newCollision = null;
+
 				coyoteTimer = 30;
 			}
 		}
@@ -149,6 +156,8 @@ public class CharacterController2D : MonoBehaviour
 			m_Rigidbody2D.AddForce(dashVector * dashSpeed, ForceMode2D.Impulse);
 		else
 			m_Rigidbody2D.AddForce(dashVector * temp, ForceMode2D.Impulse);
+
+		jumpCounter = 0;
 
 		_dashing = true;
 		Invoke("resetDash", 0.4f);
@@ -369,13 +378,23 @@ public class CharacterController2D : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
+
 		if (collision.gameObject.layer == 3)
 		{
  			jumpCounter = 0;
 
-			//if(!m_Grounded && same wall)
-				//jumpCounter++;
+			newCollision = collision.gameObject;
+			if(!m_Grounded && prevCollision != null && newCollision == prevCollision)
+				jumpCounter++;
 		}
 	}
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+		if (collision.gameObject.layer == 3)
+		{
+			prevCollision = newCollision;
+			newCollision = null;
+		}
+    }
 }
