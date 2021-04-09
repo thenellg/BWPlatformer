@@ -152,11 +152,20 @@ public class CharacterController2D : MonoBehaviour
 		m_Rigidbody2D.velocity = new Vector2(0, 0);
 		float temp = dashSpeed * 0.5f;
 
-		if (dashVector.y < 0.5f)
-			m_Rigidbody2D.AddForce(dashVector * dashSpeed, ForceMode2D.Impulse);
-		else
-			m_Rigidbody2D.AddForce(dashVector * temp, ForceMode2D.Impulse);
-
+		if (m_Rigidbody2D.gravityScale > 0)
+		{
+			if (dashVector.y < 0.5f)
+				m_Rigidbody2D.AddForce(dashVector * dashSpeed, ForceMode2D.Impulse);
+			else
+				m_Rigidbody2D.AddForce(dashVector * temp, ForceMode2D.Impulse);
+		}
+        else
+        {
+			if (dashVector.y > 0.5f)
+				m_Rigidbody2D.AddForce(dashVector * dashSpeed, ForceMode2D.Impulse);
+			else
+				m_Rigidbody2D.AddForce(dashVector * temp, ForceMode2D.Impulse);
+		}
 		jumpCounter = 0;
 
 		_dashing = true;
