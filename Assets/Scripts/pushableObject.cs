@@ -28,6 +28,7 @@ public class pushableObject : MonoBehaviour
         {
             transform.parent = collision.gameObject.transform.parent;
         }
+        _rb.velocity = Vector3.zero;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
