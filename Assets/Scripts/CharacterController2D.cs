@@ -24,9 +24,6 @@ public class CharacterController2D : MonoBehaviour
 	private PlayerController m_PlayerController;
 	public int coyoteTimer = 3;
 	public bool doubleJump = false;
-	public GameObject whiteStuff;
-	public GameObject blackStuff;
-	public float colorDelay = 0.2f;
 	public AudioClip[] jumpSFX;
 	public AudioClip deathSFX;
 	public float dashSpeed = 2f;
@@ -56,7 +53,7 @@ public class CharacterController2D : MonoBehaviour
 		PlayerAnim = this.GetComponent<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_PlayerController = GetComponent<PlayerController>();
-		blackStuff.SetActive(false);
+		this.GetComponent<colorSwap>().blackStuff.SetActive(false);
 	}
 
 	private void Update()
@@ -253,7 +250,7 @@ public class CharacterController2D : MonoBehaviour
 				int n = Random.Range(0, 2);
 				this.GetComponent<AudioSource>().PlayOneShot(jumpSFX[n]);
 
-				Invoke("swapColors", colorDelay);
+				Invoke("swapColors", this.GetComponent<colorSwap>().colorDelay);
 
 				//if (!doubleJump)
 				//	doubleJump = true;
@@ -331,16 +328,7 @@ public class CharacterController2D : MonoBehaviour
 
 	void swapColors()
 	{
-		if (whiteStuff.activeSelf)
-		{
-			whiteStuff.SetActive(false);
-			blackStuff.SetActive(true);
-		}
-		else
-		{
-			whiteStuff.SetActive(true);
-			blackStuff.SetActive(false);
-		}
+		this.GetComponent<colorSwap>().swapColors();
 	}
 
 	public void stopVelocity()

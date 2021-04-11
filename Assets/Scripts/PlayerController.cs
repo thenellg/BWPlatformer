@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//Adjusting objects to colors that don't auto adjust
-		if (controller.whiteStuff.activeSelf)
+		if (this.GetComponent<colorSwap>().whiteStuff.activeSelf)
 		{
 			visDeathCounter.color = colorB;
 			reset.color = colorA;
@@ -258,8 +258,8 @@ public class PlayerController : MonoBehaviour {
 			GameObject.FindGameObjectWithTag("LayerSwitch").GetComponent<layerSwitch>().resetLayers();
 
 		//Makes sure that white is set to active
-		controller.whiteStuff.SetActive(true);
-		controller.blackStuff.SetActive(false);
+		this.GetComponent<colorSwap>().whiteStuff.SetActive(true);
+		this.GetComponent<colorSwap>().whiteStuff.SetActive(false);
 
 		//Resets all breakable objects
 		foreach (Transform platform in breakables)

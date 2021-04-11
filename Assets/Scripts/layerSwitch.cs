@@ -119,8 +119,8 @@ public class layerSwitch : MonoBehaviour
             setUnactive(backLevel);
             setActive(backLevelItems);
 
-            controller.whiteStuff = mainLevelWhite;
-            controller.blackStuff = mainLevelBlack;
+            this.GetComponent<colorSwap>().whiteStuff = mainLevelWhite;
+            this.GetComponent<colorSwap>().blackStuff = mainLevelBlack;
 
             onMainLevel = false;
         }
@@ -132,8 +132,8 @@ public class layerSwitch : MonoBehaviour
             setUnactive(mainLevel);
             setActive(mainLevelItems);
 
-            controller.whiteStuff = backLevelWhite;
-            controller.blackStuff = backLevelBlack;
+            this.GetComponent<colorSwap>().whiteStuff = backLevelWhite;
+            this.GetComponent<colorSwap>().blackStuff = backLevelBlack;
 
             onMainLevel = true;
         }

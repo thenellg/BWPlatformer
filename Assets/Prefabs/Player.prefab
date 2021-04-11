@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 2769096544467633934}
   - component: {fileID: 2769096544467633923}
   - component: {fileID: 2769096544467633924}
+  - component: {fileID: 2109639344801607467}
   - component: {fileID: 2769096544467633920}
   - component: {fileID: 2769096544467633927}
   - component: {fileID: 2769096544467633922}
@@ -387,6 +388,18 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   breakables: []
   moveables: []
+--- !u!114 &2109639344801607467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2769096544467633935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073c72e6db4aa2c45b74bcc5b425110a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &2769096544467633920
 Rigidbody2D:
   serializedVersion: 4
