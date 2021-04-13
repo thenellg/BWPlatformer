@@ -163,6 +163,9 @@ public class CharacterController2D : MonoBehaviour
 			else
 				m_Rigidbody2D.AddForce(dashVector * temp, ForceMode2D.Impulse);
 		}
+		PlayerAnim.SetTrigger("Dash");
+		PlayerAnim.SetBool("dashing", true);
+
 		jumpCounter = 0;
 
 		_dashing = true;
@@ -172,6 +175,8 @@ public class CharacterController2D : MonoBehaviour
 	void resetDash()
     {
 		_dashing = false;
+		PlayerAnim.SetBool("dashing", false);
+
 	}
 
 	public void deadSFX()

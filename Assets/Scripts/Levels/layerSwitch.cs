@@ -119,8 +119,8 @@ public class layerSwitch : MonoBehaviour
             setUnactive(backLevel);
             setActive(backLevelItems);
 
-            this.GetComponent<colorSwap>().whiteStuff = mainLevelWhite;
-            this.GetComponent<colorSwap>().blackStuff = mainLevelBlack;
+            //this.GetComponent<colorSwap>().whiteStuff = mainLevelWhite;
+            //this.GetComponent<colorSwap>().blackStuff = mainLevelBlack;
 
             onMainLevel = false;
         }
@@ -132,8 +132,8 @@ public class layerSwitch : MonoBehaviour
             setUnactive(mainLevel);
             setActive(mainLevelItems);
 
-            this.GetComponent<colorSwap>().whiteStuff = backLevelWhite;
-            this.GetComponent<colorSwap>().blackStuff = backLevelBlack;
+           // this.GetComponent<colorSwap>().whiteStuff = backLevelWhite;
+           // this.GetComponent<colorSwap>().blackStuff = backLevelBlack;
 
             onMainLevel = true;
         }
@@ -142,15 +142,22 @@ public class layerSwitch : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //show prompt
+
         if (collision.tag == "Player")
-            changeable = true;
+        {
+            changeLevels();
+            collision.gameObject.GetComponent<colorSwap>().swapLayers();
+        }
+        //    changeable = true;
     }
 
+    /*
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "Player")
             changeable = true;
     }
+    */
 
     private void OnTriggerExit2D(Collider2D collision)
     {

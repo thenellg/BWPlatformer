@@ -153,12 +153,6 @@ public class PlayerController : MonoBehaviour {
 			_key.following = true;
         }
 
-		else if (collision.tag == "ReverseGrav")
-        {
-			controller.gravFlip();
-			collision.gameObject.SetActive(false);
-        }
-
 		else if (collision.tag == "DoubleJump")
         {
 			controller.doubleJump = true;

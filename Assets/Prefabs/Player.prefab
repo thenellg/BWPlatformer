@@ -279,7 +279,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6104a72856e95b04691a4b8f581a1a1e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -336,9 +336,6 @@ MonoBehaviour:
   m_Grounded: 0
   coyoteTimer: 30
   doubleJump: 0
-  whiteStuff: {fileID: 0}
-  blackStuff: {fileID: 0}
-  colorDelay: 0.2
   jumpSFX:
   - {fileID: 8300000, guid: cf651a3e8ccf6894bbe2981cb0281142, type: 3}
   - {fileID: 8300000, guid: 3c1a5724fb423c744a84e6fcf587d398, type: 3}
@@ -400,6 +397,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073c72e6db4aa2c45b74bcc5b425110a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whiteStuff: {fileID: 0}
+  blackStuff: {fileID: 0}
+  colorDelay: 0.2
+  whiteMoving: {fileID: 0}
+  blackMoving: {fileID: 0}
+  backPieces:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!50 &2769096544467633920
 Rigidbody2D:
   serializedVersion: 4
