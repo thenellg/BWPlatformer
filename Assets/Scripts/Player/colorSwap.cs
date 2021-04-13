@@ -32,13 +32,13 @@ public class colorSwap : MonoBehaviour
 
     void swapMoving(Transform layer)
     {
-        Debug.Log("testA");
+        //Debug.Log("testA");
 
         foreach (Transform child in layer)
         {
             foreach (Transform subchild in child)
             {
-                Debug.Log("test");
+                //Debug.Log("test");
                 if (subchild.gameObject.activeSelf == true)
                 {
                     subchild.gameObject.SetActive(false);

@@ -43,5 +43,7 @@ public class pushableObject : MonoBehaviour
             transform.parent = normalState.transform.parent;
             _rb.velocity = Vector3.zero;
         }
+        _rb.velocity = Vector3.zero;
+
     }
 }

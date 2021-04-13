@@ -15,6 +15,7 @@ TagManager:
   - LayerSwitch
   - Breakable
   - MovingPlatform
+  - SlideNoMove
   layers:
   - Default
   - TransparentFX
