@@ -2606,32 +2606,32 @@ PrefabInstance:
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: colorA.b
-      value: 0.9019608
+      value: 0.86651444
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: colorA.g
-      value: 0.9019608
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: colorA.r
-      value: 0.9019608
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: colorB.b
-      value: 0.09803922
+      value: 0.7836895
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: colorB.g
-      value: 0.09803922
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: colorB.r
-      value: 0.09803922
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
@@ -4554,6 +4554,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2119558170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119558172}
+  - component: {fileID: 2119558171}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2119558171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119558170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d55d68f8d881a48b223e0a5b3e10ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorChange: {fileID: 2100000, guid: 6104a72856e95b04691a4b8f581a1a1e, type: 2}
+  colorOptions:
+  - index: 0
+    colorA: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
+    colorB: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  chosenColor: 0
+  downSmashUnlock: 0
+--- !u!4 &2119558172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119558170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 52.347473, y: 84.96218, z: -111.67899}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2146636089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4756,5 +4806,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Layer Swap
       objectReference: {fileID: 0}
+    - target: {fileID: 3638321420527951011, guid: 1a901d6a2a855a94086ba63568ebac01,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a901d6a2a855a94086ba63568ebac01, type: 3}

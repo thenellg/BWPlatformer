@@ -51,6 +51,9 @@ public class PlayerController : MonoBehaviour {
 
 	private void Awake()
     {
+		//GetComponent<SpriteRenderer>().material.SetColor("Color_58b6362338eb49a389b0ee3dd2199e6d", colorA);
+		//GetComponent<SpriteRenderer>().material.SetColor("Color_51d760d7e6674a1fb00f2d86a2b06abc", colorB);
+
 		//Setting item refreshes and spawn point
 		pauseMenu.SetActive(false);
 
