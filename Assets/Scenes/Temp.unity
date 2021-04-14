@@ -3235,7 +3235,7 @@ PrefabInstance:
     - target: {fileID: 8360220912315307305, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8360220912315307305, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
@@ -3556,8 +3556,8 @@ Transform:
   - {fileID: 2013293869}
   - {fileID: 121583960}
   - {fileID: 899895730}
-  - {fileID: 633823115}
   - {fileID: 2146636090}
+  - {fileID: 633823115}
   m_Father: {fileID: 1761890630}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

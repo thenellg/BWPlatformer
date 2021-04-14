@@ -5940,7 +5940,7 @@ Transform:
   - {fileID: 949488156}
   - {fileID: 848595000}
   m_Father: {fileID: 1379528409}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &410564326 stripped
 Transform:
@@ -7084,7 +7084,7 @@ GameObject:
   - component: {fileID: 514035972}
   m_Layer: 0
   m_Name: Moving Platform (7)
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7249,6 +7249,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlatformA
+      objectReference: {fileID: 0}
+    - target: {fileID: 8360220912315307305, guid: 4d75d6dce2599a44f8c6d61f9f846055,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8360220912315307305, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
@@ -10346,7 +10351,7 @@ GameObject:
   - component: {fileID: 734810979}
   m_Layer: 0
   m_Name: Moving Platform (3)
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11457,7 +11462,7 @@ GameObject:
   - component: {fileID: 813510406}
   m_Layer: 0
   m_Name: Moving Platform (2)
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11863,7 +11868,7 @@ GameObject:
   - component: {fileID: 848595001}
   m_Layer: 0
   m_Name: Moving Platform (6)
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13698,6 +13703,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8360220912315307305, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8360220912315307305, guid: 4d75d6dce2599a44f8c6d61f9f846055,
+        type: 3}
       propertyPath: m_TagString
       value: MovingPlatform
       objectReference: {fileID: 0}
@@ -14126,7 +14136,7 @@ GameObject:
   - component: {fileID: 949488157}
   m_Layer: 0
   m_Name: Moving Platform (4)
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16083,6 +16093,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8360220912315307305, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8360220912315307305, guid: 4d75d6dce2599a44f8c6d61f9f846055,
+        type: 3}
       propertyPath: m_TagString
       value: MovingPlatform
       objectReference: {fileID: 0}
@@ -16535,7 +16550,7 @@ GameObject:
   - component: {fileID: 1108836915}
   m_Layer: 0
   m_Name: Moving Platform
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16901,7 +16916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126084278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.38482, y: -6.8792934, z: -94.53631}
+  m_LocalPosition: {x: 46.33518, y: 83.35071, z: -94.53631}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1246975051}
@@ -18162,7 +18177,7 @@ Transform:
   - {fileID: 514035971}
   - {fileID: 734810978}
   m_Father: {fileID: 1379528409}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1226474072
 PrefabInstance:
@@ -20679,8 +20694,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1217545366}
   - {fileID: 410308467}
+  - {fileID: 1217545366}
   m_Father: {fileID: 1323443616}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22510,7 +22525,7 @@ GameObject:
   - component: {fileID: 1526659860}
   m_Layer: 0
   m_Name: Moving Platform (5)
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29101,6 +29116,26 @@ PrefabInstance:
       propertyPath: whiteMoving
       value: 
       objectReference: {fileID: 1217545365}
+    - target: {fileID: 2109639344801607467, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
+      propertyPath: backPieces.Array.data[0]
+      value: 
+      objectReference: {fileID: 1392917883}
+    - target: {fileID: 2109639344801607467, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
+      propertyPath: backPieces.Array.data[1]
+      value: 
+      objectReference: {fileID: 487135104}
+    - target: {fileID: 2109639344801607467, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
+      propertyPath: backPieces.Array.data[2]
+      value: 
+      objectReference: {fileID: 1148215034}
+    - target: {fileID: 2109639344801607467, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
+      propertyPath: backPieces.Array.data[3]
+      value: 
+      objectReference: {fileID: 321358816}
     - target: {fileID: 2769096544467633920, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: m_AngularDrag
@@ -29114,12 +29149,12 @@ PrefabInstance:
     - target: {fileID: 2769096544467633921, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.3
+      value: 54.42
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633921, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.7
+      value: 88.53
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633921, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
@@ -29643,7 +29678,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080847627}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.3, y: -1.7, z: -100}
+  m_LocalPosition: {x: 54.42, y: 88.53, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

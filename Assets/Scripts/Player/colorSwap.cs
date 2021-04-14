@@ -13,6 +13,13 @@ public class colorSwap : MonoBehaviour
 
     public GameObject[] backPieces = new GameObject[4];
 
+    private void Start()
+    {
+        swapMoving(blackMoving.transform);
+        swapMoving(backPieces[3].transform);
+
+    }
+
     public void swapColors()
     {
         if (whiteStuff.activeSelf)
