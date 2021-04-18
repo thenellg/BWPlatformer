@@ -253,6 +253,8 @@ public class PlayerController : MonoBehaviour {
 		//if layer switch exists, reset it
 		if (GameObject.FindGameObjectWithTag("LayerSwitch"))
 			GameObject.FindGameObjectWithTag("LayerSwitch").GetComponent<layerSwitch>().resetLayers();
+		if (this.GetComponent<colorSwap>().onBack)
+			this.GetComponent<colorSwap>().swapLayers();
 
 		//Makes sure that white is set to active
 		this.GetComponent<colorSwap>().whiteStuff.SetActive(true);
