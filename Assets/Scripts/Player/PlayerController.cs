@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
 	public bool jump = false;
 	public bool dash = false;
 	public bool crouch = false;
+	public bool downwardDash = false;
 
 	public Color colorA = new Color32(230, 230, 230, 255);
 	public Color colorB = new Color32(25, 25, 25, 255);
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour {
 
 	public Transform[] breakables;
 	public Transform[] moveables;
+	public Transform[] hanging;
 
 	//[Header("Audio")]
 
@@ -263,6 +265,14 @@ public class PlayerController : MonoBehaviour {
 		//Resets all breakable objects
 		foreach (Transform platform in breakables)
 			platform.gameObject.SetActive(true);
+
+		//resets hanging boxes
+		downwardDash = false;
+		foreach (Transform box in hanging)
+		{
+			box.GetComponent<pushableObject>().moveBack();
+			box.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+		}
 
 		foreach (Transform box in moveables)
 			box.GetComponent<pushableObject>().moveBack();

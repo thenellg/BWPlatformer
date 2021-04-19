@@ -155,6 +155,9 @@ public class CharacterController2D : MonoBehaviour
 				m_Rigidbody2D.AddForce(dashVector * dashSpeed, ForceMode2D.Impulse);
 			else
 				m_Rigidbody2D.AddForce(dashVector * temp, ForceMode2D.Impulse);
+
+			if (dashVector.x < 0.5 && dashVector.y < 0)
+				m_PlayerController.downwardDash = true;
 		}
         else
         {
@@ -162,6 +165,9 @@ public class CharacterController2D : MonoBehaviour
 				m_Rigidbody2D.AddForce(dashVector * dashSpeed, ForceMode2D.Impulse);
 			else
 				m_Rigidbody2D.AddForce(dashVector * temp, ForceMode2D.Impulse);
+
+			if (dashVector.x < 0.5 && dashVector.y > 0)
+				m_PlayerController.downwardDash = true;
 		}
 		PlayerAnim.SetTrigger("Dash");
 		PlayerAnim.SetBool("dashing", true);
@@ -175,6 +181,7 @@ public class CharacterController2D : MonoBehaviour
 	void resetDash()
     {
 		_dashing = false;
+		m_PlayerController.downwardDash = false;
 		PlayerAnim.SetBool("dashing", false);
 
 	}
