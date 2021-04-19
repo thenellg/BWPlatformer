@@ -44,6 +44,21 @@ public class colorSwap : MonoBehaviour
 
         foreach (Transform child in layer)
         {
+            if (child.gameObject.GetComponent<pushableObject>())
+            {
+                if (child.gameObject.GetComponent<SpriteRenderer>().enabled)
+                {
+                    //child.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                    Physics2D.IgnoreCollision(child.gameObject.GetComponent<BoxCollider2D>(), this.GetComponent<CapsuleCollider2D>(), true);
+                    child.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                }
+                else
+                {
+                    Physics2D.IgnoreCollision(child.gameObject.GetComponent<BoxCollider2D>(), this.GetComponent<CapsuleCollider2D>(), false);
+                    child.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                }
+            }
+
             foreach (Transform subchild in child)
             {
                 //Debug.Log("test");
