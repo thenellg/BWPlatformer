@@ -42,7 +42,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private Animator PlayerAnim;
 	bool canMove = true;
-	bool canDash = true;
+	[SerializeField] bool canDash = true;
 	[SerializeField] private Vector2 dashVector;
 	float shakeTimer = 0;
 	bool crouching = false;
@@ -149,6 +149,8 @@ public class CharacterController2D : MonoBehaviour
 		m_Rigidbody2D.velocity = new Vector2(0, 0);
 		float temp = dashSpeed * 0.5f;
 
+		PlayerAnim.SetTrigger("Dash");
+		PlayerAnim.SetBool("dashing", true);
 		if (m_Rigidbody2D.gravityScale > 0)
 		{
 			if (dashVector.y < 0.5f)
@@ -169,12 +171,11 @@ public class CharacterController2D : MonoBehaviour
 			if (dashVector.x < 0.5 && dashVector.y > 0)
 				m_PlayerController.downwardDash = true;
 		}
-		PlayerAnim.SetTrigger("Dash");
-		PlayerAnim.SetBool("dashing", true);
 
 		jumpCounter = 0;
 
 		_dashing = true;
+		canDash = false;
 		Invoke("resetDash", 0.4f);
 	}
 
@@ -213,6 +214,7 @@ public class CharacterController2D : MonoBehaviour
 			}
 			else if (m_Grounded && !crouch)
 			{
+				canDash = true;
 				crouching = false;
 				PlayerAnim.SetBool("crouching", false);
 				PlayerAnim.SetBool("isWalking", false);
@@ -323,17 +325,14 @@ public class CharacterController2D : MonoBehaviour
 				}
 			}
 
-			if (m_Grounded)
-				canDash = true;
+			//if (m_Grounded)
+			//	canDash = true;
 
-            if (dash && canDash && !wallCheckHit)
+
+			if (dash && canDash && !wallCheckHit)
             {
 				dashing();
-
-                if (!m_Grounded)
-                {
-					canDash = false;
-                }
+				canDash = false;
             }
 		}
 	}

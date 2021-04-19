@@ -8,6 +8,7 @@ public class pushableObject : MonoBehaviour
     public GameObject normalState;
     public Vector3 initialSpot;
     public bool hanging;
+    public bool frozen = true;
 
     private void Start()
     {
@@ -37,14 +38,18 @@ public class pushableObject : MonoBehaviour
             {
                 Debug.Log("down strike");
                 this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-                //this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -5), ForceMode2D.Impulse);
+                frozen = false;
             }
         }
+
+        _rb.velocity = Vector3.zero;
+
     }
 
     void detach(GameObject player)
     {
         this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        frozen = false;
     }
 
     private void OnCollisionExit2D(Collision2D collision)

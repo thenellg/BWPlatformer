@@ -155,7 +155,8 @@ public class PlayerController : MonoBehaviour {
 		else if (collision.tag == "Key")
         {
 			hasKey = true;
-			_key.following = true;
+			collision.gameObject.transform.parent = transform;
+			collision.gameObject.GetComponent<key>().following = true;
         }
 
 		else if (collision.tag == "DoubleJump")
@@ -163,20 +164,6 @@ public class PlayerController : MonoBehaviour {
 			controller.doubleJump = true;
 			collision.gameObject.SetActive(false);
         }
-
-		else if (collision.tag == "Door")
-        {
-			if (!hasKey)
-				collision.gameObject.GetComponent<Door>().locked();
-			else {
-				_key.speed = 8;
-				PlayerPrefs.SetInt(levelPlayerPref, 1);
-				canMove = false;
-				transform.position = collision.transform.position;
-				controller.stopVelocity();
-				_key.followSpot = collision.transform;
-			}
-		}
 
 		else if (collision.tag == "Checkpoint")
         {
@@ -208,7 +195,19 @@ public class PlayerController : MonoBehaviour {
         {
 			this.transform.parent = collision.transform.parent;
         }
-    }
+
+		if (collision.gameObject.tag == "Door")
+		{
+			if (!hasKey)
+				collision.gameObject.GetComponent<Door>().locked();
+			else
+			{
+				this.GetComponentInChildren<key>().speed = 8;
+				controller.stopVelocity();
+				this.GetComponentInChildren<key>().followSpot = collision.transform;
+			}
+		}
+	}
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -249,8 +248,11 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//Resets key if needed
-		_key.resetKey();
-		hasKey = false;
+		if (this.GetComponentInChildren<key>())
+		{
+			this.GetComponentInChildren<key>().resetKey();
+			hasKey = false;
+		}
 
 		//if layer switch exists, reset it
 		if (GameObject.FindGameObjectWithTag("LayerSwitch"))
@@ -272,6 +274,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			box.GetComponent<pushableObject>().moveBack();
 			box.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+			box.GetComponent<pushableObject>().frozen = true;
 		}
 
 		foreach (Transform box in moveables)

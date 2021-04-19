@@ -14,6 +14,7 @@ public class key : MonoBehaviour
     bool end = true;
 
     private Animator keyAnim;
+    bool inPosition = false;
 
     private void Start()
     {
@@ -27,6 +28,13 @@ public class key : MonoBehaviour
     {
         if (following && Vector2.Distance(transform.position, followSpot.position) > 0)
             transform.position = Vector2.MoveTowards(transform.position, followSpot.position, speed * Time.deltaTime);
+        
+        if (inPosition)
+        {
+            Color temp = this.GetComponent<SpriteRenderer>().color;
+            temp.a = temp.a - 0.1f;
+            this.GetComponent<SpriteRenderer>().color = temp;
+        }
     }
 
     private void FixedUpdate()
@@ -34,6 +42,7 @@ public class key : MonoBehaviour
         if (transform.position == GameObject.FindGameObjectWithTag("Door").transform.position && end)
         {
             keyAnim.SetTrigger("Fade");
+            inPosition = true;
             GameObject.FindGameObjectWithTag("Door").GetComponent<Door>().unlocked();
             Invoke("boom", 1.35f);
             end = false;
@@ -42,7 +51,7 @@ public class key : MonoBehaviour
 
     void boom()
     {
-        player.endLevel();
+        //player.endLevel();
         this.gameObject.SetActive(false);
     }
 
@@ -57,5 +66,6 @@ public class key : MonoBehaviour
         this.transform.position = originSpot;
         this.transform.parent = parent;
         following = false;
+        inPosition = false;
     }
 }
