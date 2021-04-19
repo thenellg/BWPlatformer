@@ -29,11 +29,11 @@ public class playerSettings : MonoBehaviour
     {
         if (colorOptions[chosenColor] != null)
         {
-            colorChange.SetColor("Color_58b6362338eb49a389b0ee3dd2199e6d", colorOptions[chosenColor].colorA);
-            colorChange.SetColor("Color_51d760d7e6674a1fb00f2d86a2b06abc", colorOptions[chosenColor].colorB);
+            colorChange.SetColor("Color1", colorOptions[chosenColor].colorA);
+            colorChange.SetColor("Color2", colorOptions[chosenColor].colorB);
 
-            GameObject.Find("Player").GetComponent<PlayerController>().colorA = colorOptions[chosenColor].colorA;
-            GameObject.Find("Player").GetComponent<PlayerController>().colorB = colorOptions[chosenColor].colorB;
+            GameObject.Find("Player").GetComponent<PlayerController>().colorA = new Color(colorOptions[chosenColor].colorA.r, colorOptions[chosenColor].colorA.g, colorOptions[chosenColor].colorA.b);
+            GameObject.Find("Player").GetComponent<PlayerController>().colorB = new Color(colorOptions[chosenColor].colorB.r, colorOptions[chosenColor].colorB.g, colorOptions[chosenColor].colorB.b);
         }
     }
 }

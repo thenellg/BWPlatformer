@@ -61,3 +61,4 @@ crashlytics-build.properties
 # Art Asset Working Files
 *.clip
 
+UserSettings/EditorUserSettings.asset

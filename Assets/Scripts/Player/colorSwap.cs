@@ -7,6 +7,7 @@ public class colorSwap : MonoBehaviour
     public GameObject whiteStuff;
     public GameObject blackStuff;
     public float colorDelay = 0.2f;
+    public bool onBack = false;
 
     public GameObject whiteMoving;
     public GameObject blackMoving;
@@ -76,5 +77,6 @@ public class colorSwap : MonoBehaviour
             backPieces[i] = temp[i];
         }
 
+        onBack = !onBack;
     }
 }

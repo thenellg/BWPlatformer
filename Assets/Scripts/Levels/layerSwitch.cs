@@ -30,28 +30,6 @@ public class layerSwitch : MonoBehaviour
         controller = FindObjectOfType<CharacterController2D>();
     }
 
-    private void Update()
-    {
-        if (changeable)
-        {
-            //adjust to hold the button down
-            if (Input.GetButton("Interact"))
-            {
-                if (changeTimer <= 0)
-                {
-                    changeLevels();
-                    changeTimer = 3f;
-                }
-                else
-                    changeTimer -= Time.deltaTime;
-            }
-            if (Input.GetButtonUp("Interact"))
-            {
-                changeTimer = 1f;
-            }
-        }
-    }
-
     public void resetLayers()
     {
         setActive(mainLevel);
@@ -122,7 +100,7 @@ public class layerSwitch : MonoBehaviour
             //this.GetComponent<colorSwap>().whiteStuff = mainLevelWhite;
             //this.GetComponent<colorSwap>().blackStuff = mainLevelBlack;
 
-            onMainLevel = false;
+            onMainLevel = true;
         }
         else
         {
@@ -135,7 +113,7 @@ public class layerSwitch : MonoBehaviour
            // this.GetComponent<colorSwap>().whiteStuff = backLevelWhite;
            // this.GetComponent<colorSwap>().blackStuff = backLevelBlack;
 
-            onMainLevel = true;
+            onMainLevel = false;
         }
     }
 
@@ -151,18 +129,4 @@ public class layerSwitch : MonoBehaviour
         //    changeable = true;
     }
 
-    /*
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-            changeable = true;
-    }
-    */
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        //hide prompt
-        if (collision.tag == "Player")
-            changeable = false;
-    }
 }
