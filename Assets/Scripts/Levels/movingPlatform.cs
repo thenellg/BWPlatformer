@@ -10,23 +10,35 @@ public class movingPlatform : MonoBehaviour
     public Vector3 positionB;
     public float speed = 1f;
 
+    Vector3 movePosition;
+
+    private void Start()
+    {
+        movePosition = positionB;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        Vector3 movePosition;
+        //Vector3 movePosition;
 
-        if (moving)
+        if (transform.localPosition == positionA)
+        {
             movePosition = positionB;
-        else
-            movePosition = positionA;
-
-
-        if (transform.position == positionB)
             moving = false;
-        else if (transform.position == positionA)
+        }
+        else if (transform.localPosition == positionB)
+        {
+            movePosition = positionA;
             moving = true;
+        }
 
-        transform.position = Vector2.MoveTowards(transform.position, movePosition, speed * Time.deltaTime);
+        transform.localPosition = Vector2.MoveTowards(transform.localPosition, movePosition, speed * Time.deltaTime);
+
+        if (Input.GetKey("o"))
+        {
+            Debug.Log(transform.localPosition);
+        }
     }
 
 }

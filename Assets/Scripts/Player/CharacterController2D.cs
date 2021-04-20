@@ -16,7 +16,7 @@ public class CharacterController2D : MonoBehaviour
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	public bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
-	private Rigidbody2D m_Rigidbody2D;
+	public Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 velocity = Vector3.zero;
 
@@ -26,8 +26,9 @@ public class CharacterController2D : MonoBehaviour
 	public bool doubleJump = false;
 	public AudioClip[] jumpSFX;
 	public AudioClip deathSFX;
-	public float dashSpeed = 2f;
+	public float dashSpeed = 1.2f;
 	public bool _dashing = false;
+	public bool canDash = true;
 
 	[Header("WallJump")]
 	public float wallJumpTime = 0.2f;
@@ -42,7 +43,6 @@ public class CharacterController2D : MonoBehaviour
 
 	private Animator PlayerAnim;
 	bool canMove = true;
-	[SerializeField] bool canDash = true;
 	[SerializeField] private Vector2 dashVector;
 	float shakeTimer = 0;
 	bool crouching = false;
@@ -105,6 +105,7 @@ public class CharacterController2D : MonoBehaviour
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
+				canDash = true;
 				
 				jumpCounter = 0;
 				prevCollision = null;
@@ -140,6 +141,8 @@ public class CharacterController2D : MonoBehaviour
 
 	void dashing()
     {
+		canDash = false;
+		
 		//screen shake
 		CinemachineVirtualCamera vcam = Camera.main.gameObject.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
 		CinemachineBasicMultiChannelPerlin shake = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -214,7 +217,6 @@ public class CharacterController2D : MonoBehaviour
 			}
 			else if (m_Grounded && !crouch)
 			{
-				canDash = true;
 				crouching = false;
 				PlayerAnim.SetBool("crouching", false);
 				PlayerAnim.SetBool("isWalking", false);
@@ -325,9 +327,10 @@ public class CharacterController2D : MonoBehaviour
 				}
 			}
 
-			//if (m_Grounded)
-			//	canDash = true;
-
+			if (m_Grounded && !_dashing)
+				canDash = true;
+			else if (_dashing)
+				canDash = false;
 
 			if (dash && canDash && !wallCheckHit)
             {

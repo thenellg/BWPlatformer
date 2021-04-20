@@ -34,9 +34,11 @@ public class layerSwitch : MonoBehaviour
     {
         setActive(mainLevel);
         setActive(mainLevelItems);
+        mainLevel.transform.localScale = new Vector3(1f, 1f, 1f);
 
         setUnactive(backLevel);
         setUnactive(backLevelItems);
+        backLevel.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
     void setActive(GameObject setting)
@@ -54,7 +56,16 @@ public class layerSwitch : MonoBehaviour
 
         foreach (BoxCollider2D collider in platforms)
         {
-            collider.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            if (collider.gameObject.tag == "Spring")
+            {
+                BoxCollider2D[] springs = collider.gameObject.GetComponents<BoxCollider2D>();
+                foreach (BoxCollider2D spring in springs)
+                    spring.enabled = true;
+            }
+            else
+            {
+                collider.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            }
         }
 
         foreach (EdgeCollider2D edge in edges)
@@ -69,6 +80,8 @@ public class layerSwitch : MonoBehaviour
             else
                 rb.constraints = RigidbodyConstraints2D.None;
         }
+
+        setting.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     void setUnactive(GameObject remove)
@@ -87,7 +100,16 @@ public class layerSwitch : MonoBehaviour
 
         foreach (BoxCollider2D collider in platforms)
         {
-            collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            if (collider.gameObject.tag == "Spring")
+            {
+                BoxCollider2D[] springs = collider.gameObject.GetComponents<BoxCollider2D>();
+                foreach (BoxCollider2D spring in springs)
+                    spring.enabled = false;
+            }
+            else
+            {
+                collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            }
         }
 
         foreach (EdgeCollider2D edge in edges)
@@ -99,6 +121,8 @@ public class layerSwitch : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
+
+        remove.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
     private void changeLevels(GameObject player)

@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform[] breakables;
 	public Transform[] moveables;
 	public Transform[] hanging;
+	public SpriteRenderer[] rips;
 
 	//[Header("Audio")]
 
@@ -111,12 +112,17 @@ public class PlayerController : MonoBehaviour {
 			visDeathCounter.color = colorB;
 			reset.color = colorA;
 			background.color = colorA;
+			
+			foreach(SpriteRenderer rip in rips)
+				rip.color = colorA;
 		}
 		else
 		{
 			visDeathCounter.color = colorA;
 			reset.color = colorB;
 			background.color = colorB;
+			foreach (SpriteRenderer rip in rips)
+				rip.color = colorB;
 		}
 	}
 
@@ -176,6 +182,12 @@ public class PlayerController : MonoBehaviour {
 			}
 
         }
+
+		else if (collision.tag == "Spring")
+		{
+			controller.m_Rigidbody2D.AddForce(new Vector2(0f, 5f), ForceMode2D.Impulse);
+			controller.canDash = true;
+		}
 
 		else if (collision.tag == "MovingPlatform")
         {

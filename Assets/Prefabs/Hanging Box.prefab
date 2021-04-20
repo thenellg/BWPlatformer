@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8519807308178012842}
   m_Layer: 3
   m_Name: Hanging Box
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 160184803935990803}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 22.16, y: 2.3013, z: 12.57543}
-  m_LocalScale: {x: 0.14225017, y: 0.6747665, z: 0.061876796}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: -2142694979
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f9e06306ba5ab33489c7223a5c987677, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e99bb36e678aa624d9139901ae80406d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 24, y: 17.003906}
+  m_Size: {x: 24, y: 24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -98,18 +98,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.3134594, y: 1.0808928}
+  m_Offset: {x: 0.057538033, y: -0.0002309084}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 24, y: 17.003906}
-    newSize: {x: 24, y: 17.003906}
+    oldSize: {x: 24, y: 24}
+    newSize: {x: 24, y: 24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18.6921, y: 4.4832053}
+  m_Size: {x: 3.0282078, y: 3.2819564}
   m_EdgeRadius: 0
 --- !u!50 &8519807308178012837
 Rigidbody2D:
@@ -123,7 +123,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 8.043647
+  m_Mass: 9.938446
   m_LinearDrag: 0
   m_AngularDrag: 0.02
   m_GravityScale: 3
@@ -147,3 +147,4 @@ MonoBehaviour:
   normalState: {fileID: 0}
   initialSpot: {x: 0, y: 0, z: 0}
   hanging: 1
+  frozen: 1
