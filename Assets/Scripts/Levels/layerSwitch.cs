@@ -34,9 +34,11 @@ public class layerSwitch : MonoBehaviour
     {
         setActive(mainLevel);
         setActive(mainLevelItems);
+        mainLevel.transform.localScale = new Vector3(1f, 1f, 1f);
 
         setUnactive(backLevel);
-        setActive(backLevelItems);
+        setUnactive(backLevelItems);
+        backLevel.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
     void setActive(GameObject setting)
@@ -44,7 +46,7 @@ public class layerSwitch : MonoBehaviour
         BoxCollider2D[] platforms = setting.GetComponentsInChildren<BoxCollider2D>();
         SpriteRenderer[] renders = setting.GetComponentsInChildren<SpriteRenderer>();
         EdgeCollider2D[] edges = setting.GetComponentsInChildren<EdgeCollider2D>();
-
+        Rigidbody2D[] _rbs = setting.GetComponentsInChildren<Rigidbody2D>();
         colorReplace.a = 1;
 
         foreach (SpriteRenderer render in renders)
@@ -54,13 +56,32 @@ public class layerSwitch : MonoBehaviour
 
         foreach (BoxCollider2D collider in platforms)
         {
-            collider.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            if (collider.gameObject.tag == "Spring")
+            {
+                BoxCollider2D[] springs = collider.gameObject.GetComponents<BoxCollider2D>();
+                foreach (BoxCollider2D spring in springs)
+                    spring.enabled = true;
+            }
+            else
+            {
+                collider.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            }
         }
 
         foreach (EdgeCollider2D edge in edges)
         {
             edge.gameObject.GetComponent<EdgeCollider2D>().enabled = true;
         }
+
+        foreach (Rigidbody2D rb in _rbs)
+        {
+            if (rb.gameObject.GetComponent<pushableObject>() && rb.gameObject.GetComponent<pushableObject>().hanging && rb.gameObject.GetComponent<pushableObject>().frozen)
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            else
+                rb.constraints = RigidbodyConstraints2D.None;
+        }
+
+        setting.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     void setUnactive(GameObject remove)
@@ -68,6 +89,7 @@ public class layerSwitch : MonoBehaviour
         BoxCollider2D[] platforms = remove.GetComponentsInChildren<BoxCollider2D>();
         SpriteRenderer[] renders = remove.GetComponentsInChildren<SpriteRenderer>();
         EdgeCollider2D[] edges = remove.GetComponentsInChildren<EdgeCollider2D>();
+        Rigidbody2D[] _rbs = remove.GetComponentsInChildren<Rigidbody2D>();
 
         colorReplace.a = 0.15f;
 
@@ -78,24 +100,40 @@ public class layerSwitch : MonoBehaviour
 
         foreach (BoxCollider2D collider in platforms)
         {
-            collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            if (collider.gameObject.tag == "Spring")
+            {
+                BoxCollider2D[] springs = collider.gameObject.GetComponents<BoxCollider2D>();
+                foreach (BoxCollider2D spring in springs)
+                    spring.enabled = false;
+            }
+            else
+            {
+                collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            }
         }
 
         foreach (EdgeCollider2D edge in edges)
         {
             edge.gameObject.GetComponent<EdgeCollider2D>().enabled = false;
         }
+
+        foreach (Rigidbody2D rb in _rbs)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
+        remove.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
-    private void changeLevels()
+    private void changeLevels(GameObject player)
     {
-        if (onMainLevel)
+        if (!onMainLevel)
         {
             setActive(mainLevel);
             setActive(mainLevelItems);
 
             setUnactive(backLevel);
-            setActive(backLevelItems);
+            setUnactive(backLevelItems);
 
             //this.GetComponent<colorSwap>().whiteStuff = mainLevelWhite;
             //this.GetComponent<colorSwap>().blackStuff = mainLevelBlack;
@@ -108,13 +146,14 @@ public class layerSwitch : MonoBehaviour
             setActive(backLevelItems);
 
             setUnactive(mainLevel);
-            setActive(mainLevelItems);
+            setUnactive(mainLevelItems);
 
-           // this.GetComponent<colorSwap>().whiteStuff = backLevelWhite;
-           // this.GetComponent<colorSwap>().blackStuff = backLevelBlack;
+            // this.GetComponent<colorSwap>().whiteStuff = backLevelWhite;
+            // this.GetComponent<colorSwap>().blackStuff = backLevelBlack;
 
             onMainLevel = false;
         }
+        player.GetComponent<colorSwap>().swapLayers();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -123,8 +162,7 @@ public class layerSwitch : MonoBehaviour
 
         if (collision.tag == "Player")
         {
-            changeLevels();
-            collision.gameObject.GetComponent<colorSwap>().swapLayers();
+            changeLevels(collision.gameObject);
         }
         //    changeable = true;
     }

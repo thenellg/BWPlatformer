@@ -16,6 +16,8 @@ TagManager:
   - Breakable
   - MovingPlatform
   - SlideNoMove
+  - Spring
+  - Box
   layers:
   - Default
   - TransparentFX

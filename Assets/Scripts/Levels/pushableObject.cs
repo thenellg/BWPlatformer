@@ -8,11 +8,13 @@ public class pushableObject : MonoBehaviour
     public GameObject normalState;
     public Vector3 initialSpot;
     public bool hanging;
+    public bool frozen = true;
 
     private void Start()
     {
         _rb = this.GetComponent<Rigidbody2D>();
         initialSpot = transform.position;
+        normalState = transform.parent.gameObject;
     }
 
     public void moveBack()
@@ -31,21 +33,33 @@ public class pushableObject : MonoBehaviour
         }
         _rb.velocity = Vector3.zero;
 
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && hanging && collision.gameObject.GetComponent<PlayerController>().downwardDash == true)
         {
-            if (hanging && collision.gameObject.GetComponent<PlayerController>().downwardDash == true)
+            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            frozen = false;
+        }
+
+        if (collision.gameObject.tag == "Box")
+        {
+            Debug.Log("box on box");
+            if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
             {
-                Debug.Log("down strike");
-                this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-                //this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -5), ForceMode2D.Impulse);
+                collision.gameObject.GetComponent<pushableObject>().transform.parent = this.transform;
+                _rb.velocity = Vector3.zero;
+                //collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero
             }
         }
+
+        _rb.velocity = Vector3.zero;
+
     }
 
     void detach(GameObject player)
     {
         this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        frozen = false;
     }
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -61,8 +75,13 @@ public class pushableObject : MonoBehaviour
             _rb.velocity = Vector3.zero;
         }
     
-        if (!hanging)
+        if (collision.gameObject.tag == "Box")
+        {
+            collision.transform.parent = collision.gameObject.GetComponent<pushableObject>().normalState.transform;
             _rb.velocity = Vector3.zero;
+        }
+
+         _rb.velocity = Vector3.zero;
 
     }
 }
