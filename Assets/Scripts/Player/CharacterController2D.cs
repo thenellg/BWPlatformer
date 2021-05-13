@@ -106,7 +106,7 @@ public class CharacterController2D : MonoBehaviour
 			{
 				m_Grounded = true;
 				canDash = true;
-				
+
 				jumpCounter = 0;
 				prevCollision = null;
 				newCollision = null;
@@ -342,7 +342,7 @@ public class CharacterController2D : MonoBehaviour
 
 	void swapColors()
 	{
-		this.GetComponent<colorSwap>().swapColors();
+			this.GetComponent<colorSwap>().swapColors();
 	}
 
 	public void stopVelocity()

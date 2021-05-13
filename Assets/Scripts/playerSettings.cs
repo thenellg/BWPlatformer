@@ -10,6 +10,13 @@ public class playerSettings : MonoBehaviour
     public int chosenColor;
 
     public bool downSmashUnlock = false;
+    public bool dashUnlock = true;
+
+    private int castleCollectibles;
+    public int castleCollected = 0;
+
+    private int spaceCollectibles;
+    public int spaceCollected = 0;
 
     // Start is called before the first frame update
     void Start()

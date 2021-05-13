@@ -39,7 +39,10 @@ public class PlayerController : MonoBehaviour {
 	[Header("UI")]
 	public Animator UIAnimation;
 	public Image reset;
-	public SpriteRenderer background;
+	//public SpriteRenderer background;
+	public SpriteRenderer backgroundA;
+	public SpriteRenderer backgroundB;
+
 	public TextMeshProUGUI visDeathCounter;
 	public string levelPlayerPref;
 	public GameObject pauseMenu;
@@ -54,15 +57,23 @@ public class PlayerController : MonoBehaviour {
 
 	private void Awake()
     {
-		//GetComponent<SpriteRenderer>().material.SetColor("Color_58b6362338eb49a389b0ee3dd2199e6d", colorA);
-		//GetComponent<SpriteRenderer>().material.SetColor("Color_51d760d7e6674a1fb00f2d86a2b06abc", colorB);
-
 		//Setting item refreshes and spawn point
 		pauseMenu.SetActive(false);
 
 		objects = items.GetComponentsInChildren<Transform>();
 		spawnPoint = this.transform.position;
-    }
+	}
+
+    private void Start()
+    {
+		Invoke("setBackground", 0.1f);
+	}
+
+	void setBackground()
+    {
+		backgroundA.color = colorA;
+		backgroundB.color = colorB;
+	}
 
     void Update()
 	{
@@ -111,16 +122,16 @@ public class PlayerController : MonoBehaviour {
 		{
 			visDeathCounter.color = colorB;
 			reset.color = colorA;
-			background.color = colorA;
-			
-			foreach(SpriteRenderer rip in rips)
+			//background.color = colorA;
+
+			foreach (SpriteRenderer rip in rips)
 				rip.color = colorA;
 		}
 		else
 		{
 			visDeathCounter.color = colorA;
 			reset.color = colorB;
-			background.color = colorB;
+			//background.color = colorB;
 			foreach (SpriteRenderer rip in rips)
 				rip.color = colorB;
 		}
@@ -129,6 +140,7 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate ()
 	{
 		controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash, crouch);
+
 		jump = false;
 		dash = false;
 		crouch = false;

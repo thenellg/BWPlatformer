@@ -12,6 +12,8 @@ public class colorSwap : MonoBehaviour
     public GameObject whiteMoving;
     public GameObject blackMoving;
 
+    public Animator backgroundAnim;
+
     public GameObject[] backPieces = new GameObject[4];
 
     private void Start()
@@ -27,11 +29,19 @@ public class colorSwap : MonoBehaviour
         {
             whiteStuff.SetActive(false);
             blackStuff.SetActive(true);
+
+            backgroundAnim.speed = 3f;
+            backgroundAnim.SetTrigger("hide");
+            backgroundAnim.SetBool("hidden", false);
         }
         else
         {
             whiteStuff.SetActive(true);
             blackStuff.SetActive(false);
+
+            backgroundAnim.speed = 3f;
+            backgroundAnim.SetBool("hidden", true);
+            backgroundAnim.SetTrigger("show");
         }
 
         swapMoving(whiteMoving.transform);

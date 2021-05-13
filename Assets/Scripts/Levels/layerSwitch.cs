@@ -34,11 +34,11 @@ public class layerSwitch : MonoBehaviour
     {
         setActive(mainLevel);
         setActive(mainLevelItems);
-        mainLevel.transform.localScale = new Vector3(1f, 1f, 1f);
+        //mainLevel.transform.localScale = new Vector3(1f, 1f, 1f);
 
         setUnactive(backLevel);
         setUnactive(backLevelItems);
-        backLevel.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
+        //backLevel.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
     void setActive(GameObject setting)
@@ -81,7 +81,7 @@ public class layerSwitch : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.None;
         }
 
-        setting.transform.localScale = new Vector3(1f, 1f, 1f);
+        //setting.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     void setUnactive(GameObject remove)
@@ -122,7 +122,7 @@ public class layerSwitch : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
-        remove.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
+        //remove.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
     private void changeLevels(GameObject player)
@@ -163,6 +163,9 @@ public class layerSwitch : MonoBehaviour
         if (collision.tag == "Player")
         {
             changeLevels(collision.gameObject);
+            collision.transform.parent = null;
+            collision.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            collision.GetComponent<Rigidbody2D>().freezeRotation = true;
         }
         //    changeable = true;
     }
