@@ -175,7 +175,9 @@ public class PlayerController : MonoBehaviour {
 			hasKey = true;
 			collision.gameObject.transform.parent = transform;
 			collision.gameObject.GetComponent<key>().following = true;
-        }
+			collision.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+		}
 
 		else if (collision.tag == "DoubleJump")
         {

@@ -23,11 +23,13 @@ public class layerSwitch : MonoBehaviour
     [SerializeField] private Color colorReplace = Color.white;
 
     public float changeTimer = 1f;
+    private float changeTimerBackUp;
 
     private void Start()
     {
         resetLayers();
         controller = FindObjectOfType<CharacterController2D>();
+        changeTimerBackUp = changeTimer;
     }
 
     public void resetLayers()
@@ -156,6 +158,7 @@ public class layerSwitch : MonoBehaviour
         player.GetComponent<colorSwap>().swapLayers();
     }
 
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //show prompt
@@ -168,6 +171,32 @@ public class layerSwitch : MonoBehaviour
             collision.GetComponent<Rigidbody2D>().freezeRotation = true;
         }
         //    changeable = true;
+    }
+    */
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //show prompt
+
+        if (collision.tag == "Player" && changeable && changeTimer <= 0)
+        {
+            changeLevels(collision.gameObject);
+            collision.transform.parent = null;
+            collision.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            collision.GetComponent<Rigidbody2D>().freezeRotation = true;
+            changeable = false;
+        }
+        else if (collision.tag == "Player" && changeable && changeTimer > 0)
+        {
+            changeTimer -= 0.1f;
+        }
+        //    changeable = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        changeable = true;
+        changeTimer = changeTimerBackUp;
     }
 
 }

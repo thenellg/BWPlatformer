@@ -36,6 +36,7 @@ public class pushableObject : MonoBehaviour
         if (collision.gameObject.tag == "Player" && hanging && collision.gameObject.GetComponent<PlayerController>().downwardDash == true)
         {
             this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             frozen = false;
         }
 
@@ -57,6 +58,7 @@ public class pushableObject : MonoBehaviour
     void detach(GameObject player)
     {
         this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         frozen = false;
     }
 

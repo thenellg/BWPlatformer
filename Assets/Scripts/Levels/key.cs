@@ -65,6 +65,7 @@ public class key : MonoBehaviour
         speed = 5;
         this.transform.position = originSpot;
         this.transform.parent = parent;
+        this.GetComponent<BoxCollider2D>().enabled = true;
         following = false;
         inPosition = false;
     }
