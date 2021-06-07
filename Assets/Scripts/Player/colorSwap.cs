@@ -30,6 +30,9 @@ public class colorSwap : MonoBehaviour
             whiteStuff.SetActive(false);
             blackStuff.SetActive(true);
 
+            //backPieces[0].SetActive(false);
+            //backPieces[1].SetActive(true);
+
             backgroundAnim.speed = 3f;
             backgroundAnim.SetTrigger("hide");
             backgroundAnim.SetBool("hidden", false);
@@ -38,6 +41,9 @@ public class colorSwap : MonoBehaviour
         {
             whiteStuff.SetActive(true);
             blackStuff.SetActive(false);
+
+            //backPieces[0].SetActive(true);
+            //backPieces[1].SetActive(false);
 
             backgroundAnim.speed = 3f;
             backgroundAnim.SetBool("hidden", true);

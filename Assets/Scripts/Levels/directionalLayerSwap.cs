@@ -1,10 +1,19 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-public class layerSwitch : MonoBehaviour
+public class directionalLayerSwap : MonoBehaviour
 {
+    [Header("Directional Info")]
+    [Space]
+    [Header("(See directionCheck() in script for how Directional Info works)")]
+    public bool up = false;
+    public bool down = false;
+    public bool left = false;
+    public bool right = false;
+    public Vector2 enterDirection;
+    public Vector2 leaveDirection;
+
     [Header("Main Level")]
     public GameObject mainLevel;
     public GameObject mainLevelWhite;
@@ -22,14 +31,10 @@ public class layerSwitch : MonoBehaviour
     [SerializeField] private bool changeable = false;
     [SerializeField] private Color colorReplace = Color.white;
 
-    public float changeTimer = 1f;
-    private float changeTimerBackUp;
-
     private void Start()
     {
         resetLayers();
         controller = FindObjectOfType<CharacterController2D>();
-        changeTimerBackUp = changeTimer;
     }
 
     public void resetLayers()
@@ -158,29 +163,95 @@ public class layerSwitch : MonoBehaviour
         player.GetComponent<colorSwap>().swapLayers();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private bool directionCheck()
     {
-        //show prompt
+        // Don't mess with the boolean values. They're going to be adjusted at runtime anyways.
+        // For each of these directions, it's what direction the player is moving where you want it to switch layers. (i.e. left means when the player is moving out of the switch to the left)
+        // IMPORTANT: You cannot pick both left and right or both up and down. If you want both use the normal layer switch prefab.
+        // If you have any questions message them to me and I'll do my best to answer.
+        // - Griffin
 
-        if (collision.tag == "Player" && changeable && changeTimer <= 0)
+        if (left)
         {
-            changeLevels(collision.gameObject);
-            collision.transform.parent = null;
-            collision.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-            collision.GetComponent<Rigidbody2D>().freezeRotation = true;
-            changeable = false;
+            if (leaveDirection.x < 0)
+                return true;
         }
-        else if (collision.tag == "Player" && changeable && changeTimer > 0)
+
+        if (right)
         {
-            changeTimer -= 0.1f;
+            if (leaveDirection.x > 0)
+                return true;
         }
-        //    changeable = true;
+
+        if (down)
+        {
+            if (leaveDirection.y < 0)
+                return true;
+        }
+
+        if (up)
+        {
+            if (leaveDirection.y > 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    void setDirection()
+    {
+        if (enterDirection.y > 0)
+        {
+            up = true;
+        }
+        else
+        {
+            down = true;
+        }
+
+        if (enterDirection.x > 0)
+        {
+            right = true;
+        }
+        else
+        {
+            left = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            //Get Vector
+            Vector2 temp = transform.position - collision.transform.position;
+            enterDirection = temp.normalized;
+            setDirection();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        changeable = true;
-        changeTimer = changeTimerBackUp;
-    }
+        if (collision.tag == "Player")
+        {
+            //Get Vector
+            Vector2 temp = collision.transform.position - transform.position;
+            leaveDirection = temp.normalized;
 
+            
+            //if Vector equates what we want
+            if (directionCheck())
+            {
+                changeLevels(collision.gameObject);
+                collision.transform.parent = null;
+                collision.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                collision.GetComponent<Rigidbody2D>().freezeRotation = true;
+            }
+
+            up = false;
+            down = false;
+            left = false;
+            right = false;
+        }
+    }
 }
