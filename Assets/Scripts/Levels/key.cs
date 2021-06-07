@@ -39,13 +39,16 @@ public class key : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (transform.position == GameObject.FindGameObjectWithTag("Door").transform.position && end)
+        foreach (GameObject door in GameObject.FindGameObjectsWithTag("Door"))
         {
-            keyAnim.SetTrigger("Fade");
-            inPosition = true;
-            GameObject.FindGameObjectWithTag("Door").GetComponent<Door>().unlocked();
-            Invoke("boom", 1.35f);
-            end = false;
+            if (transform.position == door.transform.position && end && door.GetComponent<Door>().isLocked == true)
+            {
+                keyAnim.SetTrigger("Fade");
+                inPosition = true;
+                door.GetComponent<Door>().unlocked();
+                Invoke("boom", 1.35f);
+                end = false;
+            }
         }
     }
 

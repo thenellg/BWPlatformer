@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     private Animator doorAnim;
-
+    public bool isLocked = true;
 
     void Start()
     {
@@ -21,5 +21,6 @@ public class Door : MonoBehaviour
     public void unlocked()
     {
         doorAnim.SetTrigger("unlocked");
+        isLocked = false;
     }
 }
