@@ -17,7 +17,7 @@ public class CharacterController2D : MonoBehaviour
 	public bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	public Rigidbody2D m_Rigidbody2D;
-	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+	public bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 velocity = Vector3.zero;
 
 	[Header("Specialized Jump")]
@@ -46,6 +46,7 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Vector2 dashVector;
 	float shakeTimer = 0;
 	bool crouching = false;
+	private float moveCheck;
 
 	[Header("Gravity")]
 	public bool forcedGrav = false;
@@ -70,6 +71,16 @@ public class CharacterController2D : MonoBehaviour
 		else if (coyoteTimer <= 0 && m_Grounded == true)
         {
 			coyoteTimer = 30;
+		}
+
+		if (!m_PlayerController.skateboarding)
+		{
+			float test = m_Rigidbody2D.velocity.x;
+			Debug.Log(test < 0 && m_FacingRight || test > 0 && !m_FacingRight);
+			if (test < 0 && 0 < transform.localScale.x || test > 0 && 0 > transform.localScale.x)
+			{
+				forceFlip();
+			}
 		}
 
 		if (shakeTimer > 0)
@@ -132,28 +143,47 @@ public class CharacterController2D : MonoBehaviour
 		float jumpForce;
 
 		//Adjusting for reverse gravity
+		/*
 		if (m_Rigidbody2D.gravityScale < 0)
 			jumpForce = -m_JumpForce;
 		else
 			jumpForce = m_JumpForce;
+		*/
 
-		Debug.Log(new Vector2(0f, jumpForce));
+		Debug.Log(new Vector2(0f, m_JumpForce));
 
 		m_Grounded = false;
 
 		m_Rigidbody2D.velocity = new Vector2(0, 0);
 
 		if (gravDirection == "up")
-			m_Rigidbody2D.AddForce(new Vector2(0, jumpForce));
+			m_Rigidbody2D.AddForce(new Vector2(0, m_JumpForce));
 		else if (gravDirection == "down")
-			m_Rigidbody2D.AddForce(new Vector2(0, -jumpForce));
+			m_Rigidbody2D.AddForce(new Vector2(0, -m_JumpForce));
 		else if (gravDirection == "left")
-			m_Rigidbody2D.AddForce(new Vector2(jumpForce, 0));
+			m_Rigidbody2D.AddForce(new Vector2(m_JumpForce, 0));
 		else if (gravDirection == "right")
-			m_Rigidbody2D.AddForce(new Vector2(-jumpForce, 0));
+			m_Rigidbody2D.AddForce(new Vector2(-m_JumpForce, 0));
 	}
 
-	void dashing()
+	public void facingRightCheck()
+    {
+		float test = m_Rigidbody2D.velocity.x;
+//		Debug.Log(test < 0 && m_FacingRight || test > 0 && !m_FacingRight);
+		if (test < 0 && m_FacingRight || test > 0 && !m_FacingRight)
+		{
+			Invoke("forceFlip", 0.4f);
+		}
+	}
+
+	public void forceFlip()
+    {
+			Vector3 theScale = transform.localScale;
+			theScale.x *= -1;
+			transform.localScale = theScale;
+	}
+
+	public void dashing()
     {
 		canDash = false;
 		
@@ -249,11 +279,14 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool jump, bool dash, bool crouch)
 	{
+		moveCheck = move;
+
 		if (canMove)
 		{
 			if (move != 0 && m_Grounded)
 			{
-				PlayerAnim.SetBool("isWalking", true);
+				if (!m_PlayerController.skateboarding || !m_PlayerController.skateboarding.moving)
+					PlayerAnim.SetBool("isWalking", true);
 			}
 			else if (m_Grounded && crouch)
 			{
@@ -409,7 +442,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
-	void swapColors()
+	public void swapColors()
 	{
 			this.GetComponent<colorSwap>().swapColors();
 	}
@@ -437,7 +470,7 @@ public class CharacterController2D : MonoBehaviour
 		SceneManager.LoadScene("Level Menu");
 	}
 
-	private void Flip()
+	public void Flip()
 	{
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;

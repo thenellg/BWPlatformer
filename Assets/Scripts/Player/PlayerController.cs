@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
 
 	public bool hasKey = false;
 	[SerializeField] private bool areDead = false;
+	public Skateboard skateboarding;
 
 	[Header("Respawn")]
 	public Vector3 spawnPoint;
@@ -139,7 +140,10 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-		controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash, crouch);
+		if (skateboarding && skateboarding.moving)
+			skateboarding.Move(jump, dash);
+		else
+			controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash, crouch);
 
 		jump = false;
 		dash = false;
