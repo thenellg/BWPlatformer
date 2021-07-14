@@ -36,7 +36,7 @@ public class CharacterController2D : MonoBehaviour
 	public float wallDistance = 1.3f;
 	[SerializeField] bool isWallSliding = false;
 	[SerializeField] int jumpCounter = 0;
-	RaycastHit2D wallCheckHit;
+	[SerializeField] RaycastHit2D wallCheckHit;
 	float jumpTime;
 	GameObject newCollision;
 	GameObject prevCollision;
@@ -72,7 +72,9 @@ public class CharacterController2D : MonoBehaviour
         {
 			coyoteTimer = 30;
 		}
-
+		
+		//This exists because of the skateboarding stuff but it's breaking multi grav. Need to adjust to figure that out.
+		/*
 		if (!m_PlayerController.skateboarding)
 		{
 			float test = m_Rigidbody2D.velocity.x;
@@ -82,6 +84,7 @@ public class CharacterController2D : MonoBehaviour
 				forceFlip();
 			}
 		}
+		*/
 
 		if (shakeTimer > 0)
         {
@@ -166,6 +169,7 @@ public class CharacterController2D : MonoBehaviour
 			m_Rigidbody2D.AddForce(new Vector2(-m_JumpForce, 0));
 	}
 
+	/*
 	public void facingRightCheck()
     {
 		float test = m_Rigidbody2D.velocity.x;
@@ -175,6 +179,7 @@ public class CharacterController2D : MonoBehaviour
 			Invoke("forceFlip", 0.4f);
 		}
 	}
+	*/
 
 	public void forceFlip()
     {
@@ -395,15 +400,42 @@ public class CharacterController2D : MonoBehaviour
 			}
 
 			//Wall Jump
+			//Wall Jump needs tob e adjusted for 4 dimensions
 			if (m_FacingRight)
 			{
-				wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(wallDistance, 0f), wallDistance, m_WhatIsGround);
-				//Debug.DrawRay(transform.position, new Vector2(wallDistance, 0), Color.red);
+				if (gravDirection == "left")
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(0f, -wallDistance), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(0, -wallDistance), Color.red);
+				}
+				else if(gravDirection == "right")
+                {
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(0f, wallDistance), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(0, wallDistance), Color.red);
+				}
+				else
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(wallDistance, 0f), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(wallDistance, 0), Color.red);
+				}
 			}
 			else
 			{
-				wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(-wallDistance, 0f), wallDistance, m_WhatIsGround);
-				//Debug.DrawRay(transform.position, new Vector2(-wallDistance, 0), Color.red);
+				if (gravDirection == "left")
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(0f, wallDistance), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(0, wallDistance), Color.red);
+				}
+				else if (gravDirection == "right")
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(0f, -wallDistance), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(0, -wallDistance), Color.red);
+				}
+				else
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(-wallDistance, 0f), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(-wallDistance, 0), Color.red);
+				}
 			}
 
 			if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)

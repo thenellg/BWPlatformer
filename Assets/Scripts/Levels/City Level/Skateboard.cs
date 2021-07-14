@@ -172,7 +172,7 @@ public class Skateboard : MonoBehaviour
 
         Invoke("setZero", 0.5f);
 
-        m_CharacterController2D.facingRightCheck();
+        //m_CharacterController2D.facingRightCheck();
         m_CharacterController2D = null;
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().skateboarding = null;
