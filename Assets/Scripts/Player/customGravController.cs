@@ -99,10 +99,13 @@ public class customGravController : MonoBehaviour
 
     public void exitForcedGrav()
     {
-        mCharacterController2D.gravDirection = "up";
+        if (isPlayer)
+        {
+            mCharacterController2D.gravDirection = "up";
 
-        mCharacterController2D.forcedGrav = false;
-        mCharacterController2D.dashSpeed = tempDashSpeed;
+            mCharacterController2D.forcedGrav = false;
+            mCharacterController2D.dashSpeed = tempDashSpeed;
+        }
         player.gravityScale = tempGravScale;
     }
 

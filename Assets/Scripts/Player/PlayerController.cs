@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
 	public bool jump = false;
 	public bool dash = false;
 	public bool crouch = false;
+	public bool hold = false;
 	public bool downwardDash = false;
 
 	public Color colorA = new Color32(230, 230, 230, 255);
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour {
 
 	public bool hasKey = false;
 	[SerializeField] private bool areDead = false;
+	public Skateboard skateboarding;
 
 	[Header("Respawn")]
 	public Vector3 spawnPoint;
@@ -115,6 +117,15 @@ public class PlayerController : MonoBehaviour {
             {
 				dash = true;
             }
+
+			if (Input.GetButtonDown("Hold"))
+            {
+				hold = true;
+            }
+			else if (Input.GetButtonUp("Hold"))
+            {
+				hold = false;
+            }
 		}
 
 		//Adjusting objects to colors that don't auto adjust
@@ -139,7 +150,10 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-		controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash, crouch);
+		if (skateboarding && skateboarding.moving)
+			skateboarding.Move(jump, dash);
+		else
+			controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash, crouch, hold);
 
 		jump = false;
 		dash = false;

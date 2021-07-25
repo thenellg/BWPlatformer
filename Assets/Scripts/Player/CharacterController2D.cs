@@ -17,7 +17,7 @@ public class CharacterController2D : MonoBehaviour
 	public bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	public Rigidbody2D m_Rigidbody2D;
-	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+	public bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 velocity = Vector3.zero;
 
 	[Header("Specialized Jump")]
@@ -33,10 +33,11 @@ public class CharacterController2D : MonoBehaviour
 	[Header("WallJump")]
 	public float wallJumpTime = 0.2f;
 	public float wallSlideSpeed = 0.3f;
+	public float wallSlideBackUp;
 	public float wallDistance = 1.3f;
 	[SerializeField] bool isWallSliding = false;
 	[SerializeField] int jumpCounter = 0;
-	RaycastHit2D wallCheckHit;
+	[SerializeField] RaycastHit2D wallCheckHit;
 	float jumpTime;
 	GameObject newCollision;
 	GameObject prevCollision;
@@ -46,10 +47,12 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Vector2 dashVector;
 	float shakeTimer = 0;
 	bool crouching = false;
+	private float moveCheck;
 
 	[Header("Gravity")]
 	public bool forcedGrav = false;
 	public string gravDirection = "up";
+	public float tempGravScale;
 
 	private void Awake()
 	{
@@ -57,6 +60,10 @@ public class CharacterController2D : MonoBehaviour
 		PlayerAnim = this.GetComponent<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_PlayerController = GetComponent<PlayerController>();
+
+		wallSlideBackUp = wallSlideSpeed;
+
+		tempGravScale = m_Rigidbody2D.gravityScale;
 		this.GetComponent<colorSwap>().blackStuff.SetActive(false);
 	}
 
@@ -71,6 +78,19 @@ public class CharacterController2D : MonoBehaviour
         {
 			coyoteTimer = 30;
 		}
+		
+		//This exists because of the skateboarding stuff but it's breaking multi grav. Need to adjust to figure that out.
+		/*
+		if (!m_PlayerController.skateboarding)
+		{
+			float test = m_Rigidbody2D.velocity.x;
+			Debug.Log(test < 0 && m_FacingRight || test > 0 && !m_FacingRight);
+			if (test < 0 && 0 < transform.localScale.x || test > 0 && 0 > transform.localScale.x)
+			{
+				forceFlip();
+			}
+		}
+		*/
 
 		if (shakeTimer > 0)
         {
@@ -132,28 +152,49 @@ public class CharacterController2D : MonoBehaviour
 		float jumpForce;
 
 		//Adjusting for reverse gravity
+		/*
 		if (m_Rigidbody2D.gravityScale < 0)
 			jumpForce = -m_JumpForce;
 		else
 			jumpForce = m_JumpForce;
+		*/
 
-		Debug.Log(new Vector2(0f, jumpForce));
+		Debug.Log(new Vector2(0f, m_JumpForce));
 
 		m_Grounded = false;
 
 		m_Rigidbody2D.velocity = new Vector2(0, 0);
 
 		if (gravDirection == "up")
-			m_Rigidbody2D.AddForce(new Vector2(0, jumpForce));
+			m_Rigidbody2D.AddForce(new Vector2(0, m_JumpForce));
 		else if (gravDirection == "down")
-			m_Rigidbody2D.AddForce(new Vector2(0, -jumpForce));
+			m_Rigidbody2D.AddForce(new Vector2(0, -m_JumpForce));
 		else if (gravDirection == "left")
-			m_Rigidbody2D.AddForce(new Vector2(jumpForce, 0));
+			m_Rigidbody2D.AddForce(new Vector2(m_JumpForce, 0));
 		else if (gravDirection == "right")
-			m_Rigidbody2D.AddForce(new Vector2(-jumpForce, 0));
+			m_Rigidbody2D.AddForce(new Vector2(-m_JumpForce, 0));
 	}
 
-	void dashing()
+	/*
+	public void facingRightCheck()
+    {
+		float test = m_Rigidbody2D.velocity.x;
+//		Debug.Log(test < 0 && m_FacingRight || test > 0 && !m_FacingRight);
+		if (test < 0 && m_FacingRight || test > 0 && !m_FacingRight)
+		{
+			Invoke("forceFlip", 0.4f);
+		}
+	}
+	*/
+
+	public void forceFlip()
+    {
+			Vector3 theScale = transform.localScale;
+			theScale.x *= -1;
+			transform.localScale = theScale;
+	}
+
+	public void dashing()
     {
 		canDash = false;
 		
@@ -247,13 +288,16 @@ public class CharacterController2D : MonoBehaviour
 		this.GetComponent<AudioSource>().PlayOneShot(deathSFX);
 	}
 
-	public void Move(float move, bool jump, bool dash, bool crouch)
+	public void Move(float move, bool jump, bool dash, bool crouch, bool hold)
 	{
+		moveCheck = move;
+
 		if (canMove)
 		{
 			if (move != 0 && m_Grounded)
 			{
-				PlayerAnim.SetBool("isWalking", true);
+				if (!m_PlayerController.skateboarding || !m_PlayerController.skateboarding.moving)
+					PlayerAnim.SetBool("isWalking", true);
 			}
 			else if (m_Grounded && crouch)
 			{
@@ -362,15 +406,42 @@ public class CharacterController2D : MonoBehaviour
 			}
 
 			//Wall Jump
+			//Wall Jump needs tob e adjusted for 4 dimensions
 			if (m_FacingRight)
 			{
-				wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(wallDistance, 0f), wallDistance, m_WhatIsGround);
-				//Debug.DrawRay(transform.position, new Vector2(wallDistance, 0), Color.red);
+				if (gravDirection == "left")
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(0f, -wallDistance), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(0, -wallDistance), Color.red);
+				}
+				else if(gravDirection == "right")
+                {
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(0f, wallDistance), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(0, wallDistance), Color.red);
+				}
+				else
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(wallDistance, 0f), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(wallDistance, 0), Color.red);
+				}
 			}
 			else
 			{
-				wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(-wallDistance, 0f), wallDistance, m_WhatIsGround);
-				//Debug.DrawRay(transform.position, new Vector2(-wallDistance, 0), Color.red);
+				if (gravDirection == "left")
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(0f, wallDistance), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(0, wallDistance), Color.red);
+				}
+				else if (gravDirection == "right")
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(0f, -wallDistance), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(0, -wallDistance), Color.red);
+				}
+				else
+				{
+					wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(-wallDistance, 0f), wallDistance, m_WhatIsGround);
+					Debug.DrawRay(transform.position, new Vector2(-wallDistance, 0), Color.red);
+				}
 			}
 
 			if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
@@ -387,12 +458,33 @@ public class CharacterController2D : MonoBehaviour
 			{
 				if (m_Rigidbody2D.gravityScale < 0)
 				{
-					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(-m_Rigidbody2D.velocity.y, -wallSlideSpeed, float.MaxValue));
+					if (hold)
+                    {
+						m_Rigidbody2D.velocity = Vector2.zero;
+						m_Rigidbody2D.gravityScale = 0f;
+					}
+                    else
+                    {
+						m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(-m_Rigidbody2D.velocity.y, -wallSlideSpeed, float.MaxValue));
+						m_Rigidbody2D.gravityScale = tempGravScale;
+					}
+				}
+                else if (m_Rigidbody2D.gravityScale > 0)
+                {
+					if (hold)
+					{
+						m_Rigidbody2D.velocity = Vector2.zero;
+						m_Rigidbody2D.gravityScale = 0f;
+					}
+					else
+					{
+						m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
+						m_Rigidbody2D.gravityScale = tempGravScale;
+					}
 				}
                 else
                 {
-					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
-
+					m_Rigidbody2D.gravityScale = tempGravScale;
 				}
 			}
 
@@ -409,7 +501,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
-	void swapColors()
+	public void swapColors()
 	{
 			this.GetComponent<colorSwap>().swapColors();
 	}
@@ -437,7 +529,7 @@ public class CharacterController2D : MonoBehaviour
 		SceneManager.LoadScene("Level Menu");
 	}
 
-	private void Flip()
+	public void Flip()
 	{
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
