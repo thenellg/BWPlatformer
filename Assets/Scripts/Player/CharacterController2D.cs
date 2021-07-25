@@ -33,6 +33,7 @@ public class CharacterController2D : MonoBehaviour
 	[Header("WallJump")]
 	public float wallJumpTime = 0.2f;
 	public float wallSlideSpeed = 0.3f;
+	public float wallSlideBackUp;
 	public float wallDistance = 1.3f;
 	[SerializeField] bool isWallSliding = false;
 	[SerializeField] int jumpCounter = 0;
@@ -51,6 +52,7 @@ public class CharacterController2D : MonoBehaviour
 	[Header("Gravity")]
 	public bool forcedGrav = false;
 	public string gravDirection = "up";
+	public float tempGravScale;
 
 	private void Awake()
 	{
@@ -58,6 +60,10 @@ public class CharacterController2D : MonoBehaviour
 		PlayerAnim = this.GetComponent<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_PlayerController = GetComponent<PlayerController>();
+
+		wallSlideBackUp = wallSlideSpeed;
+
+		tempGravScale = m_Rigidbody2D.gravityScale;
 		this.GetComponent<colorSwap>().blackStuff.SetActive(false);
 	}
 
@@ -282,7 +288,7 @@ public class CharacterController2D : MonoBehaviour
 		this.GetComponent<AudioSource>().PlayOneShot(deathSFX);
 	}
 
-	public void Move(float move, bool jump, bool dash, bool crouch)
+	public void Move(float move, bool jump, bool dash, bool crouch, bool hold)
 	{
 		moveCheck = move;
 
@@ -452,12 +458,33 @@ public class CharacterController2D : MonoBehaviour
 			{
 				if (m_Rigidbody2D.gravityScale < 0)
 				{
-					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(-m_Rigidbody2D.velocity.y, -wallSlideSpeed, float.MaxValue));
+					if (hold)
+                    {
+						m_Rigidbody2D.velocity = Vector2.zero;
+						m_Rigidbody2D.gravityScale = 0f;
+					}
+                    else
+                    {
+						m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(-m_Rigidbody2D.velocity.y, -wallSlideSpeed, float.MaxValue));
+						m_Rigidbody2D.gravityScale = tempGravScale;
+					}
+				}
+                else if (m_Rigidbody2D.gravityScale > 0)
+                {
+					if (hold)
+					{
+						m_Rigidbody2D.velocity = Vector2.zero;
+						m_Rigidbody2D.gravityScale = 0f;
+					}
+					else
+					{
+						m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
+						m_Rigidbody2D.gravityScale = tempGravScale;
+					}
 				}
                 else
                 {
-					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
-
+					m_Rigidbody2D.gravityScale = tempGravScale;
 				}
 			}
 
