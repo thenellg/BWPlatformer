@@ -17,7 +17,7 @@ public class checkpoint : MonoBehaviour
     public float newZoom;
     public float zoomSpeed = 0.05f;
     public bool zoomedOut = false;
-    float speed = 5;
+    //float speed = 5;
 
     public void Start()
     {

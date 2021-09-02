@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour {
 
 	public bool hasKey = false;
 	[SerializeField] private bool areDead = false;
-	public Skateboard skateboarding;
+	public SkateboardController skateboarding;
+	public bool isSkateboarding = false;
 
 	[Header("Respawn")]
 	public Vector3 spawnPoint;
@@ -64,9 +65,12 @@ public class PlayerController : MonoBehaviour {
 
 		objects = items.GetComponentsInChildren<Transform>();
 		spawnPoint = this.transform.position;
+
+		this.GetComponent<SkateboardController>().enabled = false;
+
 	}
 
-    private void Start()
+	private void Start()
     {
 		Invoke("setBackground", 0.1f);
 	}
@@ -150,8 +154,8 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-		if (skateboarding && skateboarding.moving)
-			skateboarding.Move(jump, dash);
+		if (isSkateboarding)
+			skateboarding.Move(horizontalMove, jump, dash, crouch);
 		else
 			controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash, crouch, hold);
 
@@ -218,9 +222,33 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		else if (collision.tag == "MovingPlatform")
-        {
+		{
 			this.transform.parent = collision.gameObject.transform;
-        }
+		}
+
+		else if (collision.tag == "Skateboard")
+		{
+			Debug.Log("landed on skateboard");
+			collision.gameObject.transform.parent = this.transform;
+			collision.transform.localPosition = new Vector2(-1.00291f, -8.157125f);
+			collision.gameObject.layer = 7;
+			Destroy(collision.gameObject.GetComponent<Rigidbody2D>());
+
+
+			SkateboardController boardController = this.GetComponent<SkateboardController>();
+			CharacterController2D playerController = this.GetComponent<CharacterController2D>();
+
+			boardController.enabled = true;
+			boardController.m_SkateboardTrigger = collision.GetComponent<SkateboardTrigger>();
+			if (boardController.m_FacingRight != playerController.m_FacingRight)
+					boardController.Flip();
+
+
+			playerController.enabled = false;
+
+			skateboarding.m_GroundCheck = collision.GetComponentInChildren<Transform>();
+			isSkateboarding = true;
+		}
 	}
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -255,8 +283,19 @@ public class PlayerController : MonoBehaviour {
 		{
 			this.transform.parent = null;
 		}
+
+		else if (collision.gameObject.tag == "Skateboard")
+        {
+			resetBoard(collision.gameObject);
+        }
 	}
 
+
+	private void resetBoard(GameObject board)
+    {
+		foreach (BoxCollider2D collider in board.GetComponents<BoxCollider2D>())
+			collider.enabled = true;
+	}
 
     public void setDouble()
     {

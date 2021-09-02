@@ -96,7 +96,7 @@ public class customGravController : MonoBehaviour
 
         direction = setDirection;
     }
-
+    
     public void exitForcedGrav()
     {
         if (isPlayer)

@@ -28,7 +28,7 @@ public class directionalLayerSwap : MonoBehaviour
 
     private CharacterController2D controller;
     [SerializeField] private bool onMainLevel = true;
-    [SerializeField] private bool changeable = false;
+    //[SerializeField] private bool changeable = false;
     [SerializeField] private Color colorReplace = Color.white;
 
     private void Start()

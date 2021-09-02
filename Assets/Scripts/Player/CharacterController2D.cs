@@ -6,7 +6,7 @@ public class CharacterController2D : MonoBehaviour
 {
 	[Header("General")]
 	[SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
-	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
+	//[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
@@ -34,6 +34,8 @@ public class CharacterController2D : MonoBehaviour
 	public float wallJumpTime = 0.2f;
 	public float wallSlideSpeed = 0.3f;
 	public float wallSlideBackUp;
+	public float wallHoldTimer = 3f;
+	public float wallHoldTimerBackUp;
 	public float wallDistance = 1.3f;
 	[SerializeField] bool isWallSliding = false;
 	[SerializeField] int jumpCounter = 0;
@@ -44,7 +46,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private Animator PlayerAnim;
 	bool canMove = true;
-	[SerializeField] private Vector2 dashVector;
+	public Vector2 dashVector;
 	float shakeTimer = 0;
 	bool crouching = false;
 	private float moveCheck;
@@ -62,6 +64,7 @@ public class CharacterController2D : MonoBehaviour
 		m_PlayerController = GetComponent<PlayerController>();
 
 		wallSlideBackUp = wallSlideSpeed;
+		wallHoldTimerBackUp = wallHoldTimer;
 
 		tempGravScale = m_Rigidbody2D.gravityScale;
 		this.GetComponent<colorSwap>().blackStuff.SetActive(false);
@@ -78,19 +81,6 @@ public class CharacterController2D : MonoBehaviour
         {
 			coyoteTimer = 30;
 		}
-		
-		//This exists because of the skateboarding stuff but it's breaking multi grav. Need to adjust to figure that out.
-		/*
-		if (!m_PlayerController.skateboarding)
-		{
-			float test = m_Rigidbody2D.velocity.x;
-			Debug.Log(test < 0 && m_FacingRight || test > 0 && !m_FacingRight);
-			if (test < 0 && 0 < transform.localScale.x || test > 0 && 0 > transform.localScale.x)
-			{
-				forceFlip();
-			}
-		}
-		*/
 
 		if (shakeTimer > 0)
         {
@@ -148,8 +138,6 @@ public class CharacterController2D : MonoBehaviour
 	void playerJump()
     {
 		isWallSliding = false;
-
-		float jumpForce;
 
 		//Adjusting for reverse gravity
 		/*
@@ -296,8 +284,7 @@ public class CharacterController2D : MonoBehaviour
 		{
 			if (move != 0 && m_Grounded)
 			{
-				if (!m_PlayerController.skateboarding || !m_PlayerController.skateboarding.moving)
-					PlayerAnim.SetBool("isWalking", true);
+				PlayerAnim.SetBool("isWalking", true);
 			}
 			else if (m_Grounded && crouch)
 			{
@@ -458,10 +445,11 @@ public class CharacterController2D : MonoBehaviour
 			{
 				if (m_Rigidbody2D.gravityScale < 0)
 				{
-					if (hold)
+					if (hold && wallHoldTimer > 0f)
                     {
 						m_Rigidbody2D.velocity = Vector2.zero;
 						m_Rigidbody2D.gravityScale = 0f;
+						wallHoldTimer -= Time.deltaTime;
 					}
                     else
                     {
@@ -471,10 +459,11 @@ public class CharacterController2D : MonoBehaviour
 				}
                 else if (m_Rigidbody2D.gravityScale > 0)
                 {
-					if (hold)
+					if (hold && wallHoldTimer > 0f)
 					{
 						m_Rigidbody2D.velocity = Vector2.zero;
 						m_Rigidbody2D.gravityScale = 0f;
+						wallHoldTimer -= Time.deltaTime;
 					}
 					else
 					{
@@ -484,6 +473,15 @@ public class CharacterController2D : MonoBehaviour
 				}
                 else
                 {
+					m_Rigidbody2D.gravityScale = tempGravScale;
+					wallHoldTimer = wallHoldTimerBackUp;
+				}
+			}
+			else
+            {
+				wallHoldTimer = wallHoldTimerBackUp;
+				if (gravDirection == "up")
+				{
 					m_Rigidbody2D.gravityScale = tempGravScale;
 				}
 			}
@@ -534,10 +532,19 @@ public class CharacterController2D : MonoBehaviour
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
 
-		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
-		theScale.x *= -1;
-		transform.localScale = theScale;
+		if (m_FacingRight)
+		{
+			if (theScale.x < 0)
+				theScale.x *= -1;
+			transform.localScale = theScale;
+		}
+		else if (!m_FacingRight)
+		{
+			if (theScale.x > 0)
+				theScale.x *= -1;
+			transform.localScale = theScale;
+		}
 	}
 
 	public void gravFlip()
