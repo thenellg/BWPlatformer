@@ -7,6 +7,12 @@ public class SkateboardTrigger : MonoBehaviour
 	public Vector3 originalPos;
 	float angle = 0.5f;
 	SkateboardController m_SkateboardController;
+	public Vector3 normVec;
+
+	private void Update()
+    {
+
+    }
 
     private void Start()
     {
@@ -23,13 +29,11 @@ public class SkateboardTrigger : MonoBehaviour
 		}
 	}
 
-
-	private void OnCollisionEnter(Collision collision)
+	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.layer == 3 && collision.gameObject.tag != "Wall")
 		{
-			Debug.Log("ROTATE TEST");
-			m_SkateboardController.rotate(collision.contacts[0].normal);
+			//???
 		}
 
 		if (collision.gameObject.tag == "MovingPlatform")

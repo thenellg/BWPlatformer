@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPos: {x: 0, y: 0, z: 0}
+  normVec: {x: 0, y: 0, z: 0}
 --- !u!1 &7632868313509175878
 GameObject:
   m_ObjectHideFlags: 0

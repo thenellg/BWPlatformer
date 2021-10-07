@@ -66,7 +66,8 @@ public class PlayerController : MonoBehaviour {
 		objects = items.GetComponentsInChildren<Transform>();
 		spawnPoint = this.transform.position;
 
-		this.GetComponent<SkateboardController>().enabled = false;
+		if (this.GetComponent<SkateboardController>())
+			this.GetComponent<SkateboardController>().enabled = false;
 
 	}
 
