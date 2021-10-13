@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float runSpeed = 40f;
 
-	private float horizontalMove = 0f;
+	public float horizontalMove = 0f;
 	public bool jump = false;
 	public bool dash = false;
 	public bool crouch = false;

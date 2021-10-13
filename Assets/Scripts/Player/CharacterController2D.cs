@@ -343,14 +343,14 @@ public class CharacterController2D : MonoBehaviour
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);     // And then smoothing it out and applying it to the character
 
 				// If the input is moving the player right and the player is facing left...
-				if (move > 0 && !m_FacingRight)
+				if (move > 0)
 				{
-					Flip();             // ... flip the player.
+					Flip(true);             // ... flip the player.
 				}
 				// Otherwise if the input is moving the player left and the player is facing right...
-				else if (move < 0 && m_FacingRight)
+				else if (move < 0)
 				{
-					Flip();             // ... flip the player.
+					Flip(false);             // ... flip the player.
 				}
 			}
 
@@ -527,23 +527,22 @@ public class CharacterController2D : MonoBehaviour
 		SceneManager.LoadScene("Level Menu");
 	}
 
-	public void Flip()
+	public void Flip(bool truth)
 	{
-		// Switch the way the player is labelled as facing.
-		m_FacingRight = !m_FacingRight;
-
 		Vector3 theScale = transform.localScale;
-		if (m_FacingRight)
+		if (truth)
 		{
 			if (theScale.x < 0)
 				theScale.x *= -1;
 			transform.localScale = theScale;
+			m_FacingRight = true;
 		}
-		else if (!m_FacingRight)
+		else if (!truth)
 		{
 			if (theScale.x > 0)
 				theScale.x *= -1;
 			transform.localScale = theScale;
+			m_FacingRight = false;
 		}
 	}
 

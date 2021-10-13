@@ -46,7 +46,7 @@ public class SkateboardController : MonoBehaviour
 
 	float speed = 2f;
 	public float angle = 0.5f;
-	Vector2 normalVec;
+	Vector3 normalVec;
 	public SkateboardTrigger m_SkateboardTrigger;
 	//Dash speed= 2.5-3? Needs testing
 
@@ -110,8 +110,10 @@ public class SkateboardController : MonoBehaviour
 		//only control the player if grounded or airControl is turned on
 		if (m_Grounded || m_AirControl && GetComponent<PlayerController>().isSkateboarding)
 		{
+			m_SkateboardTrigger.m_isSkateboarding = GetComponent<PlayerController>().isSkateboarding;
+
 			float move = speed;
-			transform.up = normalVec;
+			//transform.up = normalVec;
 
 			if (!m_FacingRight)
 				move *= -1;
@@ -161,7 +163,6 @@ public class SkateboardController : MonoBehaviour
 			jumpForce = m_JumpForce;
 		*/
 
-		Debug.Log(new Vector2(0f, m_JumpForce));
 
 		transform.up = Vector3.up;
 		m_Grounded = false;
@@ -194,12 +195,14 @@ public class SkateboardController : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+		m_SkateboardTrigger.rotateFlip();
 	}
 
 	public void dashing()
 	{
 		//Exit board
 		this.GetComponent<CharacterController2D>().enabled = true;
+		m_SkateboardTrigger.m_isSkateboarding = false;
 		CharacterController2D m_CharacterController2D = this.GetComponent<CharacterController2D>();
 		GameObject board = null;
 
@@ -404,6 +407,8 @@ public class SkateboardController : MonoBehaviour
 				theScale.x *= -1;
 			transform.localScale = theScale;
 		}
+
+		m_SkateboardTrigger.rotateFlip();
 	}
 
 	public void gravFlip()
@@ -414,12 +419,12 @@ public class SkateboardController : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-	public void rotate(Vector3 ground){
-		if (ground.x <= angle && ground.x >= -angle && ground.z > 0)
-		{
-			Debug.Log(ground);
-			normalVec = ground;
-		}
+	public Vector3 rotate(Vector3 ground){
+		normalVec = ground;
+		if (!m_FacingRight)
+			normalVec *= -1;
+
+		return normalVec;
 	}
 
 	public void movingPlatform(Transform platform)
