@@ -44,7 +44,8 @@ public class SkateboardController : MonoBehaviour
 	public float tempGravScale;
 
 
-	float speed = 2f;
+	public float speed = 2f;
+	public float baseSpeed;
 	public float angle = 0.5f;
 	Vector3 normalVec;
 	public SkateboardTrigger m_SkateboardTrigger;
@@ -56,7 +57,8 @@ public class SkateboardController : MonoBehaviour
 		PlayerAnim = this.GetComponent<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_PlayerController = GetComponent<PlayerController>();
-
+		baseSpeed = speed;
+	
 		tempGravScale = m_Rigidbody2D.gravityScale;
 		this.GetComponent<colorSwap>().blackStuff.SetActive(false);
 	}
