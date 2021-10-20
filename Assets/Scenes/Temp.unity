@@ -596,7 +596,7 @@ MonoBehaviour:
   forcedGrav: 0
   gravDirection: up
   tempGravScale: 0
-  speed: 3
+  speed: 2
   baseSpeed: 0
   angle: 90
   m_SkateboardTrigger: {fileID: 0}
@@ -1657,7 +1657,7 @@ PrefabInstance:
     - target: {fileID: 1678736425612900438, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.27802342
+      value: 0.38645032
       objectReference: {fileID: 0}
     - target: {fileID: 1678736425612900438, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
@@ -1672,12 +1672,12 @@ PrefabInstance:
     - target: {fileID: 1678736425612900438, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 49.46
+      value: 50.3126
       objectReference: {fileID: 0}
     - target: {fileID: 1678736425612900438, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.31
+      value: 7.6106
       objectReference: {fileID: 0}
     - target: {fileID: 1678736425612900438, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
