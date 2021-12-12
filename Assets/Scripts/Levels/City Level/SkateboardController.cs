@@ -178,6 +178,7 @@ public class SkateboardController : MonoBehaviour
 		else if (gravDirection == "right")
 			m_Rigidbody2D.AddForce(new Vector2(-m_JumpForce, 0));
 
+		m_SkateboardTrigger.jumpBoard();
 	}
 
 	/*
@@ -342,6 +343,7 @@ public class SkateboardController : MonoBehaviour
 					{
 						m_Rigidbody2D.AddForce(new Vector2(0, 3));
 					}
+
 				}
                 else
                 {

@@ -28,6 +28,11 @@ public class SkateboardTrigger : MonoBehaviour
 		normVec *= -1;
     }
 
+	public void jumpBoard()
+    {
+		normVec = Vector3.zero;
+    }
+
     private void Start()
     {
         originalPos = transform.position;
@@ -67,5 +72,11 @@ public class SkateboardTrigger : MonoBehaviour
 		{
 			normVec = Vector3.zero;
 		}
+
 	}
+
+    private void OnCollisionExit(Collision collision)
+    {
+        
+    }
 }

@@ -50,6 +50,7 @@ public class CharacterController2D : MonoBehaviour
 	float shakeTimer = 0;
 	bool crouching = false;
 	private float moveCheck;
+	public bool holdingWall = false;
 
 	[Header("Gravity")]
 	public bool forcedGrav = false;
@@ -138,6 +139,12 @@ public class CharacterController2D : MonoBehaviour
 	void playerJump()
     {
 		isWallSliding = false;
+
+		if (holdingWall)
+        {
+			m_Rigidbody2D.velocity = Vector2.zero;
+			holdingWall = false;
+		}
 
 		//Adjusting for reverse gravity
 		/*
@@ -279,6 +286,9 @@ public class CharacterController2D : MonoBehaviour
 	public void Move(float move, bool jump, bool dash, bool crouch, bool hold)
 	{
 		moveCheck = move;
+
+		//if (!jump)
+		holdingWall = hold;
 
 		if (canMove)
 		{
@@ -445,7 +455,7 @@ public class CharacterController2D : MonoBehaviour
 			{
 				if (m_Rigidbody2D.gravityScale < 0)
 				{
-					if (hold && wallHoldTimer > 0f)
+					if (holdingWall && wallHoldTimer > 0f)
                     {
 						m_Rigidbody2D.velocity = Vector2.zero;
 						m_Rigidbody2D.gravityScale = 0f;
@@ -459,7 +469,7 @@ public class CharacterController2D : MonoBehaviour
 				}
                 else if (m_Rigidbody2D.gravityScale > 0)
                 {
-					if (hold && wallHoldTimer > 0f)
+					if (holdingWall && wallHoldTimer > 0f)
 					{
 						m_Rigidbody2D.velocity = Vector2.zero;
 						m_Rigidbody2D.gravityScale = 0f;
