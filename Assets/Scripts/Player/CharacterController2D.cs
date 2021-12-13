@@ -352,6 +352,14 @@ public class CharacterController2D : MonoBehaviour
 						targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, -move * 10f);
 				}
 
+				//====================================================================
+				// Need to update to account for 4 directions of gravity
+				//====================================================================
+				if (m_PlayerController.downwardDash)
+                {
+					targetVelocity.x = 0f;
+                }
+
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);     // And then smoothing it out and applying it to the character
 
 				// If the input is moving the player right and the player is facing left...
@@ -446,6 +454,7 @@ public class CharacterController2D : MonoBehaviour
 			if (wallCheckHit && !m_Grounded && Input.GetAxis("Horizontal") != 0)
 			{
 				isWallSliding = true;
+				wallHoldTimer = wallHoldTimerBackUp;
 				jumpTime = Time.time + wallJumpTime;
 			}
 			else if (jumpTime < Time.time)
@@ -453,7 +462,8 @@ public class CharacterController2D : MonoBehaviour
 				isWallSliding = false;
 			}
 
-			if (isWallSliding)
+			holdingWall = false;
+			if (isWallSliding && !jump && !dash)
 			{
 				if (m_Rigidbody2D.gravityScale < 0)
 				{
@@ -491,6 +501,7 @@ public class CharacterController2D : MonoBehaviour
 			}
 			else
             {
+				holdingWall = false;
 				wallHoldTimer = wallHoldTimerBackUp;
 				if (gravDirection == "up")
 				{
