@@ -140,8 +140,10 @@ public class CharacterController2D : MonoBehaviour
     {
 		isWallSliding = false;
 
+
 		if (holdingWall)
         {
+			m_Rigidbody2D.gravityScale = tempGravScale;
 			m_Rigidbody2D.velocity = Vector2.zero;
 			holdingWall = false;
 		}
