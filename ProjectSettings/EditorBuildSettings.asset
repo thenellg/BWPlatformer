@@ -15,15 +15,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Temp.unity
     guid: 93311f402eb191a408c52bb68a83e554
   - enabled: 1
-    path: Assets/Scenes/Outer Castle.unity
+    path: Assets/Scenes/Castle/Outer Castle.unity
     guid: c360b6612e69bf444b8e33c022a086b1
   - enabled: 1
-    path: Assets/Scenes/Prison Cells.unity
+    path: Assets/Scenes/Castle/Prison Cells.unity
     guid: 2f86f9d1157c66e439eeb114bb661795
   - enabled: 1
-    path: Assets/Scenes/Sewers.unity
+    path: Assets/Scenes/Castle/Sewers.unity
     guid: ddf93108a95820a4b9235a80a15d005c
   - enabled: 1
-    path: Assets/Scenes/Wizard Tower.unity
+    path: Assets/Scenes/Castle/Wizard Tower.unity
     guid: 998297fbc2ff4a84eaf3a0482f6a5584
   m_configObjects: {}
