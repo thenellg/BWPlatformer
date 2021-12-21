@@ -462,12 +462,12 @@ public class CharacterController2D : MonoBehaviour
 				isWallSliding = false;
 			}
 
-			holdingWall = false;
+			//holdingWall = false;
 			if (isWallSliding && !jump && !dash)
 			{
 				if (m_Rigidbody2D.gravityScale < 0)
 				{
-					if (holdingWall && wallHoldTimer > 0f)
+					if (holdingWall && wallHoldTimer > 0f && m_Rigidbody2D.velocity.y >= 0f)
                     {
 						m_Rigidbody2D.velocity = Vector2.zero;
 						m_Rigidbody2D.gravityScale = 0f;
@@ -481,7 +481,7 @@ public class CharacterController2D : MonoBehaviour
 				}
                 else if (m_Rigidbody2D.gravityScale > 0)
                 {
-					if (holdingWall && wallHoldTimer > 0f)
+					if (holdingWall && wallHoldTimer > 0f && m_Rigidbody2D.velocity.y <= 0f)
 					{
 						m_Rigidbody2D.velocity = Vector2.zero;
 						m_Rigidbody2D.gravityScale = 0f;
