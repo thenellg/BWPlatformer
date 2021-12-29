@@ -222,11 +222,6 @@ public class PlayerController : MonoBehaviour {
 			controller.canDash = true;
 		}
 
-		else if (collision.tag == "MovingPlatform")
-		{
-			this.transform.parent = collision.gameObject.transform;
-		}
-
 		else if (collision.tag == "Skateboard")
 		{
 			Debug.Log("landed on skateboard");
@@ -260,7 +255,7 @@ public class PlayerController : MonoBehaviour {
 				collision.gameObject.SetActive(false);
         }
 
-		if (collision.gameObject.tag == "MovingPlatform")
+		if (collision.gameObject.tag == "MovingPlatform" || collision.transform.parent.tag == "MovingPlatform")
         {
 			this.transform.parent = collision.transform.parent;
         }
@@ -280,7 +275,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-		if (collision.gameObject.tag == "MovingPlatform")
+		if (collision.gameObject.tag == "MovingPlatform" || collision.transform.parent.tag == "MovingPlatform")
 		{
 			this.transform.parent = null;
 		}
