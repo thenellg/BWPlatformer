@@ -9,16 +9,27 @@ public class pushableObject : MonoBehaviour
     public Vector3 initialSpot;
     public bool hanging;
     public bool frozen = true;
+    private bool defaultMoving = false;
+    private Transform movingParent = null;
 
     private void Start()
     {
         _rb = this.GetComponent<Rigidbody2D>();
         initialSpot = transform.position;
         normalState = transform.parent.gameObject;
+        if (normalState.tag == "MovingPlatform")
+        {
+            defaultMoving = true;
+            movingParent = normalState.transform;
+            normalState = normalState.transform.parent.gameObject;
+        }
     }
 
     public void moveBack()
     {
+        if (defaultMoving)
+            transform.parent = movingParent;
+
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = 0f;
@@ -38,6 +49,11 @@ public class pushableObject : MonoBehaviour
             this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             frozen = false;
+
+            if (defaultMoving)
+            {
+                transform.parent = normalState.transform;
+            }
         }
 
         if (collision.gameObject.tag == "Box")
