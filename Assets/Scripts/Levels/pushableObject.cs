@@ -22,6 +22,7 @@ public class pushableObject : MonoBehaviour
             defaultMoving = true;
             movingParent = normalState.transform;
             normalState = normalState.transform.parent.gameObject;
+            initialSpot = transform.localPosition;
         }
     }
 
@@ -33,7 +34,11 @@ public class pushableObject : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = 0f;
-        transform.position = initialSpot;
+
+        if (defaultMoving)
+            transform.localPosition = initialSpot;
+        else
+            transform.position = initialSpot;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
