@@ -25,6 +25,20 @@ public class colorSwap : MonoBehaviour
 
     public void swapColors()
     {
+        //Debug.Log("testA");
+        GameObject player = FindObjectOfType<PlayerController>().gameObject;
+        if (player.transform.parent)
+        {
+            if (player.transform.parent.tag == "MovingPlatform")
+            {
+                player.transform.parent = null;
+            }
+            else if (player.transform.parent.tag == "Box" && player.transform.parent.gameObject.GetComponent<pushableObject>() && player.transform.parent.gameObject.GetComponent<pushableObject>().hanging == true)
+            {
+                player.transform.parent = null;
+            }
+        }
+
         if (whiteStuff.activeSelf)
         {
             whiteStuff.SetActive(false);
@@ -56,8 +70,6 @@ public class colorSwap : MonoBehaviour
 
     void swapMoving(Transform layer)
     {
-        //Debug.Log("testA");
-
         foreach (Transform child in layer)
         {
             if (child.gameObject.GetComponent<pushableObject>())
