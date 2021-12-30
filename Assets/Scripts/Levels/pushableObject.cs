@@ -58,6 +58,7 @@ public class pushableObject : MonoBehaviour
             if (defaultMoving)
             {
                 transform.parent = normalState.transform;
+                collision.transform.parent = null;
             }
         }
 
