@@ -76,17 +76,16 @@ public class colorSwap : MonoBehaviour
             {
                 if (child.gameObject.GetComponent<SpriteRenderer>().enabled)
                 {
-                    child.gameObject.GetComponent<pushableObject>().hidden = true;
                     //child.gameObject.GetComponent<BoxCollider2D>().enabled = false;
                     Physics2D.IgnoreCollision(child.gameObject.GetComponent<BoxCollider2D>(), this.GetComponent<CapsuleCollider2D>(), true);
                     child.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 }
                 else
                 {
-                    child.gameObject.GetComponent<pushableObject>().hidden = false;
                     Physics2D.IgnoreCollision(child.gameObject.GetComponent<BoxCollider2D>(), this.GetComponent<CapsuleCollider2D>(), false);
                     child.gameObject.GetComponent<SpriteRenderer>().enabled = true;
                 }
+                child.gameObject.GetComponent<pushableObject>().hidden = !child.gameObject.GetComponent<pushableObject>().hidden;
             }
 
             foreach (Transform subchild in child)
@@ -95,7 +94,7 @@ public class colorSwap : MonoBehaviour
                 if (subchild.gameObject.activeSelf == true)
                 {
                     if (subchild.gameObject.GetComponent<pushableObject>())
-                        subchild.gameObject.GetComponent<pushableObject>().hidden = false;
+                        subchild.gameObject.GetComponent<pushableObject>().hidden = !subchild.gameObject.GetComponent<pushableObject>().hidden;
 
                     subchild.gameObject.SetActive(false);
                 }
@@ -103,7 +102,7 @@ public class colorSwap : MonoBehaviour
                 {
                     subchild.gameObject.SetActive(true);
                     if (subchild.gameObject.GetComponent<pushableObject>())
-                        subchild.gameObject.GetComponent<pushableObject>().hidden = true;
+                        subchild.gameObject.GetComponent<pushableObject>().hidden = !subchild.gameObject.GetComponent<pushableObject>().hidden;
                 }
             }
         }
