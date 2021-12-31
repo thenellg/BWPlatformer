@@ -11,9 +11,15 @@ public class pushableObject : MonoBehaviour
     public bool frozen = true;
     private bool defaultMoving = false;
     private Transform movingParent = null;
+    private bool initialActive = false;
 
     private void Start()
     {
+        if (gameObject.activeSelf)
+        {
+            initialActive = true;
+        }
+
         _rb = this.GetComponent<Rigidbody2D>();
         initialSpot = transform.position;
         normalState = transform.parent.gameObject;
@@ -39,6 +45,8 @@ public class pushableObject : MonoBehaviour
             transform.localPosition = initialSpot;
         else
             transform.position = initialSpot;
+
+        gameObject.SetActive(initialActive);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

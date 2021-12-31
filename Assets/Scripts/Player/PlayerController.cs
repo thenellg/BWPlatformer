@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 
 	[Header("General")]
 	public CharacterController2D controller;
+	public colorSwap m_ColorSwap;
 
 	public float runSpeed = 40f;
 
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void Awake()
     {
+		m_ColorSwap = this.GetComponent<colorSwap>();
 		//Setting item refreshes and spawn point
 		pauseMenu.SetActive(false);
 
@@ -344,7 +346,14 @@ public class PlayerController : MonoBehaviour {
 
 		//Makes sure that white is set to active
 		this.GetComponent<colorSwap>().whiteStuff.SetActive(true);
-		this.GetComponent<colorSwap>().whiteStuff.SetActive(false);
+		this.GetComponent<colorSwap>().blackStuff.SetActive(false);
+
+		//Reset background
+		if (!m_ColorSwap.backgroundAnim.GetBool("hidden"))
+		{
+			m_ColorSwap.backgroundAnim.SetTrigger("show");
+			m_ColorSwap.backgroundAnim.SetBool("hidden", true);
+		}
 
 		//Resets all breakable objects
 		foreach (Transform platform in breakables)
@@ -354,9 +363,9 @@ public class PlayerController : MonoBehaviour {
 		downwardDash = false;
 		foreach (Transform box in hanging)
 		{
-			box.GetComponent<pushableObject>().moveBack();
 			box.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 			box.GetComponent<pushableObject>().frozen = true;
+			box.GetComponent<pushableObject>().moveBack();
 		}
 
 		foreach (Transform box in moveables)
