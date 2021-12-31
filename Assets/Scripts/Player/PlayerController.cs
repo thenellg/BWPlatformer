@@ -317,6 +317,10 @@ public class PlayerController : MonoBehaviour {
 
 	private void resetLevel()
     {
+		//Makes sure that white is set to active
+		if (m_ColorSwap.blackStuff.gameObject.activeSelf)
+			m_ColorSwap.swapColors();
+
 		//Resets gravity if needed
 		if (this.GetComponent<Rigidbody2D>().gravityScale < 0)
 		{
@@ -341,12 +345,8 @@ public class PlayerController : MonoBehaviour {
 			else
 				temp.GetComponent<directionalLayerSwap>().resetLayers();
 		}
-		if (this.GetComponent<colorSwap>().onBack)
-			this.GetComponent<colorSwap>().swapLayers();
-
-		//Makes sure that white is set to active
-		this.GetComponent<colorSwap>().whiteStuff.SetActive(true);
-		this.GetComponent<colorSwap>().blackStuff.SetActive(false);
+		if (m_ColorSwap.onBack)
+			m_ColorSwap.swapLayers();
 
 		//Reset background
 		if (!m_ColorSwap.backgroundAnim.GetBool("hidden"))
@@ -368,6 +368,7 @@ public class PlayerController : MonoBehaviour {
 			box.GetComponent<pushableObject>().moveBack();
 		}
 
+		//Resets normal boxes
 		foreach (Transform box in moveables)
 			box.GetComponent<pushableObject>().moveBack();
 
