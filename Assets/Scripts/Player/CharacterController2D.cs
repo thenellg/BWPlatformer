@@ -121,7 +121,7 @@ public class CharacterController2D : MonoBehaviour
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 		for (int i = 0; i < colliders.Length; i++)
 		{
-			if (colliders[i].gameObject != gameObject)
+			if (colliders[i].gameObject != gameObject && !(colliders[i].gameObject.GetComponent<pushableObject>() && colliders[i].gameObject.GetComponent<pushableObject>().hidden == true))
 			{
 				m_Grounded = true;
 				canDash = true;
@@ -577,9 +577,9 @@ public class CharacterController2D : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
+
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-
 		if (collision.gameObject.layer == 3)
 		{
  			jumpCounter = 0;

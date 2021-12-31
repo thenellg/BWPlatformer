@@ -9,6 +9,7 @@ public class pushableObject : MonoBehaviour
     public Vector3 initialSpot;
     public bool hanging;
     public bool frozen = true;
+    public bool hidden = true;
     private bool defaultMoving = false;
     private Transform movingParent = null;
     private bool initialActive = false;
@@ -18,6 +19,7 @@ public class pushableObject : MonoBehaviour
         if (gameObject.activeSelf)
         {
             initialActive = true;
+            hidden = false;
         }
 
         _rb = this.GetComponent<Rigidbody2D>();
