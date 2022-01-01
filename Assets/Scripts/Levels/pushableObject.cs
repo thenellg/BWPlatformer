@@ -5,7 +5,7 @@ using UnityEngine;
 public class pushableObject : MonoBehaviour
 {
     Rigidbody2D _rb;
-    public GameObject normalState;
+    public GameObject normalState = null;
     public Vector3 initialSpot;
     public bool hanging;
     public bool frozen = true;
@@ -24,7 +24,10 @@ public class pushableObject : MonoBehaviour
 
         _rb = this.GetComponent<Rigidbody2D>();
         initialSpot = transform.position;
-        normalState = transform.parent.gameObject;
+
+        if (transform.parent)
+            normalState = transform.parent.gameObject;
+
         if (normalState.tag == "MovingPlatform")
         {
             defaultMoving = true;
@@ -40,8 +43,12 @@ public class pushableObject : MonoBehaviour
             transform.parent = movingParent;
 
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        _rb.velocity = Vector3.zero;
-        _rb.angularVelocity = 0f;
+
+        if (_rb)
+        {
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = 0f;
+        }
 
         if (defaultMoving)
             transform.localPosition = initialSpot;
@@ -57,7 +64,8 @@ public class pushableObject : MonoBehaviour
         {
             transform.parent = collision.gameObject.transform.parent;
         }
-        _rb.velocity = Vector3.zero;
+        if (_rb)
+            _rb.velocity = Vector3.zero;
 
         if (collision.gameObject.tag == "Player" && hanging && collision.gameObject.GetComponent<PlayerController>().downwardDash == true)
         {

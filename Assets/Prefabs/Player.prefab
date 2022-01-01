@@ -324,7 +324,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_JumpForce: 120
-  m_CrouchSpeed: 0.4
   m_MovementSmoothing: 0.05
   m_AirControl: 1
   m_WhatIsGround:
@@ -334,21 +333,40 @@ MonoBehaviour:
   m_CeilingCheck: {fileID: 2769096543850380661}
   m_CrouchDisableCollider: {fileID: 0}
   m_Grounded: 0
+  m_Rigidbody2D: {fileID: 0}
+  m_FacingRight: 1
   coyoteTimer: 30
   doubleJump: 0
+  dashSpeed: 8
+  _dashing: 0
+  canDash: 1
   jumpSFX:
   - {fileID: 8300000, guid: cf651a3e8ccf6894bbe2981cb0281142, type: 3}
   - {fileID: 8300000, guid: 3c1a5724fb423c744a84e6fcf587d398, type: 3}
   - {fileID: 8300000, guid: d45a2b7337bcb6149974133f211afa6d, type: 3}
   deathSFX: {fileID: 8300000, guid: bad86e795ceeffe498f79da80c19a8ca, type: 3}
-  dashSpeed: 8
-  _dashing: 0
+  landingSFX: {fileID: 8300000, guid: 99928fb3ebfd44646acb802cfd6b25e2, type: 3}
+  wallGrabSFX: {fileID: 8300000, guid: fd9642282d5490646a87693d0af117be, type: 3}
+  dashSFX:
+  - {fileID: 8300000, guid: f09cda510e376e246ae1d7aef4dc818d, type: 3}
+  - {fileID: 8300000, guid: abaf364719853f940ad179e6ffaa369c, type: 3}
+  colorSwapSFX:
+  - {fileID: 8300000, guid: 95e058f30ec97584ca07bb12af969ced, type: 3}
+  - {fileID: 8300000, guid: e4e5e85f7f9453545b20b52d2e546782, type: 3}
+  - {fileID: 8300000, guid: 8428626519b0ba947ad2de1e5084dff9, type: 3}
   wallJumpTime: 0.05
   wallSlideSpeed: 0.3
+  wallSlideBackUp: 0
+  wallHoldTimer: 3
+  wallHoldTimerBackUp: 0
   wallDistance: 0.7
   isWallSliding: 0
   jumpCounter: 0
   dashVector: {x: 0, y: 0}
+  holdingWall: 0
+  forcedGrav: 0
+  gravDirection: up
+  tempGravScale: 0
 --- !u!114 &2769096544467633924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,14 +380,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2769096544467633923}
+  m_ColorSwap: {fileID: 0}
   runSpeed: 40
+  horizontalMove: 0
   jump: 0
   dash: 0
   crouch: 0
+  hold: 0
+  downwardDash: 0
   colorA: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
   colorB: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   hasKey: 0
   areDead: 0
+  skateboarding: {fileID: 0}
+  isSkateboarding: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   deathCount: 0
   canMove: 1
@@ -379,12 +403,15 @@ MonoBehaviour:
   camBrain: {fileID: 0}
   UIAnimation: {fileID: 0}
   reset: {fileID: 0}
-  background: {fileID: 0}
+  backgroundA: {fileID: 0}
+  backgroundB: {fileID: 0}
   visDeathCounter: {fileID: 0}
   levelPlayerPref: 
   pauseMenu: {fileID: 0}
   breakables: []
   moveables: []
+  hanging: []
+  rips: []
 --- !u!114 &2109639344801607467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,8 +427,10 @@ MonoBehaviour:
   whiteStuff: {fileID: 0}
   blackStuff: {fileID: 0}
   colorDelay: 0.2
+  onBack: 0
   whiteMoving: {fileID: 0}
   blackMoving: {fileID: 0}
+  backgroundAnim: {fileID: 0}
   backPieces:
   - {fileID: 0}
   - {fileID: 0}

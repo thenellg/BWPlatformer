@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3207871115750446089}
   - component: {fileID: 3207871115750446087}
   - component: {fileID: 2762959928693203685}
+  - component: {fileID: 4690622005562520131}
   m_Layer: 0
   m_Name: Death Pit
   m_TagString: Death
@@ -109,3 +110,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4690622005562520131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207871115750446086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e77cd867277aed4a929123146048dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeOfObject: 0
+  deathSFX:
+  - {fileID: 8300000, guid: 878177b7dee96c14689ceb22413df442, type: 3}
+  - {fileID: 8300000, guid: 4f97d036f8591324a97c798815cfc7ce, type: 3}
+  - {fileID: 8300000, guid: 456a2c6055def6444878404c946f62ed, type: 3}

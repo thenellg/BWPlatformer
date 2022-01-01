@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class directionalLayerSwap : MonoBehaviour
 {
+    public AudioClip transitionSFX;
+
     [Header("Directional Info")]
     [Space]
     [Header("(See directionCheck() in script for how Directional Info works)")]
@@ -246,6 +248,7 @@ public class directionalLayerSwap : MonoBehaviour
                 collision.transform.parent = null;
                 collision.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
                 collision.GetComponent<Rigidbody2D>().freezeRotation = true;
+                collision.GetComponent<AudioSource>().PlayOneShot(transitionSFX);
             }
 
             up = false;

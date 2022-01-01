@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour {
 	public SpriteRenderer[] rips;
 
 	//[Header("Audio")]
+	AudioClip deathSFX;
 
 	private void Awake()
     {
@@ -180,6 +181,7 @@ public class PlayerController : MonoBehaviour {
 				canMove = false;
 				UIAnimation.SetTrigger("Died");
 				this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+				deathSFX = collision.GetComponent<deathObject>().sendDeathAudio();
 				Invoke("onDeath", 0.4f);
 				//onDeath();
 			}
@@ -257,7 +259,7 @@ public class PlayerController : MonoBehaviour {
 				collision.gameObject.SetActive(false);
         }
 
-		if (collision.gameObject.tag == "MovingPlatform" || collision.transform.parent.tag == "MovingPlatform")
+		if (collision.gameObject.tag == "MovingPlatform" || (collision.transform.parent && collision.transform.parent.tag == "MovingPlatform"))
         {
 			this.transform.parent = collision.transform.parent;
         }
@@ -277,7 +279,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-		if (collision.gameObject.tag == "MovingPlatform" || collision.transform.parent.tag == "MovingPlatform")
+		if (collision.gameObject.tag == "MovingPlatform" || (collision.transform.parent && collision.transform.parent.tag == "MovingPlatform"))
 		{
 			this.transform.parent = null;
 		}
@@ -303,7 +305,7 @@ public class PlayerController : MonoBehaviour {
     public void onDeath()
     {
 			//death has become overly complicated but the short version is this. Play the sound, add to the count, reset
-			controller.deadSFX();
+			controller.deadSFX(deathSFX);
 			deathCount += 1;
 			Invoke("resetLevel", 0f);
 	}
