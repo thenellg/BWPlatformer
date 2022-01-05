@@ -10423,7 +10423,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (1)
+      value: Hanging Box 1 (room 4)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -11519,85 +11519,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5f29d24e0f07e44caa2fceb5e5c2ee7, type: 3}
---- !u!1001 &519642939
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 974198908}
-    m_Modifications:
-    - target: {fileID: 3838370777114169615, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_Name
-      value: PlatformV1 (72)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.22548546
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.0602971
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.8814
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.2686
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ab99687429d3c9043bfd0026320d820b, type: 3}
 --- !u!1001 &525699353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11608,7 +11529,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (3)
+      value: Hanging Box 3 (room 3)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -16133,7 +16054,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (4)
+      value: Not a hanging box
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -16210,7 +16131,8 @@ PrefabInstance:
       propertyPath: hidden
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8519807308178012842, guid: 7400844e49076744f941768559f1bb7c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7400844e49076744f941768559f1bb7c, type: 3}
 --- !u!4 &730384718 stripped
 Transform:
@@ -18303,7 +18225,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (5)
+      value: Hanging Box 5 (room 4)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -22153,7 +22075,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (3)
+      value: Hanging Box 3 (room 4)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -23243,7 +23165,7 @@ GameObject:
   - component: {fileID: 974198908}
   - component: {fileID: 974198909}
   m_Layer: 0
-  m_Name: Moving Platform with Box (1)
+  m_Name: Catch Platform (Moving)
   m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23265,7 +23187,6 @@ Transform:
   - {fileID: 1140889108}
   - {fileID: 694370408}
   - {fileID: 1492568799}
-  - {fileID: 1627674052}
   m_Father: {fileID: 1217545366}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -24231,7 +24152,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (1)
+      value: Hanging Box 1 (room 3)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -25407,7 +25328,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075521858}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.815179, y: 127.2207, z: -94.53631}
+  m_LocalPosition: {x: 5.995179, y: 127.2207, z: -94.53631}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1564055925}
@@ -26496,7 +26417,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (2)
+      value: Hanging Box 2 (room 4)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -26779,7 +26700,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126084278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.815179, y: 127.2207, z: -94.53631}
+  m_LocalPosition: {x: 5.995179, y: 127.2207, z: -94.53631}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1246975051}
@@ -27752,7 +27673,7 @@ PrefabInstance:
     - target: {fileID: 1678736425612900438, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97629607
+      value: 0.97391623
       objectReference: {fileID: 0}
     - target: {fileID: 1678736425612900438, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
@@ -27767,7 +27688,7 @@ PrefabInstance:
     - target: {fileID: 1678736425612900438, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.2164396
+      value: 0.22690804
       objectReference: {fileID: 0}
     - target: {fileID: 1678736425612900438, guid: 4d75d6dce2599a44f8c6d61f9f846055,
         type: 3}
@@ -36954,7 +36875,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box
+      value: Movable Box 1 (room 3)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -37159,7 +37080,7 @@ PrefabInstance:
     - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8623376
+      value: 0.81680614
       objectReference: {fileID: 0}
     - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
         type: 3}
@@ -37169,7 +37090,7 @@ PrefabInstance:
     - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 162.5546
+      value: 163.1008
       objectReference: {fileID: 0}
     - target: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
         type: 3}
@@ -38347,12 +38268,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5f29d24e0f07e44caa2fceb5e5c2ee7, type: 3}
---- !u!4 &1627674052 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4125550884550402991, guid: ab99687429d3c9043bfd0026320d820b,
-    type: 3}
-  m_PrefabInstance: {fileID: 519642939}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1627737302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43192,12 +43107,12 @@ PrefabInstance:
     - target: {fileID: 3849496168644577708, guid: c88a0a6b08556c247b9451b59aaba153,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.68437
+      value: 20.669615
       objectReference: {fileID: 0}
     - target: {fileID: 3849496168644577708, guid: c88a0a6b08556c247b9451b59aaba153,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 154.05023
+      value: 154.05045
       objectReference: {fileID: 0}
     - target: {fileID: 3849496168644577708, guid: c88a0a6b08556c247b9451b59aaba153,
         type: 3}
@@ -44319,7 +44234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867430293}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.815179, y: 127.2207, z: -94.53631}
+  m_LocalPosition: {x: 5.995179, y: 127.2207, z: -94.53631}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 992033176}
@@ -45967,7 +45882,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (4)
+      value: Moving Hanging Box (room 4)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -46037,7 +45952,7 @@ PrefabInstance:
     - target: {fileID: 8519807308178012837, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Mass
-      value: 10.953136
+      value: 14.794306
       objectReference: {fileID: 0}
     - target: {fileID: 8519807308178012842, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -47185,7 +47100,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (2)
+      value: Hanging Box 2 (room 3)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -47900,7 +47815,7 @@ PrefabInstance:
     - target: {fileID: 160184803935990803, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Name
-      value: Hanging Box (4)
+      value: Hanging Box 0 (room 3)
       objectReference: {fileID: 0}
     - target: {fileID: 7021250879835068780, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
@@ -49530,7 +49445,7 @@ PrefabInstance:
     - target: {fileID: 2769096544467633921, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.9
+      value: 14.08
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633921, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
@@ -49705,7 +49620,7 @@ PrefabInstance:
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: hanging.Array.size
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
@@ -49744,9 +49659,34 @@ PrefabInstance:
       objectReference: {fileID: 805514540}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
+      propertyPath: hanging.Array.data[5]
+      value: 
+      objectReference: {fileID: 668722273}
+    - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
+      propertyPath: hanging.Array.data[6]
+      value: 
+      objectReference: {fileID: 1388034721}
+    - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
+      propertyPath: hanging.Array.data[7]
+      value: 
+      objectReference: {fileID: 1392771031}
+    - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
+      propertyPath: hanging.Array.data[8]
+      value: 
+      objectReference: {fileID: 764717058}
+    - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
       propertyPath: moveables.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1247911116}
+    - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
+        type: 3}
+      propertyPath: moveables.Array.data[1]
+      value: 
+      objectReference: {fileID: 1247911116}
     - target: {fileID: 2769096544467633924, guid: 04ce3db6dff174b40ae57e2e72d30f0b,
         type: 3}
       propertyPath: breakables.Array.data[0]
