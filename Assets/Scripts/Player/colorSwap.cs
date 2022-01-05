@@ -72,22 +72,6 @@ public class colorSwap : MonoBehaviour
     {
         foreach (Transform child in layer)
         {
-            if (child.gameObject.GetComponent<pushableObject>())
-            {
-                if (child.gameObject.GetComponent<SpriteRenderer>().enabled)
-                {
-                    //child.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                    Physics2D.IgnoreCollision(child.gameObject.GetComponent<BoxCollider2D>(), this.GetComponent<CapsuleCollider2D>(), true);
-                    child.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                }
-                else
-                {
-                    Physics2D.IgnoreCollision(child.gameObject.GetComponent<BoxCollider2D>(), this.GetComponent<CapsuleCollider2D>(), false);
-                    child.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-                }
-                child.gameObject.GetComponent<pushableObject>().hidden = !child.gameObject.GetComponent<pushableObject>().hidden;
-            }
-
             foreach (Transform subchild in child)
             {
                 //Debug.Log("test");
@@ -104,6 +88,22 @@ public class colorSwap : MonoBehaviour
                     if (subchild.gameObject.GetComponent<pushableObject>())
                         subchild.gameObject.GetComponent<pushableObject>().hidden = !subchild.gameObject.GetComponent<pushableObject>().hidden;
                 }
+            }
+
+            if (child.gameObject.GetComponent<pushableObject>())
+            {
+                if (child.gameObject.GetComponent<SpriteRenderer>().enabled)
+                {
+                    //child.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                    Physics2D.IgnoreCollision(child.gameObject.GetComponent<BoxCollider2D>(), this.GetComponent<CapsuleCollider2D>(), true);
+                    child.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                }
+                else
+                {
+                    Physics2D.IgnoreCollision(child.gameObject.GetComponent<BoxCollider2D>(), this.GetComponent<CapsuleCollider2D>(), false);
+                    child.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                }
+                child.gameObject.GetComponent<pushableObject>().hidden = !child.gameObject.GetComponent<pushableObject>().hidden;
             }
         }
     }

@@ -6,6 +6,7 @@ public class Door : MonoBehaviour
 {
     private Animator doorAnim;
     public bool isLocked = true;
+    public AudioClip doorOpenSFX;
 
     void Start()
     {
@@ -22,5 +23,6 @@ public class Door : MonoBehaviour
     {
         doorAnim.SetTrigger("unlocked");
         isLocked = false;
+        this.GetComponent<AudioSource>().PlayOneShot(doorOpenSFX);
     }
 }

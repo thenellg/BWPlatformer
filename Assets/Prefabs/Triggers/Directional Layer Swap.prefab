@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefe164b481e3a14984dee83e76ce94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionSFX: {fileID: 8300000, guid: f072eb0e5495bc04ba730bb0167f93d8, type: 3}
   up: 0
   down: 0
   left: 0
@@ -111,7 +112,6 @@ MonoBehaviour:
   backLevelBlack: {fileID: 0}
   backLevelItems: {fileID: 0}
   onMainLevel: 1
-  changeable: 1
   colorReplace: {r: 1, g: 1, b: 1, a: 1}
 --- !u!61 &594960910655435881
 BoxCollider2D:

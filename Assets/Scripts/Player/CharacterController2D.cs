@@ -24,11 +24,18 @@ public class CharacterController2D : MonoBehaviour
 	private PlayerController m_PlayerController;
 	public int coyoteTimer = 3;
 	public bool doubleJump = false;
-	public AudioClip[] jumpSFX;
-	public AudioClip deathSFX;
 	public float dashSpeed = 1.2f;
 	public bool _dashing = false;
 	public bool canDash = true;
+
+	[Header("Audio")]
+	public AudioClip[] jumpSFX;
+	public AudioClip landingSFX;
+	public AudioClip wallGrabSFX;
+	public AudioClip[] dashSFX;
+	public AudioClip[] colorSwapSFX;
+	bool playWallGrabSFX = true;
+	bool playLandingSFX = true;
 
 	[Header("WallJump")]
 	public float wallJumpTime = 0.2f;
@@ -123,6 +130,12 @@ public class CharacterController2D : MonoBehaviour
 		{
 			if (colliders[i].gameObject != gameObject && !(colliders[i].gameObject.GetComponent<pushableObject>() && colliders[i].gameObject.GetComponent<pushableObject>().hidden == true))
 			{
+				if (playLandingSFX)
+				{
+					this.GetComponent<AudioSource>().PlayOneShot(landingSFX);
+					playLandingSFX = false;
+				}
+
 				m_Grounded = true;
 				canDash = true;
 
@@ -280,7 +293,7 @@ public class CharacterController2D : MonoBehaviour
 
 	}
 
-	public void deadSFX()
+	public void deadSFX(AudioClip deathSFX)
     {
 		this.GetComponent<AudioSource>().PlayOneShot(deathSFX);
 	}
@@ -318,6 +331,8 @@ public class CharacterController2D : MonoBehaviour
 			}
 			else if (!m_Grounded)
             {
+				playLandingSFX = true;
+
 				PlayerAnim.SetTrigger("fall");
 				PlayerAnim.SetBool("isWalking", false);
 				PlayerAnim.SetBool("crouching", false);
@@ -456,10 +471,17 @@ public class CharacterController2D : MonoBehaviour
 				isWallSliding = true;
 				wallHoldTimer = wallHoldTimerBackUp;
 				jumpTime = Time.time + wallJumpTime;
+
+				if (playWallGrabSFX)
+				{
+					this.GetComponent<AudioSource>().PlayOneShot(wallGrabSFX);
+					playWallGrabSFX = false;
+				}
 			}
 			else if (jumpTime < Time.time)
 			{
 				isWallSliding = false;
+				playWallGrabSFX = true;
 			}
 
 			//holdingWall = false;
@@ -516,6 +538,9 @@ public class CharacterController2D : MonoBehaviour
 
 			if (dash && canDash && !wallCheckHit)
             {
+				int n = Random.Range(0, dashSFX.Length);
+				this.GetComponent<AudioSource>().PlayOneShot(dashSFX[n]);
+
 				dashing();
 				canDash = false;
             }
@@ -585,8 +610,10 @@ public class CharacterController2D : MonoBehaviour
  			jumpCounter = 0;
 
 			newCollision = collision.gameObject;
-			if(!m_Grounded && prevCollision != null && newCollision == prevCollision)
+			if (!m_Grounded && prevCollision != null && newCollision == prevCollision)
+			{
 				jumpCounter++;
+			}
 		}
 	}
 
