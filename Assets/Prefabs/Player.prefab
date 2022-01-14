@@ -344,7 +344,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cf651a3e8ccf6894bbe2981cb0281142, type: 3}
   - {fileID: 8300000, guid: 3c1a5724fb423c744a84e6fcf587d398, type: 3}
   - {fileID: 8300000, guid: d45a2b7337bcb6149974133f211afa6d, type: 3}
-  deathSFX: {fileID: 8300000, guid: bad86e795ceeffe498f79da80c19a8ca, type: 3}
   landingSFX: {fileID: 8300000, guid: 99928fb3ebfd44646acb802cfd6b25e2, type: 3}
   wallGrabSFX: {fileID: 8300000, guid: fd9642282d5490646a87693d0af117be, type: 3}
   dashSFX:
@@ -355,7 +354,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e4e5e85f7f9453545b20b52d2e546782, type: 3}
   - {fileID: 8300000, guid: 8428626519b0ba947ad2de1e5084dff9, type: 3}
   wallJumpTime: 0.05
-  wallSlideSpeed: 0.3
+  wallSlideSpeed: -0.3
   wallSlideBackUp: 0
   wallHoldTimer: 3
   wallHoldTimerBackUp: 0

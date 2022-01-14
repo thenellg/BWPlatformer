@@ -39,7 +39,7 @@ public class CharacterController2D : MonoBehaviour
 
 	[Header("WallJump")]
 	public float wallJumpTime = 0.2f;
-	public float wallSlideSpeed = 0.3f;
+	public float wallSlideSpeed = 0.8f;
 	public float wallSlideBackUp;
 	public float wallHoldTimer = 3f;
 	public float wallHoldTimerBackUp;
