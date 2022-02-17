@@ -13,6 +13,11 @@ public class pushableObject : MonoBehaviour
     private bool defaultMoving = false;
     private Transform movingParent = null;
     private bool initialActive = false;
+    public bool breaksOnDamage = false;
+    public bool instantFall = false;
+    public float fallTime = 0.32f;
+
+    GameObject player;
 
     private void Start()
     {
@@ -69,17 +74,17 @@ public class pushableObject : MonoBehaviour
 
         if (collision.gameObject.tag == "Player" && hanging && collision.gameObject.GetComponent<PlayerController>().downwardDash == true)
         {
-            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-            frozen = false;
-
-            if (defaultMoving)
-            {
-                transform.parent = normalState.transform;
-                collision.transform.parent = null;
-            }
+            player = collision.gameObject;
+            detachBox();
+        }
+        else if(collision.gameObject.tag == "Player" && hanging && instantFall)
+        {
+            player = collision.gameObject;
+            if(player.GetComponent<CharacterController2D>().m_Grounded == true)
+                Invoke("detachBox", fallTime);
         }
 
+        /*
         if (collision.gameObject.tag == "Box")
         {
             Debug.Log("box on box");
@@ -90,18 +95,41 @@ public class pushableObject : MonoBehaviour
                 //collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero
             }
         }
+        */
 
         _rb.velocity = Vector3.zero;
 
     }
 
-    void detach(GameObject player)
+    void detachBox()
     {
         this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         frozen = false;
+
+        if (defaultMoving)
+        {
+            transform.parent = normalState.transform;
+            player.transform.parent = null;
+        }
+        player = null;
     }
 
+    void breakBox()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+
+        if (!hanging)
+        {
+            _rb.constraints = RigidbodyConstraints2D.None;
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            frozen = false;
+        }
+        moveBack();
+
+        GetComponent<BoxCollider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().enabled = true;
+    }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -125,5 +153,22 @@ public class pushableObject : MonoBehaviour
 
          _rb.velocity = Vector3.zero;
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Death")
+        {
+
+            if (breaksOnDamage)
+            {
+                //trigger break animation
+                GetComponent<BoxCollider2D>().enabled = false;
+                _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                frozen = true;
+
+                Invoke("breakBox", 0f);//Adjust time to fit animation
+            }
+        }
     }
 }
