@@ -141,8 +141,9 @@ public class pushableObject : MonoBehaviour
 
         if (collision.gameObject.tag == "MovingPlatform")
         {
-            if(!hidden)
-                transform.parent = normalState.transform;
+            //THIS IS BEING TRIGGERED ON COLOR SWAPS CAUSING BOXES TO BREAK AWAY FROM MOVING PLATFORMS
+            //if(!hidden)
+            //    transform.parent = normalState.transform;
             _rb.velocity = Vector3.zero;
         }
     
