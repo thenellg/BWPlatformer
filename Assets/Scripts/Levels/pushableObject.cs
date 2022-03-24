@@ -141,7 +141,8 @@ public class pushableObject : MonoBehaviour
 
         if (collision.gameObject.tag == "MovingPlatform")
         {
-            transform.parent = normalState.transform.parent;
+            if(!hidden)
+                transform.parent = normalState.transform;
             _rb.velocity = Vector3.zero;
         }
     
