@@ -39,6 +39,9 @@ public class colorSwap : MonoBehaviour
             }
         }
 
+        swapMoving(whiteMoving.transform);
+        swapMoving(blackMoving.transform);
+
         if (whiteStuff.activeSelf)
         {
             whiteStuff.SetActive(false);
@@ -63,9 +66,6 @@ public class colorSwap : MonoBehaviour
             backgroundAnim.SetBool("hidden", true);
             backgroundAnim.SetTrigger("show");
         }
-
-        swapMoving(whiteMoving.transform);
-        swapMoving(blackMoving.transform);
     }
 
     void swapMoving(Transform layer)
