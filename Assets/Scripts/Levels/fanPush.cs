@@ -7,20 +7,20 @@ public class fanPush : MonoBehaviour
     public Transform fanOrigin;
     public float fanIntensity;
     public bool horizontal = true;
+    public bool inverted = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Vector2 fanDirection = Vector2.zero;
         if (horizontal)
-        {
-            fanDirection.x = collision.transform.position.x - fanOrigin.position.x;
-        }
+            fanDirection.x = 1;
         else
-        {
-            fanDirection.y = collision.transform.position.y - fanOrigin.position.y;
-        }
-
+            fanDirection.y = 1;
         fanDirection = fanDirection.normalized * fanIntensity;
+
+        if (inverted)
+            fanDirection = fanDirection * -1;
+
 
         if (collision.tag == "Player")
             collision.GetComponent<CharacterController2D>().fanSet(fanDirection);
