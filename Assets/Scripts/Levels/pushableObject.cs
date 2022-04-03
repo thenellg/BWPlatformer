@@ -17,6 +17,9 @@ public class pushableObject : MonoBehaviour
     public bool instantFall = false;
     public float fallTime = 0.32f;
 
+    public bool fanActive = false;
+    public Vector2 fanForce;
+
     GameObject player;
 
     private void Start()
@@ -40,6 +43,12 @@ public class pushableObject : MonoBehaviour
             normalState = normalState.transform.parent.gameObject;
             initialSpot = transform.localPosition;
         }
+    }
+
+    private void Update()
+    {
+        if (fanActive)
+            _rb.AddForce(fanForce);
     }
 
     public void moveBack()
@@ -130,6 +139,19 @@ public class pushableObject : MonoBehaviour
 
         GetComponent<BoxCollider2D>().enabled = true;
         GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    public void fanSet(Vector2 fanVelocity)
+    {
+        fanForce = fanVelocity;
+        fanActive = true;
+    }
+
+    public void fanDeset()
+    {
+        _rb.AddForce(fanForce, ForceMode2D.Force);
+        fanForce = Vector2.zero;
+        fanActive = false;
     }
 
     private void OnCollisionExit2D(Collision2D collision)

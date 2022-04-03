@@ -59,6 +59,9 @@ public class CharacterController2D : MonoBehaviour
 	private float moveCheck;
 	public bool holdingWall = false;
 
+	public bool fanActive = false;
+	public Vector2 fanForce;
+
 	[Header("Gravity")]
 	public bool forcedGrav = false;
 	public string gravDirection = "up";
@@ -118,6 +121,14 @@ public class CharacterController2D : MonoBehaviour
 			dashVector = new Vector2(horizontal, vertical).normalized;
 
 		}
+
+        if (fanActive)
+        {
+			if (m_Grounded)
+				m_Rigidbody2D.AddForce(fanForce);
+			else
+				m_Rigidbody2D.AddForce(fanForce * 2);
+        }
 	}
 
 	private void FixedUpdate()
@@ -546,6 +557,19 @@ public class CharacterController2D : MonoBehaviour
             }
 		}
 	}
+
+	public void fanSet(Vector2 fanVelocity)
+    {
+		fanForce = fanVelocity;
+		fanActive = true;
+    }
+
+	public void fanDeset()
+    {
+		m_Rigidbody2D.AddForce(fanForce, ForceMode2D.Force);
+		fanForce = Vector2.zero;
+		fanActive = false;
+    }
 
 	public void swapColors()
 	{

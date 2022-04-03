@@ -22,6 +22,7 @@ TagManager:
   - Skateboard
   - Dashpad
   - Ramp
+  - Fan
   layers:
   - Default
   - TransparentFX
