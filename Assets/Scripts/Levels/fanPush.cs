@@ -21,7 +21,6 @@ public class fanPush : MonoBehaviour
         if (inverted)
             fanDirection = fanDirection * -1;
 
-
         if (collision.tag == "Player")
             collision.GetComponent<CharacterController2D>().fanSet(fanDirection);
         else if (collision.tag == "Box")
