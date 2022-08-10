@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class playerSettings : MonoBehaviour
 {
+    [Header("General")]
     public Material colorChange;
 
     public colorScheme[] colorOptions;
     public int chosenColor;
 
+    public int activeLevel;
+
+    [Header("Unlocks")]
     public bool downSmashUnlock = false;
     public bool dashUnlock = true;
 
-    private int castleCollectibles;
+    [Header("Castle Level")]
+    public int castleCollectibles;
     public int castleCollected = 0;
+    public int castleCurrentCam;
+    public bool castleBeaten = false;
 
-    private int spaceCollectibles;
+    [Header("Space Level")]
+    public int spaceCollectibles;
     public int spaceCollected = 0;
+    public int spaceCurrentCam;
+    public bool spaceBeaten = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,8 +49,9 @@ public class playerSettings : MonoBehaviour
             colorChange.SetColor("Color1", colorOptions[chosenColor].colorA);
             colorChange.SetColor("Color2", colorOptions[chosenColor].colorB);
 
-            GameObject.Find("Player").GetComponent<PlayerController>().colorA = new Color(colorOptions[chosenColor].colorA.r, colorOptions[chosenColor].colorA.g, colorOptions[chosenColor].colorA.b);
-            GameObject.Find("Player").GetComponent<PlayerController>().colorB = new Color(colorOptions[chosenColor].colorB.r, colorOptions[chosenColor].colorB.g, colorOptions[chosenColor].colorB.b);
+            PlayerController player = GameObject.Find("Player").GetComponent<PlayerController>();
+            player.colorA = new Color(colorOptions[chosenColor].colorA.r, colorOptions[chosenColor].colorA.g, colorOptions[chosenColor].colorA.b);
+            player.colorB = new Color(colorOptions[chosenColor].colorB.r, colorOptions[chosenColor].colorB.g, colorOptions[chosenColor].colorB.b);
         }
     }
 }

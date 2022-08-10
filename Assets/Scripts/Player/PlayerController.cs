@@ -255,7 +255,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Breakable")
         {
-			if (controller._dashing)
+			if (controller._dashing && controller.m_Settings.downSmashUnlock)
 				collision.gameObject.SetActive(false);
         }
 

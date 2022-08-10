@@ -7147,13 +7147,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8519807308178012842, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
+      propertyPath: hidden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519807308178012842, guid: 7400844e49076744f941768559f1bb7c,
+        type: 3}
       propertyPath: hanging
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519807308178012842, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8519807308178012842, guid: 7400844e49076744f941768559f1bb7c,
         type: 3}

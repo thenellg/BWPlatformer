@@ -19,6 +19,7 @@ public class CharacterController2D : MonoBehaviour
 	public Rigidbody2D m_Rigidbody2D;
 	public bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 velocity = Vector3.zero;
+	public playerSettings m_Settings;
 
 	[Header("Specialized Jump")]
 	private PlayerController m_PlayerController;
@@ -73,6 +74,7 @@ public class CharacterController2D : MonoBehaviour
 		PlayerAnim = this.GetComponent<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_PlayerController = GetComponent<PlayerController>();
+		m_Settings = FindObjectOfType<playerSettings>();
 
 		wallSlideBackUp = wallSlideSpeed;
 		wallHoldTimerBackUp = wallHoldTimer;
@@ -547,7 +549,7 @@ public class CharacterController2D : MonoBehaviour
 			else if (_dashing)
 				canDash = false;
 
-			if (dash && canDash && !wallCheckHit)
+			if (dash && canDash && !wallCheckHit && m_Settings.dashUnlock)
             {
 				int n = Random.Range(0, dashSFX.Length);
 				this.GetComponent<AudioSource>().PlayOneShot(dashSFX[n]);

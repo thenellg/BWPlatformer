@@ -37,6 +37,8 @@ public class fanPush : MonoBehaviour
         else if (collision.tag == "Box")
         {
             collision.GetComponent<pushableObject>().fanDeset();
+            if (horizontal)
+                collision.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
     }
 }
